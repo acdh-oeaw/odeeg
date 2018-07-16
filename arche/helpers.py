@@ -56,7 +56,7 @@ def path2cols(path, separator="_"):
     return cols
 
 
-def create_acdhid(resource, trim=0, base_url='https://id.acdh.oeaw.ac.at', preserve=False):
+def create_acdhid(resource, trim=0, base_url='https://id.acdh.oeaw.ac.at/odeeg', preserve=False):
     """
     Function to process text from the ACDH internal json standard
 
