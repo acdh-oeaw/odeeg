@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'arche',
     # 'bib',
     'charts',
+    'dobjects',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
