@@ -44,6 +44,33 @@ class DigitalContainer(models.Model):
     height = models.FloatField(
         blank=True, null=True, verbose_name="Height (max.) [mm] [AAT ID: 300055644]"
     )
+    width = models.FloatField(
+        blank=True, null=True, verbose_name="Width (max.) [mm] [AAT ID: 300055647]"
+    )
+    length = models.FloatField(
+        blank=True, null=True, verbose_name="Length (max.) [mm] [AAT ID: 300055645]"
+    )
+    filling_height = models.FloatField(
+        blank=True, null=True,
+        verbose_name="Filling Height [mm] ['filling' AAT ID: 300053092; 'height': 300055644]"
+    )
+    filling_volume = models.FloatField(
+        blank=True, null=True,
+        verbose_name="Filling Volume [cm3] ['filling' AAT ID: 300053092; 'volume': 300055649]"
+    )
+    material_volume = models.FloatField(
+        blank=True, null=True,
+        verbose_name="Material Volume [cm3] ['material': AAT ID: 300010358; 'volume': 300055649]"
+    )
+    material_density = models.FloatField(
+        blank=True, null=True,
+        verbose_name="Material Density [g/cm3]\
+        ['material': AAT ID: 300010358; 'density': 300056237]"
+    )
+    outer_volume = models.FloatField(
+        blank=True, null=True,
+        verbose_name="Outer Volume [cm3] ['volume' AAT ID: 300055649]"
+    )
 
     def __str__(self):
         return self.belongs_to.has_title
