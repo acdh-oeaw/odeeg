@@ -133,6 +133,14 @@ include 'autocomplete_light/static.html
                     </li>
                     {% endfor %}
                 </ul>
+                <legend>Related Objects</legend>
+                <ul>
+                    {% for x in object.home_of_dobject.all %}
+                    <li>
+                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
         <!--change history collapse button-->
         {% if user.is_authenticated %}
         {% if history %}
@@ -143,7 +151,7 @@ include 'autocomplete_light/static.html
             <div class="card card-body">
                    {% for x in history %}
                     <li>
-                   {{ x.revision.date_created }} changed by {{ x.revision.user }} 
+                   {{ x.revision.date_created }} changed by {{ x.revision.user }}
                    </li>
                    {% endfor %}
             </div>

@@ -51,6 +51,11 @@ class Place(IdProvider):
         ("city", "city"),
         ("country", "country")
     )
+    GEO_EXACT = (
+        ("Y", "Y"),
+        ("N", "N"),
+        ("", ""),
+    )
 
     """Holds information about entities."""
     name = models.CharField(
@@ -64,7 +69,12 @@ class Place(IdProvider):
     )
     geonames_id = models.CharField(
         max_length=50, blank=True,
-        help_text="GND-ID"
+        help_text="GEONAMES-ID"
+    )
+    geonames_exact = models.CharField(
+        max_length=50, null=True, blank=True,
+        help_text="Provenance: finding spot [GeoName exact location Y/N]",
+        choices=GEO_EXACT
     )
     lat = models.DecimalField(
         max_digits=20, decimal_places=12,
