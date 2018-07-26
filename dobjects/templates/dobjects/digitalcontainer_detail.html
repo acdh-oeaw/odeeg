@@ -2,6 +2,25 @@
 {% load staticfiles %}
 {% load webpage_extras %}
 {% block title %} asdf {% endblock %}
+{% block scriptHeader %}
+<!--STYLESHEET-->
+    <link type="text/css" rel="stylesheet" href="{% static 'webpage/libraries/3dhop/stylesheet/3dhop.css' %}"/>
+    <!--SPIDERGL-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/spidergl.js' %}"></script>
+
+    <!--PRESENTER-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/presenter.js' %}"></script>
+    <!--3D MODELS LOADING AND RENDERING-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/nexus.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/ply.js' %}"></script>
+    <!--TRACKBALLS-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/trackball_sphere.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/trackball_turntable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/trackball_turntable_pan.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/trackball_pantilt.js' %}"></script>
+    <!--UTILITY-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/init.js' %}"></script>
+{% endblock %}
 {% block content %}
     <div class="card procustom-panel-create">
         <div class="card-header procustom-panel-heading">
@@ -260,6 +279,52 @@
                     info
                 </div>
             </div>
+            <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
+                <div id="toolbar">
+                    <img id="home"     title="Home"                  src="{% static 'webpage/libraries/3dhop/skins/dark/home.png' %}"   /><br/>
+                    <img id="zoomin"   title="Zoom In"               src="{% static 'webpage/libraries/3dhop/skins/dark/zoomin.png' %}" /><br/>
+                    <img id="zoomout"  title="Zoom Out"              src="{% static 'webpage/libraries/3dhop/skins/dark/zoomout.png' %}"/><br/>
+                    <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
+                    <img id="light"    title="Enable Light Control"  src="{% static 'webpage/libraries/3dhop/skins/dark/light.png' %}"/><br/>
+                    <img id="full_on"  title="Exit Full Screen"      src="{% static 'webpage/libraries/3dhop/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
+                    <img id="full"     title="Full Screen"           src="{% static 'webpage/libraries/3dhop/skins/dark/full.png' %}"   />
+                </div>
+                    <!-- <canvas id="draw-canvas" style="background-image: url({% static 'skins/backgrounds/light.jpg' %})"/> -->
+
+                        <canvas id="draw-canvas"/>
+            </div>
         </div>
     </div>
 {% endblock %}
+{% block scripts2 %}
+<script type="text/javascript">
+    var presenter = null;
+    function setup3dhop() {
+        presenter = new Presenter("draw-canvas");
+        var meshUrl = "https://id.acdh.oeaw.ac.at/glasersqueezes2015/rec1110000910/AT-OeAW-BA-3-27-A-A845.nxs?format=raw";
+        presenter.setScene({
+            meshes: {
+                "3dmodel" : { url: meshUrl }
+            },
+            modelInstances : {
+                "Model1" : { mesh : "3dmodel" }
+            }
+        });
+    }
+
+    function actionsToolbar(action) {
+        if(action=='home') presenter.resetTrackball();
+        else if(action=='zoomin') presenter.zoomIn();
+        else if(action=='zoomout') presenter.zoomOut();
+        else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
+        else if(action=='full'  || action=='full_on') fullscreenSwitch();
+    }
+
+    $(document).ready(function(){
+        init3dhop();
+        setup3dhop();
+        resizeCanvas(1200,800);
+        moveToolbar(2,2);
+    });
+</script>
+{% endblock scripts2 %}
