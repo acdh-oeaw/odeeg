@@ -301,7 +301,7 @@
     var presenter = null;
     function setup3dhop() {
         presenter = new Presenter("draw-canvas");
-        var meshUrl = "https://id.acdh.oeaw.ac.at/glasersqueezes2015/rec1110000910/AT-OeAW-BA-3-27-A-A845.nxs?format=raw";
+        var meshUrl = "{% static 'webpage/libraries/3dhop/models/KHM-ANSA-IV1_3D02.ply' %}";
         presenter.setScene({
             meshes: {
                 "3dmodel" : { url: meshUrl }
