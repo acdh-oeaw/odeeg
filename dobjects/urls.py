@@ -4,6 +4,19 @@ from . import views
 app_name = 'dobjects'
 
 urlpatterns = [
+    url(
+        r'^digitalcontainers/$',
+        views.DigitalContainerListView.as_view(),
+        name='browse_digitalcontainers'
+    ),
+    url(r'^digitalcontainer/detail/(?P<pk>[0-9]+)$', views.DigitalContainerDetailView.as_view(),
+        name='digitalcontainer_detail'),
+    url(r'^digitalcontainer/create/$', views.DigitalContainerCreate.as_view(),
+        name='digitalcontainer_create'),
+    url(r'^digitalcontainer/edit/(?P<pk>[0-9]+)$', views.DigitalContainerUpdate.as_view(),
+        name='digitalcontainer_edit'),
+    url(r'^digitalcontainer/delete/(?P<pk>[0-9]+)$', views.DigitalContainerDelete.as_view(),
+        name='digitalcontainer_delete'),
     url(r'^periods/$', views.PeriodListView.as_view(), name='browse_periods'),
     url(r'^period/detail/(?P<pk>[0-9]+)$', views.PeriodDetailView.as_view(),
         name='period_detail'),

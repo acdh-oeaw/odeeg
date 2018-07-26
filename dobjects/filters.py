@@ -1,7 +1,19 @@
 import django_filters
 from dal import autocomplete
 
-from dobjects.models import Period
+from dobjects.models import Period, DigitalContainer
+
+
+class DigitalContainerListFilter(django_filters.FilterSet):
+    id_inv_nr = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=DigitalContainer._meta.get_field('id_inv_nr').help_text,
+        label=DigitalContainer._meta.get_field('id_inv_nr').verbose_name
+        )
+
+    class Meta:
+        model = DigitalContainer
+        fields = "__all__"
 
 
 class PeriodListFilter(django_filters.FilterSet):

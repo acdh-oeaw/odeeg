@@ -1,0 +1,265 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %} asdf {% endblock %}
+{% block content %}
+    <div class="card procustom-panel-create">
+        <div class="card-header procustom-panel-heading">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                        <h2>
+                            <a href="{% url 'dobjects:digitalcontainer_detail' pk=object.get_prev %}">
+                                <i class="fas fa-chevron-left" title="previous"></i>
+                            </a>
+                        </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h1 style="text-align: center;">
+                         {{ object }}
+                        {% if user.is_authenticated %}
+                            <small>
+                                <a href="{% url 'dobjects:digitalcontainer_edit' pk=object.id %}">
+                                    <i class="far fa-edit" title="edit"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{% url 'dobjects:digitalcontainer_delete' pk=object.id %}">
+                                   <i class="far fa-trash-alt" title="delete"></i>
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h1>
+                </div>
+                <div class="col-md-2">
+                    <h2>
+                        {% if object.get_next %}
+                        <a href="{% url 'dobjects:digitalcontainer_detail' pk=object.get_next %}" style="float:right">
+                            <i class="fas fa-chevron-right" title="next"></i>
+                        </a>
+                    </h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <legend>
+                        Images
+                    </legend>
+                    {% for x in imgs %}
+                        <li>
+                            <a href="{{ x.acdh_id }}?format=raw">{{ x }}</a>
+                        </li>
+                    {% endfor %}
+                    <legend>
+                        Illustrations
+                    </legend>
+                    {% for x in illustrations %}
+                        <li>
+                            {{ x }}
+                        </li>
+                    {% endfor %}
+                    <legend>
+                        3D Data
+                    </legend>
+                    {% for x in threeds %}
+                        <li>
+                            {{ x }}
+                        </li>
+                    {% endfor %}
+                </div>
+                <div class="col-md-6">
+                    <table class="table">
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "folder_name" %}</th>
+                                <td>
+                                    {{ object.folder_name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "id_inv_nr" %}</th>
+                                <td>
+                                    {{ object.id_inv_nr }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "bapd_nr" %}</th>
+                                <td>
+                                    {{ object.bapd_nr }}
+                                </td>
+                            </tr>
+                            {% if object.related_object.all %}
+                                <tr>
+                                    <th>{% get_verbose_name digitalcontainer "related_object" %}</th>
+                                    <td>
+                                        {% for x in object.related_object.all %}
+                                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                        {%  endfor  %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "period" %}</th>
+                                <td>
+                                    <a href="{{ object.period.get_absolute_url }}">{{ object.period }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "located_at" %}</th>
+                                <td>
+                                    <a href="{{ object.located_at.get_absolute_url }}">{{ object.located_at }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "fabric" %}</th>
+                                <td>
+                                    {% for x in object.fabric.all %}
+                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                    {%  endfor  %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "painting_style" %}</th>
+                                <td>
+                                    {% for x in object.painting_style.all %}
+                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                    {%  endfor  %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "painting_sub_technique" %}</th>
+                                <td>
+                                    {% for x in object.painting_sub_technique.all %}
+                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                    {%  endfor  %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "formating_technique" %}</th>
+                                <td>
+                                    {% for x in object.formating_technique.all %}
+                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                    {%  endfor  %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "formating_technique" %}</th>
+                                <td>
+                                    {% for x in object.formating_technique.all %}
+                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                    {%  endfor  %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "pl_find" %}</th>
+                                <td>
+                                    <a href="{{ object.pl_find.get_absolute_url }}">{{ object.pl_find }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "pl_find_cert" %}</th>
+                                <td>
+                                    {{ object.pl_find_cert }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "pl_prod_center" %}</th>
+                                <td>
+                                    <a href="{{ object.pl_prod_center.get_absolute_url }}">{{ object.pl_prod_center }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "prov_attr_artist" %}</th>
+                                <td>
+                                    {{ object.prov_attr_artist }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "pl_acq" %}</th>
+                                <td>
+                                    <a href="{{ object.pl_acq.get_absolute_url }}">{{ object.pl_acq }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "cva_ref" %}</th>
+                                <td>
+                                    {{ object.cva_ref }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "collection_reference" %}</th>
+                                <td>
+                                    <a href="{{ object.collection_reference }}">{{ object.collection_reference }}</a>
+                                </td>
+                            </tr>
+                    </table>
+                    <hr/>
+                    <legend>Measurements</legend>
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "weight" %}</th>
+                            <td>
+                                {{ object.weight }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "height" %}</th>
+                            <td>
+                                {{ object.height }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "width" %}</th>
+                            <td>
+                                {{ object.width }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "length" %}</th>
+                            <td>
+                                {{ object.length }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "filling_height" %}</th>
+                            <td>
+                                {{ object.filling_height }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "filling_volume" %}</th>
+                            <td>
+                                {{ object.filling_volume }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "material_volume" %}</th>
+                            <td>
+                                {{ object.material_volume }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "material_density" %}</th>
+                            <td>
+                                {{ object.material_density }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{% get_verbose_name digitalcontainer "outer_volume" %}</th>
+                            <td>
+                                {{ object.outer_volume }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    info
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

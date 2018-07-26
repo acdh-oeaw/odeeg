@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 
 from entities.models import Institution, Place
-from arche.models import Collection
+from arche.models import Collection, Resource
 from vocabs.models import SkosConcept
 
 
@@ -88,7 +88,7 @@ class DigitalContainer(models.Model):
         verbose_name="Object is associated to [ID Inv.Nr.]"
     )
     belongs_to = models.OneToOneField(
-        Collection, on_delete=models.CASCADE, primary_key=True,
+        Collection, on_delete=models.CASCADE, blank=True, null=True,
         verbose_name='describes collection', related_name="described_by"
     )
     period = models.ForeignKey(
@@ -181,5 +181,38 @@ class DigitalContainer(models.Model):
         verbose_name="Outer Volume [cm3] ['volume' AAT ID: 300055649]"
     )
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
-        return self.belongs_to.has_title
+        return self.id_inv_nr
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('dobjects:browse_digitalcontainers')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('dobjects:digitalcontainer_create')
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-belongs_to')
+        if prev:
+            return prev.first().id
+        return False
+
+    def get_absolute_url(self):
+        return reverse('dobjects:digitalcontainer_detail', kwargs={'pk': self.id})
+
+    def fetch_binaries(self, bin_type='photos'):
+        try:
+            search_string = "{}/{}/{}".format(self.belongs_to.acdh_id, bin_type, self.folder_name)
+            return Resource.objects.filter(acdh_id__istartswith=search_string)
+        except AttributeError:
+            return None
