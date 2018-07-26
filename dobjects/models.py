@@ -1,10 +1,13 @@
+import reversion
 from django.db import models
+from django.urls import reverse
 
 from entities.models import Institution, Place
 from arche.models import Collection
 from vocabs.models import SkosConcept
 
 
+@reversion.register()
 class Period(models.Model):
     legacy_id = models.CharField(
         max_length=250, blank=True,
@@ -42,7 +45,31 @@ class Period(models.Model):
         else:
             return "{}".format(self.id)
 
+    @classmethod
+    def get_listview_url(self):
+        return reverse('dobjects:browse_periods')
 
+    @classmethod
+    def get_createview_url(self):
+        return reverse('dobjects:period_create')
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return prev.first().id
+        return False
+
+    def get_absolute_url(self):
+        return reverse('dobjects:period_detail', kwargs={'pk': self.id})
+
+
+@reversion.register()
 class DigitalContainer(models.Model):
     """extends arche.models.Collection to store domain specific information taken from
     metadata_ODEEG-archaeology.xslx"""

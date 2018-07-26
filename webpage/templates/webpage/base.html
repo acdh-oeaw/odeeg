@@ -100,6 +100,12 @@
                         </a>
                         {% endif %}
                         <div class="dropdown-menu">
+                            {% nav_menu app='dobjects' as links %}
+                            {% for x in links %}
+                                <a class="dropdown-item" href="{{ x.link}}">{{ x.name }}</a>
+                            {% endfor %}
+                            <div class="dropdown-divider"></div>
+                            
                             {% nav_menu app='entities' as links %}
                             {% for x in links %}
 
@@ -133,19 +139,19 @@
                         </li>
                     {% endif %}
                     {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vocabs Curation
-                    <span class="caret"/>
-                    </a>
-                        <div class="dropdown-menu">
-                            {% nav_menu app='vocabs' as links %}
-                            {% for x in links %}
-                                <a class="dropdown-item" href="{{ x.link }}">{{ x.name }}</a>
-                            {% endfor %}
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'api-root' %}">Export SKOS (API)</a>
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vocabs Curation
+                        <span class="caret"/>
+                        </a>
+                            <div class="dropdown-menu">
+                                {% nav_menu app='vocabs' as links %}
+                                {% for x in links %}
+                                    <a class="dropdown-item" href="{{ x.link }}">{{ x.name }}</a>
+                                {% endfor %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'api-root' %}">Export SKOS (API)</a>
+                            </div>
+                        </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto">
