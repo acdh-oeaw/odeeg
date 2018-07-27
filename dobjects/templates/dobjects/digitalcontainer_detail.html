@@ -3,7 +3,7 @@
 {% load webpage_extras %}
 {% block title %} asdf {% endblock %}
 {% block scriptHeader %}
-<!--STYLESHEET-->
+    <!--STYLESHEET-->
     <link type="text/css" rel="stylesheet" href="{% static 'webpage/libraries/3dhop/stylesheet/3dhop.css' %}"/>
     <!--SPIDERGL-->
     <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/spidergl.js' %}"></script>
@@ -20,6 +20,9 @@
     <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/trackball_pantilt.js' %}"></script>
     <!--UTILITY-->
     <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/js/init.js' %}"></script>
+
+    <!--OpenSeadragon-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/openseadragon/openseadragon.min.js' %}"></script>
 {% endblock %}
 {% block content %}
     <div class="card procustom-panel-create">
@@ -276,22 +279,63 @@
                     </table>
                 </div>
                 <div class="col-md-3">
-                    info
+                    some notes
                 </div>
             </div>
-            <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
-                <div id="toolbar">
-                    <img id="home"     title="Home"                  src="{% static 'webpage/libraries/3dhop/skins/dark/home.png' %}"   /><br/>
-                    <img id="zoomin"   title="Zoom In"               src="{% static 'webpage/libraries/3dhop/skins/dark/zoomin.png' %}" /><br/>
-                    <img id="zoomout"  title="Zoom Out"              src="{% static 'webpage/libraries/3dhop/skins/dark/zoomout.png' %}"/><br/>
-                    <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
-                    <img id="light"    title="Enable Light Control"  src="{% static 'webpage/libraries/3dhop/skins/dark/light.png' %}"/><br/>
-                    <img id="full_on"  title="Exit Full Screen"      src="{% static 'webpage/libraries/3dhop/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
-                    <img id="full"     title="Full Screen"           src="{% static 'webpage/libraries/3dhop/skins/dark/full.png' %}"   />
-                </div>
-                    <!-- <canvas id="draw-canvas" style="background-image: url({% static 'skins/backgrounds/light.jpg' %})"/> -->
 
-                        <canvas id="draw-canvas"/>
+            <div id="binaries" class="container">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="threed-tab" data-toggle="tab" href="#threed" role="tab" aria-controls="threed" aria-selected="true">3D-Viewer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="IIIF-tab" data-toggle="tab" href="#IIIF" role="tab" aria-controls="IIIF" aria-selected="false">Image-Viewer</a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="threed" role="tabpanel" aria-labelledby="threed-tab">
+                        <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
+                            <div id="toolbar">
+                                <img id="home"     title="Home"                  src="{% static 'webpage/libraries/3dhop/skins/dark/home.png' %}"   /><br/>
+                                <img id="zoomin"   title="Zoom In"               src="{% static 'webpage/libraries/3dhop/skins/dark/zoomin.png' %}" /><br/>
+                                <img id="zoomout"  title="Zoom Out"              src="{% static 'webpage/libraries/3dhop/skins/dark/zoomout.png' %}"/><br/>
+                                <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
+                                <img id="light"    title="Enable Light Control"  src="{% static 'webpage/libraries/3dhop/skins/dark/light.png' %}"/><br/>
+                                <img id="full_on"  title="Exit Full Screen"      src="{% static 'webpage/libraries/3dhop/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
+                                <img id="full"     title="Full Screen"           src="{% static 'webpage/libraries/3dhop/skins/dark/full.png' %}"   />
+                            </div>
+                            <canvas id="draw-canvas"/>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="IIIF" role="tabpanel" aria-labelledby="IIIF-tab">
+                        <div id="example-xmlhttprequest-for-info-json" class="openseadragon" style="width: 100%; height: 400px">
+                            <script type="text/javascript">
+                                OpenSeadragon({
+                                    id:            "example-xmlhttprequest-for-info-json",
+                                    prefixUrl:     "{% static 'webpage/libraries/openseadragon/images/' %}",
+                                    sequenceMode:  true,
+                                    tileSources:   [
+                                        "https://loris.acdh.oeaw.ac.at/uuid%3A%2Fuuid%2F53461a64-51f2-517e-c9f4-16b8dae4eea9/info.json",
+                                        // "https://id.acdh.oeaw.ac.at/glasersqueezes2015/rec1110000910/AT-OeAW-BA-3-27-A-A845_analyse00.png?format=iiif",
+                                        "https://libimages1.princeton.edu/loris/pudl0001%2F4609321%2Fs42%2F00000002.jp2/info.json",
+                                        "https://libimages1.princeton.edu/loris/pudl0001%2F4609321%2Fs42%2F00000003.jp2/info.json",
+                                        "https://libimages1.princeton.edu/loris/pudl0001%2F4609321%2Fs42%2F00000004.jp2/info.json",
+                                        "https://libimages1.princeton.edu/loris/pudl0001%2F4609321%2Fs42%2F00000005.jp2/info.json",
+                                        "https://libimages1.princeton.edu/loris/pudl0001%2F4609321%2Fs42%2F00000006.jp2/info.json",
+                                        "https://libimages1.princeton.edu/loris/pudl0001%2F4609321%2Fs42%2F00000007.jp2/info.json"
+                                    ]
+                                });
+                            </script>
+                            <noscript>
+                                <p>OpenSeadragon is not available unless JavaScript is enabled.</p>
+                                <img src='/example-images/highsmith/01967v.jpg'
+                                     height='600'/>
+                            </noscript>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
