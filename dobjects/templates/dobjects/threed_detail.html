@@ -49,43 +49,43 @@
     <div class="card-body">
         <legend>About</legend>
         <table class="table table-bordered table-hover">
-            {% if object.name %}
+            {% if object.digital_container %}
                 <tr>
-                    <th>{% get_verbose_name period "name" %}</th>
+                    <th>{% get_verbose_name threed "digital_container" %}</th>
                     <td>
-                        {{ object.name }}
+                        {{ object.digital_container }}
                     </td>
                 </tr>
                 <tr>
-                    <th>{% get_verbose_name period "threed_phase" %}</th>
+                    <th>{% get_verbose_name threed "survey_location" %}</th>
                     <td>
-                        {{ object.threed_phase }}
+                        {{ object.survey_location }}
                     </td>
                 </tr>
                 <tr>
-                    <th>{% get_verbose_name period "threed_url" %}</th>
+                    <th>{% get_verbose_name threed "survey_location_comment" %}</th>
                     <td>
-                        <a href="{{ object.threed_url }}">{{ object.threed_url }}</a>
+                        {{ object.survey_location_comment }}
                     </td>
                 </tr>
                 <tr>
-                    <th>{% get_verbose_name period "threed_start_year" %}</th>
+                    <th>{% get_verbose_name threed "start_date" %}</th>
                     <td>
-                        {{ object.threed_start_year }}
+                        {{ object.start_date }}
                     </td>
                 </tr>
                 <tr>
-                    <th>{% get_verbose_name period "threed_end_year" %}</th>
+                    <th>{% get_verbose_name threed "date_accuracy" %}</th>
                     <td>
-                        {{ object.threed_end_year }}
+                        {{ object.date_accuracy }}
                     </td>
                 </tr>
             {% endif %}
         </table>
         <legend>related objects</legend>
-            {% for x in object.is_periode_for.all %}
+            {% for x in object.survey_creator.all %}
                 <li>
-                    <a href="{{ x.get_absolute_url }}">{{ x.id_inv_nr }}</a>
+                    <a href="{{ x.get_absolute_url }}">{{ x.name }}</a>
                 </li>
             {% endfor %}
     </div>

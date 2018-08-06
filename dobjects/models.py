@@ -243,11 +243,14 @@ class ThreeD(models.Model):
         max_length=300, blank=True, verbose_name="3D Survey: location characteristics."
     )
     start_date = models.DateField(
+        blank=True, null=True,
         verbose_name="3D Survey: date.",
         help_text="YYYY-MM-DD"
     )
     date_accuracy = models.CharField(
-        default="M", max_length=3, choices=DATE_ACCURACY, verbose_name="Accuracy of the Date"
+        blank=True,
+        default="M", max_length=3, choices=DATE_ACCURACY,
+        verbose_name="Accuracy of the Date"
     )
     survey_creator = models.ManyToManyField(
         Person, blank=True, related_name="creted_survey_of",
@@ -313,6 +316,7 @@ class ThreeD(models.Model):
         blank=True, null=True, verbose_name="Nr. scans"
     )
     align_start_date = models.DateField(
+        blank=True, null=True,
         verbose_name="3D data alignment/merging: date",
         help_text="YYYY-MM-DD"
     )
@@ -339,6 +343,7 @@ class ThreeD(models.Model):
         verbose_name="3D data merging: parameters"
     )
     lowres_start_date = models.DateField(
+        blank=True, null=True,
         verbose_name="Low resolution 3D model post-processing: date",
         help_text="YYYY-MM-DD"
     )
@@ -362,7 +367,13 @@ class ThreeD(models.Model):
     )
 
     class Meta:
-        ordering = ['id']
+        ordering = ['digital_container']
+
+    def __str__(self):
+        if self.digital_container:
+            return "{} [3d model]".format(self.digital_container)
+        else:
+            return "{} [3d model]".format(self.id)
 
     @classmethod
     def get_listview_url(self):
@@ -382,7 +393,7 @@ class ThreeD(models.Model):
         return False
 
     def get_prev(self):
-        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-belongs_to')
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-digital_container')
         if prev:
             return prev.first().id
         return False
