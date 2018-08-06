@@ -13,6 +13,50 @@ from . forms import *
 from . models import Period, DigitalContainer, ThreeD
 
 
+class PhotoListView(GenericListView):
+    model = Photo
+    filter_class = PhotoListFilter
+    formhelper_class = PhotoFilterFormHelper
+    init_columns = [
+        'id',
+    ]
+
+
+class PhotoDetailView(DetailView):
+    model = Photo
+    template_name = 'dobjects/photo_detail.html'
+
+
+class PhotoCreate(BaseCreateView):
+
+    model = Photo
+    form_class = PhotoForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PhotoCreate, self).dispatch(*args, **kwargs)
+
+
+class PhotoUpdate(BaseUpdateView):
+
+    model = Photo
+    form_class = PhotoForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PhotoUpdate, self).dispatch(*args, **kwargs)
+
+
+class PhotoDelete(DeleteView):
+    model = Photo
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('dobjects:browse_photos')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PhotoDelete, self).dispatch(*args, **kwargs)
+
+
 class ThreeDListView(GenericListView):
     model = ThreeD
     filter_class = ThreeDListFilter
@@ -50,7 +94,7 @@ class ThreeDUpdate(BaseUpdateView):
 class ThreeDDelete(DeleteView):
     model = ThreeD
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('dobjects:browse_digitalcontainers')
+    success_url = reverse_lazy('dobjects:browse_threeds')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

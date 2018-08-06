@@ -35,4 +35,13 @@ urlpatterns = [
         name='threed_edit'),
     url(r'^threed/delete/(?P<pk>[0-9]+)$', views.ThreeDDelete.as_view(),
         name='threed_delete'),
+    url(r'^photos/$', views.PhotoListView.as_view(), name='browse_photos'),
+    url(r'^photo/detail/(?P<pk>[0-9]+)$', views.PhotoDetailView.as_view(),
+        name='photo_detail'),
+    url(r'^photo/create/$', views.PhotoCreate.as_view(),
+        name='photo_create'),
+    url(r'^photo/edit/(?P<pk>[0-9]+)$', views.PhotoUpdate.as_view(),
+        name='photo_edit'),
+    url(r'^photo/delete/(?P<pk>[0-9]+)$', views.PhotoDelete.as_view(),
+        name='photo_delete'),
 ]

@@ -277,13 +277,14 @@
                             </td>
                         </tr>
                     </table>
-                    <hr/>
+
                     {% if object.has_threed.all %}
                         {% for x in object.has_threed.all %}
+                            <hr/>
                             <legend>3d models</legend>
                             <table class="table table-bordered table-hover">
                                 <tr>
-                                    <th>3D Scanner</th>
+                                    <th>3D Scanner <small><a href="{{ x.get_absolute_url }}">more</a></small></th>
                                     <td>
                                         <small>type:</small> {{ x.img_technique }}<br/>
                                         <small>hardware:</small> {{ x.hardware }}
@@ -293,6 +294,37 @@
                                     <th>3D Data</th>
                                     <td>
                                         <small>acquisition:</small> {{ x.survey_location }}
+                                    </td>
+                                </tr>
+                            </table>
+                        {% endfor %}
+                    {% endif %}
+                    {% if object.has_photo.all %}
+                        {% for x in object.has_photo.all %}
+                            <hr/>
+                            <legend>Photos</legend>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <th>by</th>
+                                    <td>
+                                        {% for y in x.creator.all %}
+                                            <li>
+                                                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>with</th>
+                                    <td>
+                                        <small>software:</small> {{ x.software}}<br/>
+                                        <small>post processing methods:</small> {{ x.post_processing_method }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>when</th>
+                                    <td>
+                                        {{ x.start_date }}
                                     </td>
                                 </tr>
                             </table>

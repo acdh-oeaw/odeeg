@@ -397,3 +397,65 @@ class ThreeD(models.Model):
         if prev:
             return prev.first().id
         return False
+
+
+@reversion.register()
+class Photo(models.Model):
+    """provides metadata about the production of Photo"""
+
+    digital_container = models.ForeignKey(
+        DigitalContainer, blank=True, null=True,
+        verbose_name="Vase Object (ID Inv.Nr.)", help_text="The photo's source",
+        related_name="has_photo", on_delete=models.SET_NULL
+    )
+    start_date = models.DateField(
+        blank=True, null=True,
+        verbose_name="Post-processing: date",
+        help_text="YYYY-MM-DD"
+    )
+    creator = models.ManyToManyField(
+        Person, blank=True, related_name="creted_photo_of",
+        verbose_name="Post-processing: author"
+    )
+    software = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Post-processing: software",
+        help_text="Post-processing: software",
+        related_name="software_of_photo", on_delete=models.SET_NULL
+    )
+    post_processing_method = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Post-processing: method"
+    )
+
+    class Meta:
+        ordering = ['digital_container']
+
+    def __str__(self):
+        if self.digital_container:
+            return "{} [photo]".format(self.digital_container)
+        else:
+            return "{} [photo]".format(self.id)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('dobjects:browse_photos')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('dobjects:photo_create')
+
+    def get_absolute_url(self):
+        return reverse('dobjects:photo_detail', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-digital_container')
+        if prev:
+            return prev.first().id
+        return False

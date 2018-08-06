@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import DigitalContainer, Period, ThreeD
+from . models import DigitalContainer, Period, ThreeD, Photo
 
 
 class PeriodAdmin(admin.ModelAdmin):
@@ -16,4 +16,5 @@ class PeriodAdmin(admin.ModelAdmin):
 
 admin.site.register(DigitalContainer)
 admin.site.register(ThreeD)
+admin.site.register(Photo)
 admin.site.register(Period, PeriodAdmin)

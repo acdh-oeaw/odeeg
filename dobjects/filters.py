@@ -1,7 +1,7 @@
 import django_filters
 from dal import autocomplete
 
-from dobjects.models import Period, DigitalContainer, ThreeD
+from dobjects.models import Period, DigitalContainer, ThreeD, Photo
 
 
 class DigitalContainerListFilter(django_filters.FilterSet):
@@ -32,4 +32,11 @@ class ThreeDListFilter(django_filters.FilterSet):
 
     class Meta:
         model = ThreeD
+        fields = "__all__"
+
+
+class PhotoListFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Photo
         fields = "__all__"
