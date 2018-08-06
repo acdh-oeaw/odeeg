@@ -330,6 +330,39 @@
                             </table>
                         {% endfor %}
                     {% endif %}
+                    {% if object.has_illustration.all %}
+                        {% for x in object.has_illustration.all %}
+                            <hr/>
+                            <legend>Illustrations</legend>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <th>by</th>
+                                    <td>
+                                        {% for y in x.creator.all %}
+                                            <li>
+                                                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>with</th>
+                                    <td>
+                                        {% for y in x.software.all %}
+                                            <small>software:</small> {{ y }}<br/>
+                                        {% endfor %}
+                                        <small>post processing methods:</small> {{ x.post_processing_method }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>when</th>
+                                    <td>
+                                        {{ x.start_date }}
+                                    </td>
+                                </tr>
+                            </table>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="col-md-3">
                     some notes

@@ -10,7 +10,51 @@ from reversion.models import Version
 
 from . filters import *
 from . forms import *
-from . models import Period, DigitalContainer, ThreeD
+from . models import Period, DigitalContainer, ThreeD, Illustration
+
+
+class IllustrationListView(GenericListView):
+    model = Illustration
+    filter_class = IllustrationListFilter
+    formhelper_class = IllustrationFilterFormHelper
+    init_columns = [
+        'id',
+    ]
+
+
+class IllustrationDetailView(DetailView):
+    model = Illustration
+    template_name = 'dobjects/illustration_detail.html'
+
+
+class IllustrationCreate(BaseCreateView):
+
+    model = Illustration
+    form_class = IllustrationForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(IllustrationCreate, self).dispatch(*args, **kwargs)
+
+
+class IllustrationUpdate(BaseUpdateView):
+
+    model = Illustration
+    form_class = IllustrationForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(IllustrationUpdate, self).dispatch(*args, **kwargs)
+
+
+class IllustrationDelete(DeleteView):
+    model = Illustration
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('dobjects:browse_illustrations')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(IllustrationDelete, self).dispatch(*args, **kwargs)
 
 
 class PhotoListView(GenericListView):

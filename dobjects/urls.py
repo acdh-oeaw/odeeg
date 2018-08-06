@@ -44,4 +44,13 @@ urlpatterns = [
         name='photo_edit'),
     url(r'^photo/delete/(?P<pk>[0-9]+)$', views.PhotoDelete.as_view(),
         name='photo_delete'),
+    url(r'^illustrations/$', views.IllustrationListView.as_view(), name='browse_illustrations'),
+    url(r'^illustration/detail/(?P<pk>[0-9]+)$', views.IllustrationDetailView.as_view(),
+        name='illustration_detail'),
+    url(r'^illustration/create/$', views.IllustrationCreate.as_view(),
+        name='illustration_create'),
+    url(r'^illustration/edit/(?P<pk>[0-9]+)$', views.IllustrationUpdate.as_view(),
+        name='illustration_edit'),
+    url(r'^illustration/delete/(?P<pk>[0-9]+)$', views.IllustrationDelete.as_view(),
+        name='illustration_delete'),
 ]

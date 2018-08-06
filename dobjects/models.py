@@ -459,3 +459,65 @@ class Photo(models.Model):
         if prev:
             return prev.first().id
         return False
+
+
+@reversion.register()
+class Illustration(models.Model):
+    """provides metadata about the production of an Illustration"""
+
+    digital_container = models.ForeignKey(
+        DigitalContainer, blank=True, null=True,
+        verbose_name="Vase Object (ID Inv.Nr.)", help_text="The photo's source",
+        related_name="has_illustration", on_delete=models.SET_NULL
+    )
+    start_date = models.DateField(
+        blank=True, null=True,
+        verbose_name="Illustration: date",
+        help_text="YYYY-MM-DD"
+    )
+    creator = models.ManyToManyField(
+        Person, blank=True, related_name="created_illustration_of",
+        verbose_name="Illustration: author"
+    )
+    software = models.ManyToManyField(
+        SkosConcept, blank=True,
+        verbose_name="Illustration: software",
+        help_text="Illustration: software",
+        related_name="software_of_illustration"
+    )
+    post_processing_method = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Illustration: method"
+    )
+
+    class Meta:
+        ordering = ['digital_container']
+
+    def __str__(self):
+        if self.digital_container:
+            return "{} [illustration]".format(self.digital_container)
+        else:
+            return "{} [illustration]".format(self.id)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('dobjects:browse_illustrations')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('dobjects:illustration_create')
+
+    def get_absolute_url(self):
+        return reverse('dobjects:illustration_detail', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-digital_container')
+        if prev:
+            return prev.first().id
+        return False
