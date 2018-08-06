@@ -2,9 +2,16 @@ import reversion
 from django.db import models
 from django.urls import reverse
 
-from entities.models import Institution, Place
+from entities.models import Institution, Place, Person
 from arche.models import Collection, Resource
 from vocabs.models import SkosConcept
+
+
+DATE_ACCURACY = (
+    ('Y', 'Year'),
+    ('YM', 'Month'),
+    ('DMY', 'Day')
+)
 
 
 @reversion.register()
@@ -53,6 +60,9 @@ class Period(models.Model):
     def get_createview_url(self):
         return reverse('dobjects:period_create')
 
+    def get_absolute_url(self):
+        return reverse('dobjects:period_detail', kwargs={'pk': self.id})
+
     def get_next(self):
         next = self.__class__.objects.filter(id__gt=self.id)
         if next:
@@ -64,9 +74,6 @@ class Period(models.Model):
         if prev:
             return prev.first().id
         return False
-
-    def get_absolute_url(self):
-        return reverse('dobjects:period_detail', kwargs={'pk': self.id})
 
 
 @reversion.register()
@@ -216,3 +223,166 @@ class DigitalContainer(models.Model):
             return Resource.objects.filter(acdh_id__istartswith=search_string)
         except AttributeError:
             return None
+
+
+@reversion.register()
+class ThreeD(models.Model):
+    """provides metadata about the production of 3D-Models"""
+
+    digital_container = models.ForeignKey(
+        DigitalContainer, blank=True, null=True,
+        verbose_name="Vase Object (ID Inv.Nr.)", help_text="The 3d models source",
+        related_name="has_threed", on_delete=models.SET_NULL
+    )
+    survey_location = models.ForeignKey(
+        Institution, blank=True, null=True,
+        verbose_name="3D Survey: location", help_text="3D Survey: location",
+        related_name="survey_location_of", on_delete=models.SET_NULL
+    )
+    survey_location_comment = models.CharField(
+        max_length=300, blank=True, verbose_name="3D Survey: location characteristics."
+    )
+    start_date = models.DateField(
+        verbose_name="3D Survey: date.",
+        help_text="YYYY-MM-DD"
+    )
+    date_accuracy = models.CharField(
+        default="M", max_length=3, choices=DATE_ACCURACY, verbose_name="Accuracy of the Date"
+    )
+    survey_creator = models.ManyToManyField(
+        Person, blank=True, related_name="creted_survey_of",
+        verbose_name="3D Survey: author(s)"
+    )
+    survey_creator_inst = models.ManyToManyField(
+        Institution, blank=True, related_name="creted_survey_of",
+        verbose_name="3D Survey: institution"
+    )
+    img_technique = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="3D Survey: imaging technique",
+        help_text="3D Survey: imaging technique [AAT ID]",
+        related_name="is_img_technique_of", on_delete=models.SET_NULL
+    )
+    hardware = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="3D Survey: hardware",
+        help_text="3D Survey: hardware ['hardware' AAT ID: 300312368]",
+        related_name="hardware_for", on_delete=models.SET_NULL
+    )
+    fov = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="fov"
+    )
+    resolution = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Resolution  [AAT ID: 300222980]"
+    )
+    accuracy = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Accuracy"
+    )
+    img_texture_acquisition = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Image texture acquisition [scanner/external camera]",
+        help_text="Image texture acquisition [scanner/external camera]",
+        related_name="is_img_texture_acquisition", on_delete=models.SET_NULL
+    )
+    img_texture_acquisition = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Image texture acquisition [scanner/external camera]",
+        help_text="Image texture acquisition [scanner/external camera]",
+        related_name="is_img_texture_acquisition", on_delete=models.SET_NULL
+    )
+    img_texture_color = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Image texture acquisition [colour/B&W]",
+        help_text="Image texture acquisition [colour/B&W]",
+        related_name="is_img_texture_color", on_delete=models.SET_NULL
+    )
+    img_texture_resolution = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Image texture resolution"
+    )
+    software = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Software acquisition",
+        help_text="Software acquisition",
+        related_name="software_of", on_delete=models.SET_NULL
+    )
+    nr_of_scans = models.IntegerField(
+        blank=True, null=True, verbose_name="Nr. scans"
+    )
+    align_start_date = models.DateField(
+        verbose_name="3D data alignment/merging: date",
+        help_text="YYYY-MM-DD"
+    )
+    align_creator = models.ManyToManyField(
+        Person, blank=True, related_name="creted_align_of",
+        verbose_name="3D data alignment/merging: author(s)"
+    )
+    align_creator_inst = models.ManyToManyField(
+        Institution, blank=True, related_name="creted_align_of",
+        verbose_name="3D data alignment/merging: institution)"
+    )
+    align_software = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="3D data alignment/merging: software",
+        help_text="3D data alignment/merging: software",
+        related_name="align_software_of", on_delete=models.SET_NULL
+    )
+    align_params = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="3D data final alignment: parameters"
+    )
+    merging_params = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="3D data merging: parameters"
+    )
+    lowres_start_date = models.DateField(
+        verbose_name="Low resolution 3D model post-processing: date",
+        help_text="YYYY-MM-DD"
+    )
+    lowres_creator = models.ManyToManyField(
+        Person, blank=True, related_name="creted_lowres_of",
+        verbose_name="Low resolution 3D model post-processing: author(s)"
+    )
+    lowres_creator_inst = models.ManyToManyField(
+        Institution, blank=True, related_name="creted_lowres_of",
+        verbose_name="Low resolution 3D model post-processing: institution"
+    )
+    lowres_software = models.ForeignKey(
+        SkosConcept, blank=True, null=True,
+        verbose_name="Low resolution 3D model post-processing: software",
+        help_text="Low resolution 3D model post-processing: software",
+        related_name="lowres_software_of", on_delete=models.SET_NULL
+    )
+    lowres_params = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Low resolution 3D model post-processing: mesh"
+    )
+
+    class Meta:
+        ordering = ['id']
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('dobjects:browse_threeds')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('dobjects:threed_create')
+
+    def get_absolute_url(self):
+        return reverse('dobjects:threed_detail', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return next.first().id
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-belongs_to')
+        if prev:
+            return prev.first().id
+        return False

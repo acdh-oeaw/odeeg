@@ -10,7 +10,51 @@ from reversion.models import Version
 
 from . filters import *
 from . forms import *
-from . models import Period, DigitalContainer
+from . models import Period, DigitalContainer, ThreeD
+
+
+class ThreeDListView(GenericListView):
+    model = ThreeD
+    filter_class = ThreeDListFilter
+    formhelper_class = ThreeDFilterFormHelper
+    init_columns = [
+        'id',
+    ]
+
+
+class ThreeDDetailView(DetailView):
+    model = ThreeD
+    template_name = 'dobjects/threed_detail.html'
+
+
+class ThreeDCreate(BaseCreateView):
+
+    model = ThreeD
+    form_class = ThreeDForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ThreeDCreate, self).dispatch(*args, **kwargs)
+
+
+class ThreeDUpdate(BaseUpdateView):
+
+    model = ThreeD
+    form_class = ThreeDForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ThreeDUpdate, self).dispatch(*args, **kwargs)
+
+
+class ThreeDDelete(DeleteView):
+    model = ThreeD
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('dobjects:browse_digitalcontainers')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ThreeDDelete, self).dispatch(*args, **kwargs)
 
 
 class DigitalContainerDetailView(DetailView):

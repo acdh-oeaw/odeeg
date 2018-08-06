@@ -26,4 +26,13 @@ urlpatterns = [
         name='period_edit'),
     url(r'^period/delete/(?P<pk>[0-9]+)$', views.PeriodDelete.as_view(),
         name='period_delete'),
+    url(r'^threeds/$', views.ThreeDListView.as_view(), name='browse_threeds'),
+    url(r'^threed/detail/(?P<pk>[0-9]+)$', views.ThreeDDetailView.as_view(),
+        name='threed_detail'),
+    url(r'^threed/create/$', views.ThreeDCreate.as_view(),
+        name='threed_create'),
+    url(r'^threed/edit/(?P<pk>[0-9]+)$', views.ThreeDUpdate.as_view(),
+        name='threed_edit'),
+    url(r'^threed/delete/(?P<pk>[0-9]+)$', views.ThreeDDelete.as_view(),
+        name='threed_delete'),
 ]
