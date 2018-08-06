@@ -277,6 +277,27 @@
                             </td>
                         </tr>
                     </table>
+                    <hr/>
+                    {% if object.has_threed.all %}
+                        {% for x in object.has_threed.all %}
+                            <legend>3d models</legend>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <th>3D Scanner</th>
+                                    <td>
+                                        <small>type:</small> {{ x.img_technique }}<br/>
+                                        <small>hardware:</small> {{ x.hardware }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>3D Data</th>
+                                    <td>
+                                        <small>acquisition:</small> {{ x.survey_location }}
+                                    </td>
+                                </tr>
+                            </table>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="col-md-3">
                     some notes
