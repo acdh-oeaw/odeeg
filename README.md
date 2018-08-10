@@ -7,8 +7,9 @@ The ODEEG project has been funded by the go!digital programme 2016, Austria, and
 ## install
 
 1. clone the repo
-2. create a virtual env
-3. install dependencies (`pip install -r requirements.txt`)
-4. adapt settings file to your needs
-5. makemigrations and migrate `python manage.py makemigrations|migrate --settings=odeeg.settings.dev`
-6. spin up the (dev) server: `python manage.py runserver --settings=odeeg.settings.dev`
+2. create a virtual env in the root of the repo (you can put the created folder on the ignore list)
+3. activate the virtual env
+4. install dependencies (`pip install -r requirements.txt`)
+5. adapt settings file and folder to your needs (e.g. add server.py with according settings)
+6. makemigrations and migrate `python manage.py makemigrations|migrate --settings=odeeg.settings.dev`
+7. spin up the (dev) server: `python manage.py runserver --settings=odeeg.settings.dev`

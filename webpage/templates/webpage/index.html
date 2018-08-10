@@ -4,18 +4,30 @@
 {% load webpage_extras %}
 {% block content %}
     <div class="container text-center">
+        <div id="logo-title-section">
+          <img id="odeeg-logo" src="{% static 'webpage/img/odeeg-logo.svg' %}" alt="Logo of ODeeg"/>
+          <p>
+            <i>Online-Datenbank zur Erforschung der Entwicklung von Gefäßformen und -maßen</i></br>
+            Online database for research on the development of vessel shapes and dimensions
+          </p>
+        </div>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="{% static 'webpage/img/acdh_django_base_project_orange.png' %}" alt="First" title="by Sandra Lehecka" />
+                    <img class="d-block w-100" src="{% static 'webpage/img/odeeg-carousel-01.png' %}" alt="First" title="by ODeeg" />
                     <div class="carousel-caption d-none d-md-block"></div>
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="{% static 'webpage/img/ACDH_Panorama_Postkarte_motiv02.jpg' %}" alt="Second" title="by Sandra Lehecka" />
+                    <img class="d-block w-100" src="{% static 'webpage/img/acdh_django_base_project_orange.png' %}" alt="Second" title="by Sandra Lehecka" />
+                    <div class="carousel-caption d-none d-md-block"></div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="{% static 'webpage/img/ACDH_Panorama_Postkarte_motiv02.jpg' %}" alt="Third" title="by Sandra Lehecka" />
                     <div class="carousel-caption d-none d-md-block"></div>
                 </div>
             </div>
@@ -50,7 +62,7 @@
                     </div>
                 {% endfor %}
             </div>
-            
+
         </div>
         <div style="text-align:center">
     <span class="socialShare"><!-- The share buttons will be inserted here --></span>
