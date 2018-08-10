@@ -1,7 +1,7 @@
 {% extends "webpage/base.html" %}
 {% load staticfiles %}
 {% load webpage_extras %}
-{% block title %} asdf {% endblock %}
+{% block title %} {{ object.id_inv_nr }} {% endblock %}
 {% block scriptHeader %}
     <!--STYLESHEET-->
     <link type="text/css" rel="stylesheet" href="{% static 'webpage/libraries/3dhop/stylesheet/3dhop.css' %}"/>

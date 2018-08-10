@@ -19,6 +19,7 @@ class IllustrationListView(GenericListView):
     formhelper_class = IllustrationFilterFormHelper
     init_columns = [
         'id',
+        'digital_container'
     ]
 
 
