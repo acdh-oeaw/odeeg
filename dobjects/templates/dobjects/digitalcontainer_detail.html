@@ -28,7 +28,7 @@
     <div class="card procustom-panel-create">
         <div class="card-header procustom-panel-heading">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     {% if object.get_prev %}
                         <h2>
                             <a href="{% url 'dobjects:digitalcontainer_detail' pk=object.get_prev %}">
@@ -37,8 +37,8 @@
                         </h2>
                     {% endif %}
                 </div>
-                <div class="col-md-8">
-                    <h1 style="text-align: center;">
+                <div class="col-md-6">
+                    <h1 class="detail-title" >
                          {{ object }}
                         {% if user.is_authenticated %}
                             <small>
@@ -55,7 +55,7 @@
                         {% endif %}
                     </h1>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <h2>
                         {% if object.get_next %}
                         <a href="{% url 'dobjects:digitalcontainer_detail' pk=object.get_next %}" style="float:right">
