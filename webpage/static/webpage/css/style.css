@@ -21,9 +21,11 @@ header {
 
 nav.navbar a.dropdown-toggle{
     color: #f8f9fa;
-
 }
 
+a.nav-link{
+    padding-bottom: 0;
+}
 
 #logo-title-section {
     text-align: left !important;
@@ -80,9 +82,16 @@ footer {
 }
 
 #odeeg-logo-navbar {
-    width: 6rem;
+    width: 8rem;
+    min-width: 104px;
     height: auto;
-    margin-right: 0.5%;
+    position: relative;
+    bottom: -0.35rem;
+    right: 2.0rem;
+}
+
+#img-homelink {
+    height: 2rem;
 }
 
 #empty-logo-place {
