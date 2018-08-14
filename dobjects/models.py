@@ -228,7 +228,7 @@ class DigitalContainer(models.Model):
         blank=True, null=True,
         verbose_name="Outer Volume (cm3)",
         help_text="Outer volume of object in cubic centimetres, as defined by Getty AAT \
-        with ID 300055649 (volume).""
+        with ID 300055649 (volume)."
     )
 
     class Meta:
