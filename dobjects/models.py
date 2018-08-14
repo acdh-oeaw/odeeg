@@ -16,6 +16,7 @@ DATE_ACCURACY = (
 
 @reversion.register()
 class Period(models.Model):
+    """Stores information about periods and phases associated with vases."""
     legacy_id = models.CharField(
         max_length=250, blank=True,
         verbose_name="excel row index",
@@ -23,28 +24,37 @@ class Period(models.Model):
     )
     name = models.CharField(
         max_length=250, blank=True,
-        verbose_name="Period [AAT ID: 300081446]",
-        help_text="Period [AAT ID: 300081446]"
+        verbose_name="Period",
+        help_text="Period as defined by Getty AAT with ID 300081446: \
+        The length of time during which something runs its course, characterized \
+        by some prevalent or distinguishing condition, circumstance, or occurrence, \
+        or by the rule of a particular government or dynasty; a distinct historical \
+        or cultural portion or division of time. E.g. 'Late Geometric IB'."
     )
     period_phase = models.CharField(
         max_length=250, blank=True,
-        verbose_name="Period/Phase [abbreviation]",
-        help_text="Period/Phase [abbreviation]"
+        verbose_name="Period/Phase",
+        help_text="Abbreviation of period or phase, e.g. LG IB."
     )
     period_url = models.CharField(
         max_length=250, blank=True,
-        verbose_name="Period [Chronontology/PeriodO ID]",
-        help_text="Period [Chronontology/PeriodO ID]"
+        verbose_name="Period ID",
+        help_text="ID of a period from as suitable thesauris like PeriodO or \
+        Chronontology. Include full permanent link, e.g. \
+        'http://n2t.net/ark:/99152/p0ms2chk8gk' or \
+        'http://chronontology.dainst.org/period/g2j1npCU5v10'."
     )
     period_start_year = models.IntegerField(
-        blank=True, null=True, verbose_name="Period [start] (date range) [AAT ID: 300081446]"
+        blank=True, null=True, verbose_name="Period start",
+        help_text="Start of period for date range in ISO format, e.g. -750"
     )
     period_end_year = models.IntegerField(
-        blank=True, null=True, verbose_name="Period [end] (date range) [AAT ID: 300081446]"
+        blank=True, null=True, verbose_name="Period end",
+        help_text="End of period for date range in ISO format, e.g. -740"
     )
 
     class Meta:
-        ordering = ['id']
+        ordering = ['period_start_year']
 
     def __str__(self):
         if self.name:
@@ -82,110 +92,143 @@ class DigitalContainer(models.Model):
     metadata_ODEEG-archaeology.xslx"""
 
     folder_name = models.CharField(
-        max_length=300, blank=True
+        max_length=300, blank=True, verbose_name="Folder name",
+        help_text="Name of folder containing all files related to the vase."
     )
     id_inv_nr = models.CharField(
-        max_length=300, blank=True, verbose_name="ID Inv.Nr."
+        max_length=300, blank=True, verbose_name="ID Inv.Nr.",
+        help_text="Inventory number of vase."
     )
     bapd_nr = models.CharField(
-        max_length=300, blank=True, verbose_name="BAPD Nr."
+        max_length=300, blank=True, verbose_name="BAPD Nr.",
+        help_text="Corresponding number of vase from Beazley Archive Pottery Database (BAPD)."
     )
     related_object = models.ManyToManyField(
         'DigitalContainer', blank=True, related_name="has_related_object",
-        verbose_name="Object is associated to [ID Inv.Nr.]"
+        verbose_name="Object is associated to",
+        help_text="Other objects associated with this object. \
+        Relation is established with 'ID Inv.Nr'."
     )
     belongs_to = models.OneToOneField(
         Collection, on_delete=models.CASCADE, blank=True, null=True,
-        verbose_name='describes collection', related_name="described_by"
+        verbose_name='describes collection', related_name="described_by",
+        help_text="?"
     )
     period = models.ForeignKey(
         Period, blank=True, null=True,
-        verbose_name="Period", help_text="Period",
+        verbose_name="Period", help_text="Period as defined by Getty AAT with ID 300081446. \
+        Periods are stored in a separate table.",
         related_name="is_periode_for", on_delete=models.SET_NULL
     )
     located_at = models.ForeignKey(
         Institution, blank=True, null=True,
-        verbose_name="Collection [specific] [AAT ID: 300025976]",
-        help_text="Collection [specific] [AAT ID: 300025976]",
+        verbose_name="Collection",
+        help_text="Collection as defined by Getty AAT with ID: 300025976. \
+        Collections are stored in a separate table.",
         related_name="home_of_dobject", on_delete=models.SET_NULL
     )
     fabric = models.ManyToManyField(
         SkosConcept, blank=True, verbose_name="Fabric (as in BAPD)",
+        help_text="Fabric as used in the Beazley Archive Pottery Database.",
         related_name="is_fabric"
     )
     painting_style = models.ManyToManyField(
-        SkosConcept, blank=True, verbose_name="Painting style/technique [AAT ID]",
+        SkosConcept, blank=True, verbose_name="Painting style/technique (AAT ID)",
+        help_text="ID from Getty AAT describing painting style or technique.",
         related_name="is_painting_style"
     )
     painting_sub_technique = models.ManyToManyField(
-        SkosConcept, blank=True, verbose_name="Painting sub technique [AAT ID]",
+        SkosConcept, blank=True, verbose_name="Painting sub technique (AAT ID)",
+        help_text="ID from Getty AAT describing painting sub technique.",
         related_name="is_painting_sub_technique"
     )
     formating_technique = models.ManyToManyField(
-        SkosConcept, blank=True, verbose_name="Forming technique [AAT ID: 300251415]",
+        SkosConcept, blank=True, verbose_name="Forming technique",
+        help_text="Forming technique as defined by Getty AAT with ID 300251415",
         related_name="is_formating_technique"
     )
     pl_find = models.ForeignKey(
         Place, blank=True, null=True, related_name="finding_spot_of", on_delete=models.SET_NULL,
-        verbose_name="Provenance: finding spot ['provenance' AAT ID: 300055863]"
+        verbose_name="Provenance: Find spot",
+        help_text="Find spot for Provenance as defined by Getty AAT with ID 300055863."
     )
     pl_find_cert = models.CharField(
-        max_length=300, blank=True, verbose_name="certaintiy AAT ID",
-        help_text="Provenance: finding spot\
-        [AAT ID 'possible', not all facts/scholars agree: 300404777;\
-        'undetermined': 300379012; 'unavailable': 300400512]"
+        max_length=300, blank=True, verbose_name="Certaintiy of find spot",
+        help_text="Find spot certainty. Indicate with Getty AAT ID. E.g. \
+        'possible', not all facts/scholars agree: 300404777;\
+        'undetermined': 300379012; 'unavailable': 300400512"
     )
     prov_attr_artist = models.TextField(
-        blank=True, verbose_name="Provenance: attributed to artist/maker",
-        help_text="Provenance: attributed to artist/maker ['provenance' AAT ID: 300055863]"
+        blank=True, verbose_name="Provenance: Attributed to artist/maker",
+        help_text="Artist or maker the object is attributed to."
     )
     pl_prod_center = models.ForeignKey(
         Place, blank=True, null=True, related_name="production_spot_of", on_delete=models.SET_NULL,
-        verbose_name="Provenance: production center/workshop ['provenance' AAT ID: 300055863]"
+        verbose_name="Provenance: Production center/workshop",
+        help_text="Production center or workshop the object is associated with."
     )
     pl_acq = models.ForeignKey(
         Place, blank=True, null=True, related_name="acquisition_spot_of", on_delete=models.SET_NULL,
-        verbose_name="Provenance: place of latest acquisition\
-        [modern times] ['provenance' AAT ID: 300055863]"
+        verbose_name="Provenance: Place of latest acquisition",
+        help_text="Place of latest acquisition of object, mostly refers to modern place names."
     )
     cva_ref = models.CharField(
-        max_length=500, blank=True, verbose_name="CVA Reference"
+        max_length=500, blank=True, verbose_name="CVA Reference",
+        help_text="Reference to publication of object in CVA series."
     )
     collection_reference = models.URLField(
-        blank=True, verbose_name="Collection reference [institution] [permalink]"
+        blank=True, verbose_name="Collection reference",
+        help_text="Reference to online publication of object in collection, e.g. \
+        web page of museum with object details. When possible provide permanent link."
     )
     weight = models.IntegerField(
-        blank=True, null=True, verbose_name="Weight [g] [AAT ID: 300056240]"
+        blank=True, null=True, verbose_name="Weight (g)",
+        help_text="Weight of object in grams, as defined in Getty AAT with ID 300056240."
     )
     height = models.FloatField(
-        blank=True, null=True, verbose_name="Height (max.) [mm] [AAT ID: 300055644]"
+        blank=True, null=True, verbose_name="Height (max. mm)",
+        help_text="Maximum height of object in millimetres, as defined by Getty \
+        AAT with ID 300055644."
     )
     width = models.FloatField(
-        blank=True, null=True, verbose_name="Width (max.) [mm] [AAT ID: 300055647]"
+        blank=True, null=True, verbose_name="Width (max. mm)",
+        help_text="Maximum width of object in millimetres, as defined by Getty AAT \
+        with ID 300055647."
     )
     length = models.FloatField(
-        blank=True, null=True, verbose_name="Length (max.) [mm] [AAT ID: 300055645]"
+        blank=True, null=True, verbose_name="Length (max. mm)",
+        help_text="Maximum lenght of object in millimetres, as defined by Getty AAT \
+        with ID 300055645."
     )
     filling_height = models.FloatField(
         blank=True, null=True,
-        verbose_name="Filling Height [mm] ['filling' AAT ID: 300053092; 'height': 300055644]"
+        verbose_name="Filling Height (mm)",
+        help_text="Filling height of object in millimetres, as defined by Getty AAT \
+        with ID 300053092 (filling) and 300055644 (height)."
     )
     filling_volume = models.FloatField(
         blank=True, null=True,
-        verbose_name="Filling Volume [cm3] ['filling' AAT ID: 300053092; 'volume': 300055649]"
+        verbose_name="Filling Volume (cm3)",
+        help_text="Filling volume of object in cubic centimetres, as defined by Getty AAT \
+        with ID 300053092 (filling) and 300055649 (volume)."
     )
     material_volume = models.FloatField(
         blank=True, null=True,
-        verbose_name="Material Volume [cm3] ['material': AAT ID: 300010358; 'volume': 300055649]"
+        verbose_name="Material Volume (cm3)",
+        help_text="Material volume of object in cubic centimetres, as defined by Getty AAT \
+        with ID 300010358 (material) and 300055649 (volume)."
     )
     material_density = models.FloatField(
         blank=True, null=True,
-        verbose_name="Material Density [g/cm3]\
-        ['material': AAT ID: 300010358; 'density': 300056237]"
+        verbose_name="Material Density (g/cm3)",
+        help_text="Material density of object in grams per cubic centimetre, as \
+        defined by Getty AAT with ID 300010358 (material) and 300056237 (density)."
     )
     outer_volume = models.FloatField(
         blank=True, null=True,
-        verbose_name="Outer Volume [cm3] ['volume' AAT ID: 300055649]"
+        verbose_name="Outer Volume (cm3)",
+        help_text="Outer volume of object in cubic centimetres, as defined by Getty AAT \
+        with ID 300055649 (volume).""
     )
 
     class Meta:
