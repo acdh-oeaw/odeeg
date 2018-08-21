@@ -154,8 +154,18 @@ class DigitalContainerDetailView(DetailView):
         context = super(DigitalContainerDetailView, self).get_context_data(**kwargs)
         context['history'] = Version.objects.get_for_object(self.object)
         context['imgs'] = self.object.fetch_binaries()
+        try:
+            context['iiif'] = [
+                "{}?format=iiif&PARAM=info.json".format(x.acdh_id) for x in context['imgs']
+            ]
+        except TypeError:
+            context['iiif'] = None
         context['illustrations'] = self.object.fetch_binaries(bin_type='illustrations')
         context['threeds'] = self.object.fetch_binaries(bin_type='3D-data/3Dscan_lowRes-data')
+        try:
+            context['3d'] = "{}?format=raw".format(context['threeds'][0].acdh_id)
+        except (TypeError, IndexError):
+            context['3d'] = None
         return context
 
 
