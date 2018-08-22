@@ -4,7 +4,7 @@ import time
 import datetime
 from django.http import HttpResponse
 from django.shortcuts import (render, render_to_response, get_object_or_404, redirect)
-from django.views import generic
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.urls import reverse, reverse_lazy
@@ -23,6 +23,17 @@ from .filters import (
 )
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 from reversion.models import Version
+
+
+class UpdateCoords(TemplateView):
+    template_name = 'entities/update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UpdateCoords, self).get_context_data(**kwargs)
+        places = Place.objects.exclude(geonames_id="").filter(lat__isnull=True)
+        updated = [x.update_coordinates() for x in places]
+        context['updated'] = updated
+        return context
 
 
 class InstitutionListView(GenericListView):

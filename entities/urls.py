@@ -39,4 +39,6 @@ urlpatterns = [
     url(r'places-rdf/$', views.PlaceRDFView.as_view(), name='rdf_places'),
     url(r'persons-rdf/$', views.PersonRDFView.as_view(), name='rdf_persons'),
     url(r'institutions-rdf/$', views.InstitutionRDFView.as_view(), name='rdf_institutions'),
+    url(r'^update/coords/$', views.UpdateCoords.as_view(),
+        name='update_coords'),
 ]
