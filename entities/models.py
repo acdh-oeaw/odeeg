@@ -1,8 +1,10 @@
 import re
+import reversion
 from django.db import models
 from django.urls import reverse
 from idprovider.models import IdProvider
-import reversion
+
+from . utils import get_coordinates
 
 
 @reversion.register()
@@ -98,14 +100,41 @@ class Place(IdProvider):
             return self.geonames_id
         elif self.geonames_id.startswith('ht'):
             return self.geonames_id
-        else:
+        elif self.geonames_id:
             return "http://www.geonames.org/{}".format(self.geonames_id)
+        else:
+            return None
 
     def get_geonames_rdf(self):
         try:
             number = re.findall(r'\d+', str(self.geonames_id))[0]
-            return None
         except:
+            number = None
+        if number:
+            return "https://www.geonames.org/{}/about.rdf".format(number)
+        else:
+            return None
+
+    def get_geonames_id(self):
+        if self.geonames_id:
+            try:
+                return re.findall(r'\d+', str(self.geonames_id))[0]
+            except:
+                return None
+        else:
+            return None
+
+    def update_coordinates(self):
+        if self.get_geonames_id():
+            coords = get_coordinates(self.get_geonames_id())
+            if coords:
+                self.lat = coords['lat']
+                self.lng = coords['lng']
+                self.save()
+                return self
+            else:
+                return None
+        else:
             return None
 
     def save(self, *args, **kwargs):
