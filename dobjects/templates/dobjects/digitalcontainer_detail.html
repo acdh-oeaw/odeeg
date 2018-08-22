@@ -37,9 +37,9 @@
                         </h2>
                     {% endif %}
                 </div>
-                <div class="col-md-6">
-                    <h1 class="detail-title" >
-                         {{ object }}
+                <div class="col-md-6" style="text-align:center">
+                    <h1 class="detail-title">
+                         <small><a href="{{ object.get_listview_url }}">vase: </a></small>{{ object }}
                         {% if user.is_authenticated %}
                             <small>
                                 <a href="{% url 'dobjects:digitalcontainer_edit' pk=object.id %}">
