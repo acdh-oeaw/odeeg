@@ -1,4 +1,6 @@
 import django_filters
+from django import forms
+
 from dal import autocomplete
 
 from dobjects.models import Period, DigitalContainer, ThreeD, Photo, Illustration
@@ -19,13 +21,7 @@ class DigitalContainerListFilter(django_filters.FilterSet):
         help_text=DigitalContainer._meta.get_field('fabric').help_text,
         label=DigitalContainer._meta.get_field('fabric').verbose_name,
         method=generous_concept_filter,
-        widget=autocomplete.Select2Multiple(
-            url="/vocabs-ac/specific-concept-ac/fabric",
-            attrs={
-                'data-placeholder': 'Autocomplete ...',
-                'data-minimum-input-length': 1,
-                },
-            )
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'chbx-select-multi'})
         )
     painting_style = django_filters.ModelMultipleChoiceFilter(
         queryset=SkosConcept.objects.filter(
@@ -34,13 +30,7 @@ class DigitalContainerListFilter(django_filters.FilterSet):
         help_text=DigitalContainer._meta.get_field('painting_style').help_text,
         label=DigitalContainer._meta.get_field('painting_style').verbose_name,
         method=generous_concept_filter,
-        widget=autocomplete.Select2Multiple(
-            url="/vocabs-ac/specific-concept-ac/painting_style",
-            attrs={
-                'data-placeholder': 'Autocomplete ...',
-                'data-minimum-input-length': 1,
-                },
-            )
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'chbx-select-multi'})
         )
 
     class Meta:
