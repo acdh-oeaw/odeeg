@@ -97,7 +97,9 @@
                 <div class="col-md-6">
                     <table class="table">
                             <tr>
-                                <th>{% get_verbose_name digitalcontainer "folder_name" %}</th>
+                                <th>{% get_verbose_name digitalcontainer "folder_name" %}
+                                    <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text digitalcontainer 'folder_name' %}"></i>
+                                </th>
                                 <td>
                                     {{ object.folder_name }}
                                 </td>
