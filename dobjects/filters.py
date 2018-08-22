@@ -2,6 +2,8 @@ import django_filters
 from dal import autocomplete
 
 from dobjects.models import Period, DigitalContainer, ThreeD, Photo, Illustration
+from vocabs.models import SkosConcept
+from vocabs.filters import generous_concept_filter
 
 
 class DigitalContainerListFilter(django_filters.FilterSet):
@@ -9,6 +11,36 @@ class DigitalContainerListFilter(django_filters.FilterSet):
         lookup_expr='icontains',
         help_text=DigitalContainer._meta.get_field('id_inv_nr').help_text,
         label=DigitalContainer._meta.get_field('id_inv_nr').verbose_name
+        )
+    fabric = django_filters.ModelMultipleChoiceFilter(
+        queryset=SkosConcept.objects.filter(
+            scheme__dc_title__icontains="fabric"
+            ),
+        help_text=DigitalContainer._meta.get_field('fabric').help_text,
+        label=DigitalContainer._meta.get_field('fabric').verbose_name,
+        method=generous_concept_filter,
+        widget=autocomplete.Select2Multiple(
+            url="/vocabs-ac/specific-concept-ac/fabric",
+            attrs={
+                'data-placeholder': 'Autocomplete ...',
+                'data-minimum-input-length': 1,
+                },
+            )
+        )
+    painting_style = django_filters.ModelMultipleChoiceFilter(
+        queryset=SkosConcept.objects.filter(
+            scheme__dc_title__icontains="painting_style"
+            ),
+        help_text=DigitalContainer._meta.get_field('painting_style').help_text,
+        label=DigitalContainer._meta.get_field('painting_style').verbose_name,
+        method=generous_concept_filter,
+        widget=autocomplete.Select2Multiple(
+            url="/vocabs-ac/specific-concept-ac/painting_style",
+            attrs={
+                'data-placeholder': 'Autocomplete ...',
+                'data-minimum-input-length': 1,
+                },
+            )
         )
 
     class Meta:

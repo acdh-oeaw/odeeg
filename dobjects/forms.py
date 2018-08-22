@@ -132,17 +132,16 @@ class DigitalContainerFilterFormHelper(FormHelper):
         self.layout = Layout(
             Fieldset(
                 'Basic search options',
-                'name',
-                'written_name',
+                'id_inv_nr',
                 css_id="basic_search_fields"
                 ),
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'acad_title',
-                    'alt_names',
-                    'authority_url',
-                    'belongs_to_institution',
+                    'related_object',
+                    'period',
+                    'fabric',
+                    'painting_style',
                     css_id="more"
                     ),
                 )

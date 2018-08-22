@@ -205,6 +205,7 @@ class DigitalContainerListView(GenericListView):
     formhelper_class = DigitalContainerFilterFormHelper
     init_columns = [
         'id',
+        'id_inv_nr',
         'period'
     ]
 
