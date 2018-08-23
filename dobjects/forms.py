@@ -6,6 +6,8 @@ from crispy_forms.bootstrap import Accordion, AccordionGroup
 
 from . models import Period, DigitalContainer, ThreeD, Photo, Illustration
 
+from vocabs.models import SkosConcept
+
 
 class IllustrationFilterFormHelper(FormHelper):
     def __init__(self, *args, **kwargs):
@@ -150,16 +152,17 @@ class DigitalContainerFilterFormHelper(FormHelper):
 
 
 class DigitalContainerForm(forms.ModelForm):
+
+    fabric = forms.ModelMultipleChoiceField(
+        queryset=SkosConcept.objects.filter(scheme__dc_title__icontains="fabric")
+    )
+
     class Meta:
         model = DigitalContainer
         fields = "__all__"
         widgets = {
             'shape_name': autocomplete.ModelSelect2Multiple(
                 url='/vocabs-ac/specific-concept-ac/shape'),
-            'fabric': autocomplete.ModelSelect2Multiple(
-                url='/vocabs-ac/specific-concept-ac/fabric'),
-            'painting_style': autocomplete.ModelSelect2Multiple(
-                url='/vocabs-ac/specific-concept-ac/painting_style'),
         }
 
     def __init__(self, *args, **kwargs):
