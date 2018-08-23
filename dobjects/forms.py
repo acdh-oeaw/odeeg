@@ -153,6 +153,14 @@ class DigitalContainerForm(forms.ModelForm):
     class Meta:
         model = DigitalContainer
         fields = "__all__"
+        widgets = {
+            'shape_name': autocomplete.ModelSelect2Multiple(
+                url='/vocabs-ac/specific-concept-ac/shape'),
+            'fabric': autocomplete.ModelSelect2Multiple(
+                url='/vocabs-ac/specific-concept-ac/fabric'),
+            'painting_style': autocomplete.ModelSelect2Multiple(
+                url='/vocabs-ac/specific-concept-ac/painting_style'),
+        }
 
     def __init__(self, *args, **kwargs):
         super(DigitalContainerForm, self).__init__(*args, **kwargs)
