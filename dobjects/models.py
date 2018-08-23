@@ -63,10 +63,9 @@ class Period(models.Model):
             return "{}".format(self.id)
 
     # not yet in use, but might be needed
-    @classmethod
     def get_dates_str(self):
         if self.period_end_year:
-            return "{}-{}".format(self.period_start_year, self.period_end_year)
+            return "{} - {}".format(self.period_start_year, self.period_end_year)
         elif self.period_start_year:
             return "{}".format(self.period_start_year)
         else:
@@ -104,6 +103,11 @@ class DigitalContainer(models.Model):
     folder_name = models.CharField(
         max_length=300, blank=True, verbose_name="Folder name",
         help_text="Name of folder containing all files related to the vase."
+    )
+    shape_name = models.ManyToManyField(
+        SkosConcept, blank=True, verbose_name="Shape",
+        help_text="blrb",
+        related_name="is_shape"
     )
     id_inv_nr = models.CharField(
         max_length=300, blank=True, verbose_name="ID Inv.Nr.",

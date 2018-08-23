@@ -139,6 +139,7 @@ class DigitalContainerFilterFormHelper(FormHelper):
                 AccordionGroup(
                     'Advanced search',
                     'related_object',
+                    'shape_name',
                     'period',
                     'fabric',
                     'painting_style',

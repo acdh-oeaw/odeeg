@@ -135,6 +135,12 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>Date Range</th>
+                                <td>
+                                    <a href="{{ object.period.get_absolute_url }}">{{ object.period.get_dates_str }}</a>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Provenance</th>
                                 <td>
                                     <small>{% get_verbose_name digitalcontainer "pl_find" %}:</small> <a href="{{ object.pl_find.get_absolute_url }}">{{ object.pl_find }}</a>
@@ -145,6 +151,14 @@
                                     <br/>
                                     <small>{% get_verbose_name digitalcontainer "prov_attr_artist" %}:</small> {{ object.prov_attr_artist }}<br/>
                                     <small>{% get_verbose_name digitalcontainer "pl_acq" %}:</small> <a href="{{ object.pl_acq.get_absolute_url }}">{{ object.pl_acq }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "shape_name" %}</th>
+                                <td>
+                                    {% for x in object.shape_name.all %}
+                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                    {%  endfor  %}
                                 </td>
                             </tr>
                             <tr>

@@ -85,6 +85,13 @@ i.fa-info-circle {
     border: none;
 }
 
+.table-information th {
+    color: #343a40;
+    /*font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;*/
+    font-weight: normal;
+    font-size: 1rem;
+}
+
 hr.hr-detail-view {
     border-style: dashed;
     border-color: rgba(0,0,0,.125);

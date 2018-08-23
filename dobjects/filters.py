@@ -32,6 +32,15 @@ class DigitalContainerListFilter(django_filters.FilterSet):
         method=generous_concept_filter,
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'chbx-select-multi'})
         )
+    shape_name = django_filters.ModelMultipleChoiceFilter(
+        queryset=SkosConcept.objects.filter(
+            scheme__dc_title__icontains="shape"
+            ),
+        help_text=DigitalContainer._meta.get_field('shape_name').help_text,
+        label=DigitalContainer._meta.get_field('shape_name').verbose_name,
+        method=generous_concept_filter,
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'chbx-select-multi'})
+        )
 
     class Meta:
         model = DigitalContainer
