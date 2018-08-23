@@ -209,6 +209,7 @@ class DigitalContainerListView(GenericListView):
     init_columns = [
         'id',
         'id_inv_nr',
+        'painting_style',
         'period'
     ]
 

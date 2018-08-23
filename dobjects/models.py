@@ -62,6 +62,16 @@ class Period(models.Model):
         else:
             return "{}".format(self.id)
 
+    # not yet in use, but might be needed
+    @classmethod
+    def get_dates_str(self):
+        if self.period_end_year:
+            return "{}-{}".format(self.period_start_year, self.period_end_year)
+        elif self.period_start_year:
+            return "{}".format(self.period_start_year)
+        else:
+            return "{}".format(self.id)
+
     @classmethod
     def get_listview_url(self):
         return reverse('dobjects:browse_periods')
@@ -149,7 +159,7 @@ class DigitalContainer(models.Model):
     )
     pl_find = models.ForeignKey(
         Place, blank=True, null=True, related_name="finding_spot_of", on_delete=models.SET_NULL,
-        verbose_name="Provenance: Find spot",
+        verbose_name="Find spot",
         help_text="Find spot for Provenance as defined by Getty AAT with ID 300055863."
     )
     pl_find_cert = models.CharField(
@@ -159,17 +169,17 @@ class DigitalContainer(models.Model):
         'undetermined': 300379012; 'unavailable': 300400512"
     )
     prov_attr_artist = models.TextField(
-        blank=True, verbose_name="Provenance: Attributed to artist/maker",
+        blank=True, verbose_name="Attributed to artist/maker",
         help_text="Artist or maker the object is attributed to."
     )
     pl_prod_center = models.ForeignKey(
         Place, blank=True, null=True, related_name="production_spot_of", on_delete=models.SET_NULL,
-        verbose_name="Provenance: Production center/workshop",
+        verbose_name="Production center/workshop",
         help_text="Production center or workshop the object is associated with."
     )
     pl_acq = models.ForeignKey(
         Place, blank=True, null=True, related_name="acquisition_spot_of", on_delete=models.SET_NULL,
-        verbose_name="Provenance: Place of latest acquisition",
+        verbose_name="Place of latest acquisition",
         help_text="Place of latest acquisition of object, mostly refers to modern place names."
     )
     cva_ref = models.CharField(

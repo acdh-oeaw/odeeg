@@ -109,7 +109,7 @@ $("#goto option").each(function() {
             <div class="card">
             <div class="card-body">
     {% with table.paginator.count as total %}
-        <legend>Total results: {{ total }}</legend>
+        <legend>Result: {{ total }} items</legend>
         {% if conf_items %}
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle dropdown-custom" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

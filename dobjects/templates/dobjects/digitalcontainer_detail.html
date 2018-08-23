@@ -69,39 +69,51 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
-                    <legend>
-                        Images
-                    </legend>
-                    {% for x in imgs %}
-                        <li>
-                            <a href="{{ x.acdh_id }}?format=raw">{{ x }}</a>
-                        </li>
-                    {% endfor %}
-                    <legend>
-                        Illustrations
-                    </legend>
-                    {% for x in illustrations %}
-                        <li>
-                            {{ x }}
-                        </li>
-                    {% endfor %}
-                    <legend>
-                        3D Data
-                    </legend>
-                    {% for x in threeds %}
-                        <li>
-                            {{ x }}
-                        </li>
-                    {% endfor %}
+                    {% if imgs %}
+                      <legend>
+                          Images
+                      </legend>
+                      {% for x in imgs %}
+                          <li>
+                              <a href="{{ x.acdh_id }}?format=raw">{{ x }}</a>
+                          </li>
+                      {% endfor %}
+                    {% endif %}
+                    {% if illustrations %}
+                      <legend>
+                          Illustrations
+                      </legend>
+                      {% for x in illustrations %}
+                          <li>
+                              {{ x }}
+                          </li>
+                      {% endfor %}
+                    {% endif %}
+                    {% if threeds %}
+                      <legend>
+                          3D Data
+                      </legend>
+                      {% for x in threeds %}
+                          <li>
+                              {{ x }}
+                          </li>
+                      {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
-                    <table class="table">
+                    <table class="table table-information table-hover">
                             <tr>
                                 <th>{% get_verbose_name digitalcontainer "folder_name" %}
                                     <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text digitalcontainer 'folder_name' %}"></i>
                                 </th>
                                 <td>
                                     {{ object.folder_name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{% get_verbose_name digitalcontainer "located_at" %}</th>
+                                <td>
+                                    <a href="{{ object.located_at.get_absolute_url }}">{{ object.located_at }}</a>
                                 </td>
                             </tr>
                             <tr>
@@ -116,16 +128,6 @@
                                     {{ object.bapd_nr }}
                                 </td>
                             </tr>
-                            {% if object.related_object.all %}
-                                <tr>
-                                    <th>{% get_verbose_name digitalcontainer "related_object" %}</th>
-                                    <td>
-                                        {% for x in object.related_object.all %}
-                                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                                        {%  endfor  %}
-                                    </td>
-                                </tr>
-                            {% endif %}
                             <tr>
                                 <th>{% get_verbose_name digitalcontainer "period" %}</th>
                                 <td>
@@ -133,9 +135,16 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>{% get_verbose_name digitalcontainer "located_at" %}</th>
+                                <th>Provenance</th>
                                 <td>
-                                    <a href="{{ object.located_at.get_absolute_url }}">{{ object.located_at }}</a>
+                                    <small>{% get_verbose_name digitalcontainer "pl_find" %}:</small> <a href="{{ object.pl_find.get_absolute_url }}">{{ object.pl_find }}</a>
+                                    {% if object.pl_find_cert %}
+                                    ({{ object.pl_find_cert }})
+                                    {% endif %} <br/>
+                                    <small>{% get_verbose_name digitalcontainer "pl_prod_center" %}:</small> <a href="{{ object.pl_prod_center.get_absolute_url }}">{{ object.pl_prod_center }}</a>
+                                    <br/>
+                                    <small>{% get_verbose_name digitalcontainer "prov_attr_artist" %}:</small> {{ object.prov_attr_artist }}<br/>
+                                    <small>{% get_verbose_name digitalcontainer "pl_acq" %}:</small> <a href="{{ object.pl_acq.get_absolute_url }}">{{ object.pl_acq }}</a>
                                 </td>
                             </tr>
                             <tr>
@@ -147,65 +156,19 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>{% get_verbose_name digitalcontainer "painting_style" %}</th>
+                                <th>Technique</th>
                                 <td>
-                                    {% for x in object.painting_style.all %}
+                                    <small>{% get_verbose_name digitalcontainer "painting_style" %}:</small> {% for x in object.painting_style.all %}
                                         <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                                     {%  endfor  %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% get_verbose_name digitalcontainer "painting_sub_technique" %}</th>
-                                <td>
-                                    {% for x in object.painting_sub_technique.all %}
+                                    <br/>
+                                    <small>{% get_verbose_name digitalcontainer "painting_sub_technique" %}:</small> {% for x in object.painting_sub_technique.all %}
                                         <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                                     {%  endfor  %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% get_verbose_name digitalcontainer "formating_technique" %}</th>
-                                <td>
-                                    {% for x in object.formating_technique.all %}
+                                    <br/>
+                                    <small>{% get_verbose_name digitalcontainer "formating_technique" %}:</small> {% for x in object.formating_technique.all %}
                                         <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                                     {%  endfor  %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% get_verbose_name digitalcontainer "formating_technique" %}</th>
-                                <td>
-                                    {% for x in object.formating_technique.all %}
-                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                                    {%  endfor  %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% get_verbose_name digitalcontainer "pl_find" %}</th>
-                                <td>
-                                    <a href="{{ object.pl_find.get_absolute_url }}">{{ object.pl_find }}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% get_verbose_name digitalcontainer "pl_find_cert" %}</th>
-                                <td>
-                                    {{ object.pl_find_cert }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% get_verbose_name digitalcontainer "pl_prod_center" %}</th>
-                                <td>
-                                    <a href="{{ object.pl_prod_center.get_absolute_url }}">{{ object.pl_prod_center }}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% get_verbose_name digitalcontainer "prov_attr_artist" %}</th>
-                                <td>
-                                    {{ object.prov_attr_artist }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>{% get_verbose_name digitalcontainer "pl_acq" %}</th>
-                                <td>
-                                    <a href="{{ object.pl_acq.get_absolute_url }}">{{ object.pl_acq }}</a>
                                 </td>
                             </tr>
                             <tr>
@@ -220,10 +183,20 @@
                                     <a href="{{ object.collection_reference }}">{{ object.collection_reference }}</a>
                                 </td>
                             </tr>
+                            {% if object.related_object.all %}
+                                <tr>
+                                    <th>{% get_verbose_name digitalcontainer "related_object" %}</th>
+                                    <td>
+                                        {% for x in object.related_object.all %}
+                                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                        {%  endfor  %}
+                                    </td>
+                                </tr>
+                            {% endif %}
                     </table>
-                    <hr/>
+                    <hr class="hr-detail-view"/>
                     <legend>Measurements</legend>
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-information table-hover">
                         <tr>
                             <th>{% get_verbose_name digitalcontainer "weight" %}</th>
                             <td>
@@ -282,9 +255,9 @@
 
                     {% if object.has_threed.all %}
                         {% for x in object.has_threed.all %}
-                            <hr/>
-                            <legend>3d models</legend>
-                            <table class="table table-bordered table-hover">
+                            <hr class="hr-detail-view"/>
+                            <legend>3d Models</legend>
+                            <table class="table table-information table-hover">
                                 <tr>
                                     <th>3D Scanner <small><a href="{{ x.get_absolute_url }}">more</a></small></th>
                                     <td>
@@ -303,9 +276,9 @@
                     {% endif %}
                     {% if object.has_photo.all %}
                         {% for x in object.has_photo.all %}
-                            <hr/>
-                            <legend>Photos</legend>
-                            <table class="table table-bordered table-hover">
+                            <hr class="hr-detail-view"/>
+                            <legend>Photographs</legend>
+                            <table class="table table-information table-hover">
                                 <tr>
                                     <th>by</th>
                                     <td>
@@ -334,9 +307,9 @@
                     {% endif %}
                     {% if object.has_illustration.all %}
                         {% for x in object.has_illustration.all %}
-                            <hr/>
+                            <hr class="hr-detail-view"/>
                             <legend>Illustrations</legend>
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-information table-hover">
                                 <tr>
                                     <th>by</th>
                                     <td>
