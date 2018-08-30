@@ -281,6 +281,13 @@ class DigitalContainer(models.Model):
         except AttributeError:
             return None
 
+    def get_thumbnail(self):
+        img_list = self.fetch_binaries()
+        if img_list:
+            return "{}?format=iiif&PARAM=/full/,150/0/default.jpg".format(img_list[0].acdh_id)
+        else:
+            None
+
 
 @reversion.register()
 class ThreeD(models.Model):

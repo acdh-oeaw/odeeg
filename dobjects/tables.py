@@ -6,6 +6,10 @@ from dobjects.models import DigitalContainer
 
 class DigitalContainerTable(tables.Table):
     id = tables.LinkColumn(verbose_name='ID')
+    thumbnail = tables.TemplateColumn(
+        template_name="dobjects/templatecolumn/thumbcolumn.html",
+        orderable=False
+    )
     shape_name = tables.ManyToManyColumn()
     fabric = tables.ManyToManyColumn()
     painting_style = tables.ManyToManyColumn()
