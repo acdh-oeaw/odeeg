@@ -68,9 +68,9 @@ div.dropdown {
     color: #808080;
 }
 
-ul.dropdown-menu {
+/* ul.dropdown-menu {
     transform: translate3d(-68px, 33px, 0px) !important;
-}
+} */
 
 /**
 * styling of detail view of vases
