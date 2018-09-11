@@ -7,7 +7,36 @@ body {
     flex-direction: column;
     height: 100%;
     font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.9rem;
     padding-top: 70px;
+}
+
+a, a:hover{
+    color: #C4461C;
+}
+
+h1, h2, h3, h4, h5{
+    font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
+}
+
+h1 {
+    font-size: 2.25rem;
+}
+
+h2 {
+    font-size: 2.0rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
 }
 
 /*remove round corners everywhere*/
@@ -45,6 +74,7 @@ a.nav-link{
 .detail-title {
     font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
 }
+
 
 /** round icons for myCarousel **/
 .carousel-indicators--round li {
@@ -84,6 +114,27 @@ div.dropdown {
     color: #808080;
 }
 
+.detail-left-side, .search-left-side{
+    border: none;
+}
+
+.list-toggle-buttons{
+    color: #C4461C;
+    text-align: right;
+}
+
+.list-toggle-buttons i{
+    color: #C4461C;
+}
+
+.list-toggle-buttons i.active{
+    color: #808080;
+}
+
+.thumb-cell{
+    display: none;
+}
+
 /* ul.dropdown-menu {
     transform: translate3d(-68px, 33px, 0px) !important;
 } */
@@ -106,6 +157,7 @@ i.fa-info-circle {
     /*font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;*/
     font-weight: normal;
     font-size: 1rem;
+    width: 25%;
 }
 
 hr.hr-detail-view {

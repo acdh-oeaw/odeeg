@@ -153,7 +153,7 @@ class DigitalContainerFilterFormHelper(FormHelper):
 
 class DigitalContainerForm(forms.ModelForm):
 
-    fabric = forms.ModelMultipleChoiceField(
+    fabric = forms.ModelMultipleChoiceField(required=False,
         queryset=SkosConcept.objects.filter(scheme__dc_title__icontains="fabric")
     )
 

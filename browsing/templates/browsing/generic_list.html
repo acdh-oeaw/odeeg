@@ -21,6 +21,22 @@ $("#goto option").each(function() {
     }
 });
 });
+// Get the elements with class="column"
+var elements = document.getElementsByClassName("thumb-cell");
+// Declare a loop variable
+var i;
+// hide thumbnails
+function hideThumbs() {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].style.display = "none";
+  }
+}
+// Show thumbnails
+function showThumbs() {
+  for (i = 0; i < elements.length; i++) {
+    elements[i].style.display = "inherit";
+  }
+}
 </script>
 <style>
 
@@ -29,8 +45,8 @@ $("#goto option").each(function() {
 
 
         <div class="row">
-            <div class="col-md-4">
-            <div class="card">
+            <div class="col-md-3 offset-lg-1">
+            <div class="card search-left-side">
             <div class="card-body">
               <!--Title of search and buttons-->
              <h3 style="margin-bottom:15px;">
@@ -105,9 +121,15 @@ $("#goto option").each(function() {
             </div>
             </div>
             </div>
-            <div class="col-md-8" id="results">
+            <div class="col-md-5" id="results">
             <div class="card">
             <div class="card-body">
+            <div class="list-toggle-buttons">
+            {% if request.path == "/dobjects/digitalcontainers/" %}
+                <button class="btn" onclick="hideThumbs()" data-toggle="tooltip" data-placement="bottom" title="Hide thumbnails"><i class="fa fa-bars active" id="hideThumbs"></i></button>
+                <button class="btn" onclick="showThumbs()" data-toggle="tooltip" data-placement="bottom" title="Show thumbnails"><i class="fa fa-th-list" id="showThumbs"></i></button>
+            {% endif %}
+            </div>
     {% with table.paginator.count as total %}
         <legend>Result: {{ total }} items</legend>
         {% if conf_items %}
@@ -126,13 +148,13 @@ $("#goto option").each(function() {
         {% endif %}
     {% endwith %}
 
-
       {% block table %}
       <table class="table" {% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
           {% block table.thead %}
           {% if table.show_header %}
           <thead>
               <tr>
+                  <th class="thumb-cell">&nbsp;</th>
               {% for column in table.columns %}
                   {% if column.orderable %}
                   <th {{ column.attrs.th.as_html }}><a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a></th>
@@ -149,6 +171,11 @@ $("#goto option").each(function() {
               {% for row in table.page.object_list|default:table.rows %} {# support pagination #}
               {% block table.tbody.row %}
               <tr {{ row.attrs.as_html }}>
+                  <td class="thumb-cell">
+                      {% if record.get_thumbnail %}
+                          <img src="{{ record.get_thumbnail }}" alt="{{ record.get_thumbnail }}" class="img-thumbnail" />
+                      {% endif %}
+                  </td>
                   {% for column, cell in row.items %}
                   <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
 
