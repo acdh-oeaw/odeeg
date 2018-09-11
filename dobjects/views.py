@@ -11,7 +11,7 @@ from reversion.models import Version
 from . filters import *
 from . forms import *
 from . models import Period, DigitalContainer, ThreeD, Illustration
-from . tables import DigitalContainerTable
+from . tables import DigitalContainerTable, PeriodTable
 
 
 class IllustrationListView(GenericListView):
@@ -206,10 +206,10 @@ class DigitalContainerListView(GenericListView):
     formhelper_class = DigitalContainerFilterFormHelper
     table_class = DigitalContainerTable
     init_columns = [
-        'id',
+        'thumbnail',
         'id_inv_nr',
         'shape_name',
-        'period'
+        'period',
     ]
 
 
@@ -257,6 +257,7 @@ class PeriodListView(GenericListView):
     model = Period
     filter_class = PeriodListFilter
     formhelper_class = PeriodFilterFormHelper
+    table_class = PeriodTable
     init_columns = [
         'id',
         'name',

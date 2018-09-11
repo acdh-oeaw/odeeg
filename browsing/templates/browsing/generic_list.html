@@ -22,19 +22,27 @@ $("#goto option").each(function() {
 });
 });
 // Get the elements with class="column"
-var elements = document.getElementsByClassName("thumb-cell");
+var elements = document.getElementsByClassName("thumbnail");
 // Declare a loop variable
 var i;
 // hide thumbnails
 function hideThumbs() {
   for (i = 0; i < elements.length; i++) {
     elements[i].style.display = "none";
+    var buttonShow = document.getElementById("hideThumbs");
+    buttonShow.classList.add("active");
+    var buttonHide = document.getElementById("showThumbs");
+    buttonHide.classList.remove("active");
   }
 }
 // Show thumbnails
 function showThumbs() {
   for (i = 0; i < elements.length; i++) {
     elements[i].style.display = "inherit";
+    var buttonShow = document.getElementById("showThumbs");
+    buttonShow.classList.add("active");
+    var buttonHide = document.getElementById("hideThumbs");
+    buttonHide.classList.remove("active");
   }
 }
 </script>
@@ -154,7 +162,6 @@ function showThumbs() {
           {% if table.show_header %}
           <thead>
               <tr>
-                  <th class="thumb-cell">&nbsp;</th>
               {% for column in table.columns %}
                   {% if column.orderable %}
                   <th {{ column.attrs.th.as_html }}><a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a></th>
@@ -171,14 +178,11 @@ function showThumbs() {
               {% for row in table.page.object_list|default:table.rows %} {# support pagination #}
               {% block table.tbody.row %}
               <tr {{ row.attrs.as_html }}>
-                  <td class="thumb-cell">
-                      {% if record.get_thumbnail %}
-                          <img src="{{ record.get_thumbnail }}" alt="{{ record.get_thumbnail }}" class="img-thumbnail" />
-                      {% endif %}
-                  </td>
                   {% for column, cell in row.items %}
-                  <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
-
+                  <td {{ column.attrs.td.as_html }}>
+                    <div>
+                    {% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
+                    </div>
                   {% endfor %}
               </tr>
               {% endblock table.tbody.row %}

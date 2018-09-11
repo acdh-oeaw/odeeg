@@ -284,7 +284,7 @@ class DigitalContainer(models.Model):
     def get_thumbnail(self):
         img_list = self.fetch_binaries()
         if img_list:
-            return "{}?format=iiif&PARAM=/full/,150/0/default.jpg".format(img_list[0].acdh_id)
+            return "{}?format=iiif&PARAM=/full/,120/0/default.jpg".format(img_list[0].acdh_id)
         else:
             None
 
