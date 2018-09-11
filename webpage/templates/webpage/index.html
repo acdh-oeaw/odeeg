@@ -12,7 +12,7 @@
           </p>
         </div>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
+            <ol class="carousel-indicators carousel-indicators--round">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
@@ -44,6 +44,7 @@
         <h1 style="text-align:center">{% projects_metadata 'title' %}</h1>
         <h3>{% projects_metadata 'subtitle' %}</h3>
         <p>{% projects_metadata 'description' %}</p>
+
         <div>
             <h3>Data-Count</h3>
             {% create_object_count app='dobjects' as models %}

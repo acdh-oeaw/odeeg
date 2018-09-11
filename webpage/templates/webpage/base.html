@@ -87,7 +87,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                  <ul class="navbar-nav mr-auto">
-                 <li class="nav-item active">
+                 <li class="nav-item {% if request.path == '/' %} active {% endif %}">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -96,17 +96,17 @@
                   <span class="caret"/>
                   </a>
                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{% url 'webpage:staticpage' template='about' %}">About project</a>
+                    <a class="dropdown-item" href="{% url 'webpage:staticpage' template='about' %}">About Project</a>
                     <a class="dropdown-item" href="{% url 'webpage:staticpage' template='imprint' %}">Imprint | Impressum</a>
                 </div>
               </li>
                 <li class="nav-item dropdown">
                         {% if user.is_authenticated %}
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Curate and Browse the Data
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Curate and Browse Data
                         <span class="caret"/>
                         </a>
                         {% else %}
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Browse the Data
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Browse Data
                         <span class="caret"/>
                         </a>
                         {% endif %}
@@ -164,6 +164,9 @@
                             </div>
                         </li>
                     {% endif %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'webpage:staticpage' template='resources' %}">Resources</a>
+                  </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="dropdown">
@@ -175,11 +178,9 @@
                                 <a class="nav-link" href="{% url 'webpage:user_logout' %}">Log-Out</a>
                             </div>
                         {% else %}
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a href="{% url 'webpage:user_login' %}" class="nav-link">
+                              Log-In
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right bg-dark">
-                                <a class="nav-link " href="{% url 'webpage:user_login' %}">Log-In</a>
-                            </div>
                         {% endif %}
                     </li>
                 </ul>

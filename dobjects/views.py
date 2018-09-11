@@ -151,7 +151,6 @@ class DigitalContainerDetailView(DetailView):
     model = DigitalContainer
     template_name = 'dobjects/digitalcontainer_detail.html'
 
-
     def get_context_data(self, **kwargs):
         context = super(DigitalContainerDetailView, self).get_context_data(**kwargs)
         context['history'] = Version.objects.get_for_object(self.object)
@@ -209,7 +208,7 @@ class DigitalContainerListView(GenericListView):
     init_columns = [
         'id',
         'id_inv_nr',
-        'painting_style',
+        'shape_name',
         'period'
     ]
 

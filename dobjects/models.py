@@ -295,7 +295,7 @@ class ThreeD(models.Model):
 
     digital_container = models.ForeignKey(
         DigitalContainer, blank=True, null=True,
-        verbose_name="Vase Object (ID Inv.Nr.)", help_text="The 3d models source",
+        verbose_name="Vase Object (ID Inv.Nr.)", help_text="The 3d model's source",
         related_name="has_threed", on_delete=models.SET_NULL
     )
     survey_location = models.ForeignKey(
