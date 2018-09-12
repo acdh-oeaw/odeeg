@@ -40,3 +40,4 @@ dev_secret.py
 
 # development folder
 /myenv/*
+dump.sql
