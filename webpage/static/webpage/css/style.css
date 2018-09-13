@@ -135,6 +135,10 @@ div.dropdown {
     display: none;
 }
 
+th.thumbnail{
+    display: none !important;
+}
+
 .thumbnail div{
     width: 120px;
     height: 120px;
