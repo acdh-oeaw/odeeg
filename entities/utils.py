@@ -8,7 +8,8 @@ def get_coordinates(gnd_id):
     WSG84 = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
     try:
         parsed = g.parse("https://www.geonames.org/{}/about.rdf".format(gnd_id))
-    except:
+    except Exception as e:
+        print(e)
         return None
     if parsed:
         lat = [x for x in parsed.subject_objects(WSG84.lat)][0][1].value
