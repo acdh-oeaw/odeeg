@@ -65,8 +65,15 @@ class Period(models.Model):
     # not yet in use, but might be needed
     def get_dates_str(self):
         if self.period_end_year:
-            return "{} - {}".format(self.period_start_year, self.period_end_year)
+            if self.period_end_year < 0:
+                return "{} - {} {}".format(abs(self.period_start_year), abs(self.period_end_year), "BCE")
+            elif self.period_start_year < 0:
+                return "{} {} - {} {}".format(abs(self.period_start_year), "BCE", self.period_end_year, "CE")
+            else:
+                return "{} - {} {}".format(self.period_start_year, self.period_end_year, "CE")
         elif self.period_start_year:
+            if self.period_start_year < 0:
+                    "{} {}".format(self.period_start_year, "BCE")
             return "{}".format(self.period_start_year)
         else:
             return "{}".format(self.id)

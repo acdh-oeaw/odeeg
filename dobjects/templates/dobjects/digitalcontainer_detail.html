@@ -69,36 +69,70 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3 offset-lg-1 detail-left-side">
-                    {% if imgs %}
-                        <legend>
-                            Images
-                        </legend>
-                      {% for x in imgs %}
-                          <li>
-                              <a href="{{ x.acdh_id }}?format=raw">{{ x }}</a>
+
+
+                  <div id="binaries" class="container">
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                          <li class="nav-item">
+                              <a class="nav-link active" id="threed-tab" data-toggle="tab" href="#threed" role="tab" aria-controls="threed" aria-selected="true">3D-Viewer</a>
                           </li>
-                      {% endfor %}
-                    {% endif %}
-                    {% if illustrations %}
-                      <legend>
-                          Illustrations
-                      </legend>
-                      {% for x in illustrations %}
-                          <li>
-                              {{ x }}
+                          <li class="nav-item">
+                              <a class="nav-link" id="IIIF-tab" data-toggle="tab" href="#IIIF" role="tab" aria-controls="IIIF" aria-selected="false">Image-Viewer</a>
                           </li>
-                      {% endfor %}
-                    {% endif %}
-                    {% if threeds %}
-                      <legend>
-                          3D Data
-                      </legend>
-                      {% for x in threeds %}
-                          <li>
-                              {{ x }}
-                          </li>
-                      {% endfor %}
-                    {% endif %}
+
+                      </ul>
+
+                      <div class="tab-content" id="myTabContent">
+                          <div class="tab-pane fade show active" id="threed" role="tabpanel" aria-labelledby="threed-tab">
+                              {% if 3d %}
+                                  <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
+                                      <div id="toolbar">
+                                          <img id="home"     title="Home"                  src="{% static 'webpage/libraries/3dhop/skins/dark/home.png' %}"   /><br/>
+                                          <img id="zoomin"   title="Zoom In"               src="{% static 'webpage/libraries/3dhop/skins/dark/zoomin.png' %}" /><br/>
+                                          <img id="zoomout"  title="Zoom Out"              src="{% static 'webpage/libraries/3dhop/skins/dark/zoomout.png' %}"/><br/>
+                                          <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
+                                          <img id="light"    title="Enable Light Control"  src="{% static 'webpage/libraries/3dhop/skins/dark/light.png' %}"/><br/>
+                                          <img id="full_on"  title="Exit Full Screen"      src="{% static 'webpage/libraries/3dhop/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
+                                          <img id="full"     title="Full Screen"           src="{% static 'webpage/libraries/3dhop/skins/dark/full.png' %}"   />
+                                      </div>
+                                      <canvas id="draw-canvas"/>
+                                  </div>
+                                {% else %}
+                                <h6>No 3d objects for this object stored in ARCHE</h6>
+                          {% endif %}
+                          </div>
+                          <div class="tab-pane fade" id="IIIF" role="tabpanel" aria-labelledby="IIIF-tab">
+                              {% if iiif %}
+                                  <div id="example-xmlhttprequest-for-info-json" class="openseadragon" style="width: 100%; height: 400px">
+                                      <script type="text/javascript">
+                                          OpenSeadragon({
+                                              id:            "example-xmlhttprequest-for-info-json",
+                                              prefixUrl:     "{% static 'webpage/libraries/openseadragon/images/' %}",
+                                              sequenceMode:  true,
+                                              showReferenceStrip: true,
+                                              referenceStripHeight: 100,
+                                              tileSources :  {{ iiif|safe }}
+                                          });
+                                      </script>
+                                      <noscript>
+                                          <p>OpenSeadragon is not available unless JavaScript is enabled.</p>
+                                          <img src='/example-images/highsmith/01967v.jpg'
+                                               height='600'/>
+                                      </noscript>
+                                  </div>
+                              {% else %}
+                                  <h6>No images for this object stored in ARCHE</h6>
+                              {% endif %}
+                          </div>
+
+                    </div>
+                  </div>
+
+
+
+
+
+
                 </div>
                 <div class="col-md-5">
                     <table class="table table-information table-hover">
@@ -132,12 +166,9 @@
                                 <th>{% get_verbose_name digitalcontainer "period" %}</th>
                                 <td>
                                     <a href="{{ object.period.get_absolute_url }}">{{ object.period }}</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Date Range</th>
-                                <td>
-                                    <a href="{{ object.period.get_absolute_url }}">{{ object.period.get_dates_str }}</a>
+                                    {% if object.period.get_dates_str %}
+                                    ({{ object.period.get_dates_str }})
+                                    {% endif %}
                                 </td>
                             </tr>
                             <tr>
@@ -359,63 +390,37 @@
                     {% endif %}
                 </div>
                 <div class="col-md-3">
-                    some notes
-                </div>
-            </div>
+                  {% if imgs %}
+                      <legend>
+                          Images
+                      </legend>
+                    {% for x in imgs %}
+                        <li>
+                            <a href="{{ x.acdh_id }}?format=raw">{{ x }}</a>
+                        </li>
+                    {% endfor %}
+                  {% endif %}
+                  {% if illustrations %}
+                    <legend>
+                        Illustrations
+                    </legend>
+                    {% for x in illustrations %}
+                        <li>
+                            {{ x }}
+                        </li>
+                    {% endfor %}
+                  {% endif %}
+                  {% if threeds %}
+                    <legend>
+                        3D Data
+                    </legend>
+                    {% for x in threeds %}
+                        <li>
+                            {{ x }}
+                        </li>
+                    {% endfor %}
+                  {% endif %}
 
-            <div id="binaries" class="container">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="threed-tab" data-toggle="tab" href="#threed" role="tab" aria-controls="threed" aria-selected="true">3D-Viewer</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="IIIF-tab" data-toggle="tab" href="#IIIF" role="tab" aria-controls="IIIF" aria-selected="false">Image-Viewer</a>
-                    </li>
-
-                </ul>
-
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="threed" role="tabpanel" aria-labelledby="threed-tab">
-                        {% if 3d %}
-                            <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
-                                <div id="toolbar">
-                                    <img id="home"     title="Home"                  src="{% static 'webpage/libraries/3dhop/skins/dark/home.png' %}"   /><br/>
-                                    <img id="zoomin"   title="Zoom In"               src="{% static 'webpage/libraries/3dhop/skins/dark/zoomin.png' %}" /><br/>
-                                    <img id="zoomout"  title="Zoom Out"              src="{% static 'webpage/libraries/3dhop/skins/dark/zoomout.png' %}"/><br/>
-                                    <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
-                                    <img id="light"    title="Enable Light Control"  src="{% static 'webpage/libraries/3dhop/skins/dark/light.png' %}"/><br/>
-                                    <img id="full_on"  title="Exit Full Screen"      src="{% static 'webpage/libraries/3dhop/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
-                                    <img id="full"     title="Full Screen"           src="{% static 'webpage/libraries/3dhop/skins/dark/full.png' %}"   />
-                                </div>
-                                <canvas id="draw-canvas"/>
-                            </div>
-                          {% else %}
-                          <h4>no 3d objects for this objects stored in ARCHE</h4>
-                    {% endif %}
-                    </div>
-                    <div class="tab-pane fade" id="IIIF" role="tabpanel" aria-labelledby="IIIF-tab">
-                        {% if iiif %}
-                            <div id="example-xmlhttprequest-for-info-json" class="openseadragon" style="width: 100%; height: 400px">
-                                <script type="text/javascript">
-                                    OpenSeadragon({
-                                        id:            "example-xmlhttprequest-for-info-json",
-                                        prefixUrl:     "{% static 'webpage/libraries/openseadragon/images/' %}",
-                                        sequenceMode:  true,
-                                        showReferenceStrip: true,
-                                        referenceStripHeight: 100,
-                                        tileSources :  {{ iiif|safe }}
-                                    });
-                                </script>
-                                <noscript>
-                                    <p>OpenSeadragon is not available unless JavaScript is enabled.</p>
-                                    <img src='/example-images/highsmith/01967v.jpg'
-                                         height='600'/>
-                                </noscript>
-                            </div>
-                        {% else %}
-                            <h4>No images for this object stored in ARCHE</h4>
-                        {% endif %}
-                    </div>
                 </div>
             </div>
         </div>
@@ -450,8 +455,7 @@
         $(document).ready(function(){
             init3dhop();
             setup3dhop();
-            resizeCanvas(1200,800);
-            moveToolbar(2,2);
+            moveToolbar(0,5);
         });
     </script>
 {% endif %}
