@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'reversion',
     'crispy_forms',
     'django_filters',
+    'django_extensions',
     'django_tables2',
     'rest_framework',
     'webpage',
