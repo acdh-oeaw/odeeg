@@ -1,4 +1,7 @@
+import ast
 import pandas as pd
+from jinja2 import Template
+from . import code_templates
 
 
 def xlsx_to_classdicts(file):
@@ -22,8 +25,23 @@ def xlsx_to_classdicts(file):
                 field = {}
                 field['field_name'] = field_name
                 if '|' in row['field type']:
-                    field['field_type'] = row['field type'].split('|')[0]
-                    field['related_class'] = row['field type'].split('|')[1]
+                    field_type = row['field type'].split('|')[0]
+                    if field_type == 'FK':
+                        field['field_type'] = 'ForeignKey'
+                    else:
+                        field['field_type'] = 'ManyToManyField'
+                    field['related_class'] = row['field type'].split('|')[1].split(':')[0]
+                    field['related_name'] = "rvn_{}_{}".format(
+                        field_name, field['related_class'].lower()
+                    )
+                elif row['field type'] == "URI":
+                    field['field_type'] = "CharField"
+                elif row['field type'] == "Boolean":
+                    field['field_type'] = "BooleanField"
+                elif row['field type'] == "ChoiceField":
+                    if isinstance(row['choices'], str):
+                        field['choices'] = ast.literal_eval(row['choices'])
+                    field['field_type'] = "CharField"
                 else:
                     field['field_type'] = row['field type']
                 if isinstance(row['verbose field name'], str):
@@ -33,3 +51,14 @@ def xlsx_to_classdicts(file):
 
                 class_dict['model_fields'].append(field)
         yield class_dict
+
+
+def serialize_data_model(dicts, app_name="my_sirad_app", file_name='output_model.py'):
+    t = Template(code_templates.MODELS_PY)
+    output = t.render(
+        data=dicts,
+        app_name=app_name
+    )
+    with open(file_name, "w") as text_file:
+        print(output, file=text_file)
+    return output

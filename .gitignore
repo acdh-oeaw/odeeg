@@ -18,6 +18,7 @@ vocabs/migrations/*
 bib/migrations/*
 webpage/migrations/*
 places/migrations/*
+output_*.py
 
 
 # Ipython Notebook checkpoints

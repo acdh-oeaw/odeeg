@@ -216,64 +216,37 @@ from browsing.browsing_utils import model_to_dict
 
 {% for x in data %}
 class {{ x.model_name }}(models.Model):
+    {% if x.model_helptext %}### {{ x.model_helptext }} ###{% endif %}
     {%- for y in x.model_fields %}
     {{ y.field_name }} = models.{{ y.field_type}}(
+        {%- if y.field_type == 'CharField' %}
+        {%- if y.choices %}
+        choices = {{ y.choices }},
+        {%- endif %}
+        max_length=250,
+        blank=True,
+        {%- elif y.field_type == 'TextField' %}
+        blank=True,
+        {%- elif y.field_type == 'ForeignKey' %}
+        "{{ y.related_class }}",
+        related_name='{{ y.related_name }}',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        {%- elif y.field_type == 'ManyToManyField' %}
+        "{{ y.related_class }}",
+        related_name='{{ y.related_name }}',
+        blank=True,
+        {%- else %}
+        blank=True, null=True,
+        {%- endif %}
         verbose_name="{{ y.field_verbose_name }}",
         help_text="{{ y.field_helptext }}",
-        {%- if y.field_type == 'CharField' %}
-        max_length=250,
-        blank=True
-        {%- elif y.model_field_type == 'TextField' %}
-        blank=True
-        {%- else %}
-        blank=True, null=True
-        {%- endif %}
     )
     {%- endfor %}
 
     def __str__(self):
         return "{}".format(self.id)
-
-    def field_dict(self):
-        return model_to_dict(self)
-
-    @classmethod
-    def get_listview_url(self):
-        return reverse('{{ app_name }}:{{ x.model_name|lower }}_browse')
-
-    @classmethod
-    def get_createview_url(self):
-        return reverse('{{ app_name }}:{{ x.model_name|lower }}_create')
-
-    def get_absolute_url(self):
-        return reverse('{{ app_name }}:{{ x.model_name|lower }}_detail', kwargs={'pk': self.id})
-
-    def get_absolute_url(self):
-        return reverse('{{ app_name }}:{{ x.model_name|lower }}_detail', kwargs={'pk': self.id})
-
-    def get_delete_url(self):
-        return reverse('{{ app_name }}:{{ x.model_name|lower }}_delete', kwargs={'pk': self.id})
-
-    def get_edit_url(self):
-        return reverse('{{ app_name }}:{{ x.model_name|lower }}_edit', kwargs={'pk': self.id})
-
-    def get_next(self):
-        next = self.__class__.objects.filter(id__gt=self.id)
-        if next:
-            return reverse(
-                '{{ app_name }}:{{ x.model_name|lower }}_detail',
-                kwargs={'pk': next.first().id}
-            )
-        return False
-
-    def get_prev(self):
-        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
-        if prev:
-            return reverse(
-                '{{ app_name }}:{{ x.model_name|lower }}_detail',
-                kwargs={'pk': prev.first().id}
-            )
-        return False
 
 {% endfor %}
 """

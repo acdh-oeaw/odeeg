@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'webpage',
     'browsing',
     'vocabs',
+    'vases',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
