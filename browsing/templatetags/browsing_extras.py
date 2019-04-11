@@ -13,13 +13,14 @@ def nav_menu(app=None):
         models = ContentType.objects.filter(app_label=app)
         result = []
         for x in models:
-            modelname = x.name
-            modelname = modelname.replace(" ", "").lower()
+            modelname = x.model_class().__name__.lower()
+            model_verbose_name = x.model_class()._meta.verbose_name
+            # modelname = modelname.replace(" ", "").lower()
             try:
                 fetched_model = ContentType.objects.get(
                     app_label=app, model=modelname).model_class()
                 item = {
-                    'name': modelname.title(),
+                    'name': fetched_model._meta.verbose_name,
                 }
             except Exception as e:
                 print(e)

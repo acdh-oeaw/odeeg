@@ -39,6 +39,7 @@ class CertaintyListFilter(django_filters.FilterSet):
     class Meta:
         model = Certainty
         fields = [
+            'id',
             'cert_label',
             'cert_id',
             ]
@@ -54,6 +55,7 @@ class CollectionSpecListFilter(django_filters.FilterSet):
     class Meta:
         model = CollectionSpec
         fields = [
+            'id',
             'collection_spec',
             'partof_institution',
             ]
@@ -74,6 +76,7 @@ class CultureListFilter(django_filters.FilterSet):
     class Meta:
         model = Culture
         fields = [
+            'id',
             'culture',
             'culture_id',
             ]
@@ -94,6 +97,7 @@ class FabricListFilter(django_filters.FilterSet):
     class Meta:
         model = Fabric
         fields = [
+            'id',
             'material_fabric',
             'material_fabric_id',
             ]
@@ -109,6 +113,7 @@ class HardwareListFilter(django_filters.FilterSet):
     class Meta:
         model = Hardware
         fields = [
+            'id',
             'threed_hardware',
             ]
 
@@ -133,6 +138,7 @@ class IllustrationListFilter(django_filters.FilterSet):
     class Meta:
         model = Illustration
         fields = [
+            'id',
             'folder_name',
             'ill_date',
             'ill_author',
@@ -162,6 +168,7 @@ class IllustrationPanelListFilter(django_filters.FilterSet):
     class Meta:
         model = IllustrationPanel
         fields = [
+            'id',
             'folder_name',
             'illtab_date',
             'illtab_author',
@@ -186,6 +193,7 @@ class ImagingTechniqueListFilter(django_filters.FilterSet):
     class Meta:
         model = ImagingTechnique
         fields = [
+            'id',
             'threed_technique',
             'threed_technique_id',
             ]
@@ -211,6 +219,7 @@ class InstitutionListFilter(django_filters.FilterSet):
     class Meta:
         model = Institution
         fields = [
+            'id',
             'inst_name',
             'inst_geo_id',
             'inst_id',
@@ -232,6 +241,7 @@ class MaterialListFilter(django_filters.FilterSet):
     class Meta:
         model = Material
         fields = [
+            'id',
             'material',
             'material_id',
             ]
@@ -282,6 +292,7 @@ class ObjectListFilter(django_filters.FilterSet):
     class Meta:
         model = Object
         fields = [
+            'id',
             'folder_name',
             'collection_inst',
             'collection_spec',
@@ -335,6 +346,7 @@ class PaintingStyleListFilter(django_filters.FilterSet):
     class Meta:
         model = PaintingStyle
         fields = [
+            'id',
             'painting_style',
             'painting_style_id',
             ]
@@ -355,6 +367,7 @@ class PaintingSubTechniqueListFilter(django_filters.FilterSet):
     class Meta:
         model = PaintingSubTechnique
         fields = [
+            'id',
             'painting_style_sub',
             'painting_style_sub_id',
             ]
@@ -380,6 +393,7 @@ class PeriodListFilter(django_filters.FilterSet):
     class Meta:
         model = Period
         fields = [
+            'id',
             'period',
             'period_abbrev',
             'period_id',
@@ -407,6 +421,7 @@ class PersonListFilter(django_filters.FilterSet):
     class Meta:
         model = Person
         fields = [
+            'id',
             'person_last_name',
             'person_first_name',
             'person_member_inst',
@@ -429,6 +444,7 @@ class PlaceListFilter(django_filters.FilterSet):
     class Meta:
         model = Place
         fields = [
+            'id',
             'place_name',
             'geonames_id',
             'coord_exact',
@@ -456,6 +472,7 @@ class ShapeListFilter(django_filters.FilterSet):
     class Meta:
         model = Shape
         fields = [
+            'id',
             'shape',
             'shape_alt',
             'shape_id',
@@ -477,6 +494,7 @@ class ShapeComponentListFilter(django_filters.FilterSet):
     class Meta:
         model = ShapeComponent
         fields = [
+            'id',
             'shape_comp',
             'shape_comp_id',
             ]
@@ -567,6 +585,7 @@ class ThreedDataListFilter(django_filters.FilterSet):
     class Meta:
         model = ThreedData
         fields = [
+            'id',
             'folder_name',
             'threed_location',
             'threed_location_char',

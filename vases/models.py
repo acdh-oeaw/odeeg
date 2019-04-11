@@ -10,7 +10,7 @@ from browsing.browsing_utils import model_to_dict
 
 
 class Certainty(models.Model):
-    ### A vocabulary with values about certainty used when associating a place with an object ###
+    """ A vocabulary with values about certainty used when associating a place with an object """
     cert_label = models.CharField(
         max_length=250,
         blank=True,
@@ -30,9 +30,50 @@ class Certainty(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:certainty_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:certainty_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:certainty_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:certainty_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:certainty_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:certainty_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:certainty_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:certainty_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class CollectionSpec(models.Model):
-    ### Information about specific collections ###
+    """ Information about specific collections """
     collection_spec = models.CharField(
         max_length=250,
         blank=True,
@@ -55,9 +96,50 @@ class CollectionSpec(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:collectionspec_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:collectionspec_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:collectionspec_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:collectionspec_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:collectionspec_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:collectionspec_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:collectionspec_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:collectionspec_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Culture(models.Model):
-    ### A vocabulary with cultures ###
+    """ A vocabulary with cultures """
     culture = models.CharField(
         max_length=250,
         blank=True,
@@ -77,9 +159,50 @@ class Culture(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:culture_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:culture_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:culture_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:culture_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:culture_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:culture_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:culture_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:culture_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Fabric(models.Model):
-    ### A vocabulary with fabrics ###
+    """ A vocabulary with fabrics """
     material_fabric = models.CharField(
         max_length=250,
         blank=True,
@@ -99,9 +222,50 @@ class Fabric(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:fabric_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:fabric_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:fabric_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:fabric_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:fabric_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:fabric_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:fabric_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:fabric_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Hardware(models.Model):
-    ### A vocabulary with hardware for 3D imaging ###
+    """ A vocabulary with hardware for 3D imaging """
     threed_hardware = models.CharField(
         max_length=250,
         blank=True,
@@ -115,9 +279,50 @@ class Hardware(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:hardware_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:hardware_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:hardware_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:hardware_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:hardware_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:hardware_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:hardware_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:hardware_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Illustration(models.Model):
-    ### Information about illustrations for an object ###
+    """ Information about illustrations for an object """
     folder_name = models.ForeignKey(
         "Object",
         related_name='rvn_illustration_folder_name_object',
@@ -163,12 +368,53 @@ class Illustration(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:illustration_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:illustration_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:illustration_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:illustration_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:illustration_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:illustration_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:illustration_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:illustration_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class IllustrationPanel(models.Model):
-    ### Information about illustrations in an illustrative table ###
+    """ Information about illustrations in an illustrative Tablet """
     folder_name = models.ForeignKey(
         "Object",
-        related_name='rvn_illustrationtable_folder_name_object',
+        related_name='rvn_illustrationpanel_folder_name_object',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -182,7 +428,7 @@ class IllustrationPanel(models.Model):
     )
     illtab_author = models.ManyToManyField(
         "Person",
-        related_name='rvn_illustrationtable_illtab_author_person',
+        related_name='rvn_illustrationpanel_illtab_author_person',
         blank=True,
         verbose_name="Creator(s)",
         help_text="Illustration author",
@@ -206,14 +452,55 @@ class IllustrationPanel(models.Model):
     )
 
     class Meta:
-        verbose_name = "Illustration Tables"
+        verbose_name = "Illustration Tablets"
 
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:illustrationpanel_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:illustrationpanel_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:illustrationpanel_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:illustrationpanel_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:illustrationpanel_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:illustrationpanel_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:illustrationpanel_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:illustrationpanel_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class ImagingTechnique(models.Model):
-    ### A vocabulary with imaging techniques ###
+    """ A vocabulary with imaging techniques """
     threed_technique = models.CharField(
         max_length=250,
         blank=True,
@@ -233,9 +520,50 @@ class ImagingTechnique(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:imagingtechnique_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:imagingtechnique_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:imagingtechnique_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:imagingtechnique_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:imagingtechnique_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:imagingtechnique_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:imagingtechnique_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:imagingtechnique_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Institution(models.Model):
-    ### Information about institutions ###
+    """ Information about institutions """
     inst_name = models.CharField(
         max_length=250,
         blank=True,
@@ -261,9 +589,50 @@ class Institution(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:institution_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:institution_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:institution_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:institution_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:institution_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:institution_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:institution_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:institution_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Material(models.Model):
-    ### A vocabulary with materials ###
+    """ A vocabulary with materials """
     material = models.CharField(
         max_length=250,
         blank=True,
@@ -283,9 +652,50 @@ class Material(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:material_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:material_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:material_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:material_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:material_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:material_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:material_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:material_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Object(models.Model):
-    ### General information about the object ###
+    """ General information about the object """
     folder_name = models.CharField(
         max_length=250,
         blank=True,
@@ -536,9 +946,50 @@ class Object(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:object_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:object_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:object_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:object_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:object_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:object_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:object_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:object_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class PaintingStyle(models.Model):
-    ### A vocabulary with painting styles and techniques ###
+    """ A vocabulary with painting styles and techniques """
     painting_style = models.CharField(
         max_length=250,
         blank=True,
@@ -558,9 +1009,50 @@ class PaintingStyle(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:paintingstyle_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:paintingstyle_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:paintingstyle_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:paintingstyle_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:paintingstyle_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:paintingstyle_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:paintingstyle_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:paintingstyle_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class PaintingSubTechnique(models.Model):
-    ### A vocabulary with sub techniques ###
+    """ A vocabulary with sub techniques """
     painting_style_sub = models.CharField(
         max_length=250,
         blank=True,
@@ -580,9 +1072,50 @@ class PaintingSubTechnique(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:paintingsubtechnique_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:paintingsubtechnique_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:paintingsubtechnique_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:paintingsubtechnique_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:paintingsubtechnique_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:paintingsubtechnique_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:paintingsubtechnique_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:paintingsubtechnique_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Period(models.Model):
-    ### A vocabulary with periods ###
+    """ A vocabulary with periods """
     period = models.CharField(
         max_length=250,
         blank=True,
@@ -613,9 +1146,50 @@ class Period(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:period_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:period_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:period_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:period_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:period_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:period_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:period_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:period_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Person(models.Model):
-    ### Information about persons ###
+    """ Information about persons """
     person_last_name = models.CharField(
         max_length=250,
         blank=True,
@@ -650,9 +1224,50 @@ class Person(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:person_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:person_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:person_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:person_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:person_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:person_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:person_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:person_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Place(models.Model):
-    ### Information about places ###
+    """ Information about places """
     place_name = models.CharField(
         max_length=250,
         blank=True,
@@ -684,9 +1299,50 @@ class Place(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:place_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:place_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:place_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:place_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:place_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:place_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:place_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:place_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class Shape(models.Model):
-    ### A vocabulary with shape names ###
+    """ A vocabulary with shape names """
     shape = models.CharField(
         max_length=250,
         blank=True,
@@ -712,9 +1368,50 @@ class Shape(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:shape_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:shape_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:shape_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:shape_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:shape_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:shape_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:shape_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:shape_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class ShapeComponent(models.Model):
-    ### A vocabulary with names of shape components ###
+    """ A vocabulary with names of shape components """
     shape_comp = models.CharField(
         max_length=250,
         blank=True,
@@ -734,9 +1431,50 @@ class ShapeComponent(models.Model):
     def __str__(self):
         return "{}".format(self.id)
 
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:shapecomponent_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:shapecomponent_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:shapecomponent_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:shapecomponent_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:shapecomponent_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:shapecomponent_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:shapecomponent_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:shapecomponent_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
+
 
 class ThreedData(models.Model):
-    ### Information about 3d models for an object ###
+    """ Information about 3d models for an object """
     folder_name = models.ForeignKey(
         "Object",
         related_name='rvn_threeddata_folder_name_object',
@@ -927,3 +1665,44 @@ class ThreedData(models.Model):
 
     def __str__(self):
         return "{}".format(self.id)
+
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('vases:threeddata_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('vases:threeddata_create')
+
+    def get_absolute_url(self):
+        return reverse('vases:threeddata_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('vases:threeddata_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('vases:threeddata_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('vases:threeddata_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                'vases:threeddata_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                'vases:threeddata_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False

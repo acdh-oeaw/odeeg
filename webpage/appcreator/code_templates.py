@@ -84,6 +84,7 @@ class {{ x.model_name }}ListFilter(django_filters.FilterSet):
     class Meta:
         model = {{ x.model_name }}
         fields = [
+            'id',
             {% for y in x.model_fields %}
             {%- if y.field_type == 'DateRangeField' %}
             {%- else %}'{{ y.field_name }}',
@@ -303,6 +304,47 @@ class {{ x.model_name }}(models.Model):
 
     def __str__(self):
         return "{}".format(self.id)
+
+    def field_dict(self):
+        return model_to_dict(self)
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('{{ app_name }}:{{ x.model_name|lower }}_browse')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('{{ app_name }}:{{ x.model_name|lower }}_create')
+
+    def get_absolute_url(self):
+        return reverse('{{ app_name }}:{{ x.model_name|lower }}_detail', kwargs={'pk': self.id})
+
+    def get_absolute_url(self):
+        return reverse('{{ app_name }}:{{ x.model_name|lower }}_detail', kwargs={'pk': self.id})
+
+    def get_delete_url(self):
+        return reverse('{{ app_name }}:{{ x.model_name|lower }}_delete', kwargs={'pk': self.id})
+
+    def get_edit_url(self):
+        return reverse('{{ app_name }}:{{ x.model_name|lower }}_edit', kwargs={'pk': self.id})
+
+    def get_next(self):
+        next = self.__class__.objects.filter(id__gt=self.id)
+        if next:
+            return reverse(
+                '{{ app_name }}:{{ x.model_name|lower }}_detail',
+                kwargs={'pk': next.first().id}
+            )
+        return False
+
+    def get_prev(self):
+        prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
+        if prev:
+            return reverse(
+                '{{ app_name }}:{{ x.model_name|lower }}_detail',
+                kwargs={'pk': prev.first().id}
+            )
+        return False
 
 {% endfor %}
 """

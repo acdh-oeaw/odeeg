@@ -266,7 +266,7 @@ class IllustrationListView(GenericListView):
     model = Illustration
     filter_class = IllustrationListFilter
     formhelper_class = IllustrationFilterFormHelper
-    table_class = IllustrationPanel
+    table_class = IllustrationTable
     init_columns = [
         'id',
     ]
@@ -903,5 +903,3 @@ class ThreedDataDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ThreedDataDelete, self).dispatch(*args, **kwargs)
-
-
