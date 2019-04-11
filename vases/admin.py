@@ -7,7 +7,7 @@ from . models import (
     Fabric,
     Hardware,
     Illustration,
-    IllustrationTable,
+    IllustrationPanel,
     ImagingTechnique,
     Institution,
     Material,
@@ -27,7 +27,7 @@ admin.site.register(Culture)
 admin.site.register(Fabric)
 admin.site.register(Hardware)
 admin.site.register(Illustration)
-admin.site.register(IllustrationTable)
+admin.site.register(IllustrationPanel)
 admin.site.register(ImagingTechnique)
 admin.site.register(Institution)
 admin.site.register(Material)

@@ -14,7 +14,7 @@ from . models import (
     Fabric,
     Hardware,
     Illustration,
-    IllustrationTable,
+    IllustrationPanel,
     ImagingTechnique,
     Institution,
     Material,
@@ -266,7 +266,7 @@ class IllustrationListView(GenericListView):
     model = Illustration
     filter_class = IllustrationListFilter
     formhelper_class = IllustrationFilterFormHelper
-    table_class = IllustrationTable
+    table_class = IllustrationPanel
     init_columns = [
         'id',
     ]
@@ -307,50 +307,50 @@ class IllustrationDelete(DeleteView):
         return super(IllustrationDelete, self).dispatch(*args, **kwargs)
 
 
-class IllustrationTableListView(GenericListView):
+class IllustrationPanelListView(GenericListView):
 
-    model = IllustrationTable
-    filter_class = IllustrationTableListFilter
-    formhelper_class = IllustrationTableFilterFormHelper
-    table_class = IllustrationTableTable
+    model = IllustrationPanel
+    filter_class = IllustrationPanelListFilter
+    formhelper_class = IllustrationPanelFilterFormHelper
+    table_class = IllustrationPanelTable
     init_columns = [
         'id',
     ]
 
 
-class IllustrationTableDetailView(DetailView):
+class IllustrationPanelDetailView(DetailView):
 
-    model = IllustrationTable
+    model = IllustrationPanel
     template_name = 'browsing/generic_detail.html'
 
 
-class IllustrationTableCreate(BaseCreateView):
+class IllustrationPanelCreate(BaseCreateView):
 
-    model = IllustrationTable
-    form_class = IllustrationTableForm
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(IllustrationTableCreate, self).dispatch(*args, **kwargs)
-
-
-class IllustrationTableUpdate(BaseUpdateView):
-
-    model = IllustrationTable
-    form_class = IllustrationTableForm
+    model = IllustrationPanel
+    form_class = IllustrationPanelForm
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(IllustrationTableUpdate, self).dispatch(*args, **kwargs)
+        return super(IllustrationPanelCreate, self).dispatch(*args, **kwargs)
 
-class IllustrationTableDelete(DeleteView):
-    model = IllustrationTable
+
+class IllustrationPanelUpdate(BaseUpdateView):
+
+    model = IllustrationPanel
+    form_class = IllustrationPanelForm
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(IllustrationPanelUpdate, self).dispatch(*args, **kwargs)
+
+class IllustrationPanelDelete(DeleteView):
+    model = IllustrationPanel
     template_name = 'webpage/confirm_delete.html'
     success_url = reverse_lazy('vases:illustrationtable_browse')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(IllustrationTableDelete, self).dispatch(*args, **kwargs)
+        return super(IllustrationPanelDelete, self).dispatch(*args, **kwargs)
 
 
 class ImagingTechniqueListView(GenericListView):

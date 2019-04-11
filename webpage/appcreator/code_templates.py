@@ -135,6 +135,7 @@ class {{ x.model_name }}Form(forms.ModelForm):
     class Meta:
         model = {{ x.model_name }}
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super({{ x.model_name }}Form, self).__init__(*args, **kwargs)
         self.helper = FormHelper()

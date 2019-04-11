@@ -164,7 +164,7 @@ class Illustration(models.Model):
         return "{}".format(self.id)
 
 
-class IllustrationTable(models.Model):
+class IllustrationPanel(models.Model):
     ### Information about illustrations in an illustrative table ###
     folder_name = models.ForeignKey(
         "Object",

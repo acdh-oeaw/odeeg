@@ -8,7 +8,7 @@ from . models import (
     Fabric,
     Hardware,
     Illustration,
-    IllustrationTable,
+    IllustrationPanel,
     ImagingTechnique,
     Institution,
     Material,
@@ -142,25 +142,25 @@ class IllustrationListFilter(django_filters.FilterSet):
             ]
 
 
-class IllustrationTableListFilter(django_filters.FilterSet):
+class IllustrationPanelListFilter(django_filters.FilterSet):
     illtab_software = django_filters.CharFilter(
         lookup_expr='icontains',
-        help_text=IllustrationTable._meta.get_field('illtab_software').help_text,
-        label=IllustrationTable._meta.get_field('illtab_software').verbose_name
+        help_text=IllustrationPanel._meta.get_field('illtab_software').help_text,
+        label=IllustrationPanel._meta.get_field('illtab_software').verbose_name
     )
     illtab_software_steps = django_filters.CharFilter(
         lookup_expr='icontains',
-        help_text=IllustrationTable._meta.get_field('illtab_software_steps').help_text,
-        label=IllustrationTable._meta.get_field('illtab_software_steps').verbose_name
+        help_text=IllustrationPanel._meta.get_field('illtab_software_steps').help_text,
+        label=IllustrationPanel._meta.get_field('illtab_software_steps').verbose_name
     )
     illtab_notes = django_filters.CharFilter(
         lookup_expr='icontains',
-        help_text=IllustrationTable._meta.get_field('illtab_notes').help_text,
-        label=IllustrationTable._meta.get_field('illtab_notes').verbose_name
+        help_text=IllustrationPanel._meta.get_field('illtab_notes').help_text,
+        label=IllustrationPanel._meta.get_field('illtab_notes').verbose_name
     )
 
     class Meta:
-        model = IllustrationTable
+        model = IllustrationPanel
         fields = [
             'folder_name',
             'illtab_date',

@@ -8,7 +8,7 @@ from . models import (
     Fabric,
     Hardware,
     Illustration,
-    IllustrationTable,
+    IllustrationPanel,
     ImagingTechnique,
     Institution,
     Material,
@@ -85,13 +85,13 @@ class IllustrationTable(tables.Table):
         attrs = {"class": "table table-responsive table-hover"}
 
 
-class IllustrationTableTable(tables.Table):
+class IllustrationPanelTable(tables.Table):
 
     id = tables.LinkColumn(verbose_name='ID')
     illtab_author = tables.ManyToManyColumn()
 
     class Meta:
-        model = IllustrationTable
+        model = IllustrationPanel
         sequence = ('id',)
         attrs = {"class": "table table-responsive table-hover"}
 
@@ -230,4 +230,3 @@ class ThreedDataTable(tables.Table):
         model = ThreedData
         sequence = ('id',)
         attrs = {"class": "table table-responsive table-hover"}
-

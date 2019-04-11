@@ -10,7 +10,7 @@ from . models import (
     Fabric,
     Hardware,
     Illustration,
-    IllustrationTable,
+    IllustrationPanel,
     ImagingTechnique,
     Institution,
     Material,
@@ -53,6 +53,7 @@ class CertaintyForm(forms.ModelForm):
     class Meta:
         model = Certainty
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(CertaintyForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -91,6 +92,7 @@ class CollectionSpecForm(forms.ModelForm):
     class Meta:
         model = CollectionSpec
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(CollectionSpecForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -129,6 +131,7 @@ class CultureForm(forms.ModelForm):
     class Meta:
         model = Culture
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(CultureForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -167,6 +170,7 @@ class FabricForm(forms.ModelForm):
     class Meta:
         model = Fabric
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(FabricForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -205,6 +209,7 @@ class HardwareForm(forms.ModelForm):
     class Meta:
         model = Hardware
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(HardwareForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -243,6 +248,7 @@ class IllustrationForm(forms.ModelForm):
     class Meta:
         model = Illustration
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(IllustrationForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -254,9 +260,9 @@ class IllustrationForm(forms.ModelForm):
 
 
 
-class IllustrationTableFilterFormHelper(FormHelper):
+class IllustrationPanelFilterFormHelper(FormHelper):
     def __init__(self, *args, **kwargs):
-        super(IllustrationTableFilterFormHelper, self).__init__(*args, **kwargs)
+        super(IllustrationPanelFilterFormHelper, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.form_class = 'genericFilterForm'
         self.form_method = 'GET'
@@ -277,12 +283,13 @@ class IllustrationTableFilterFormHelper(FormHelper):
             )
 
 
-class IllustrationTableForm(forms.ModelForm):
+class IllustrationPanelForm(forms.ModelForm):
     class Meta:
-        model = IllustrationTable
+        model = IllustrationPanel
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
-        super(IllustrationTableForm, self).__init__(*args, **kwargs)
+        super(IllustrationPanelForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = True
         self.helper.form_class = 'form-horizontal'
@@ -319,6 +326,7 @@ class ImagingTechniqueForm(forms.ModelForm):
     class Meta:
         model = ImagingTechnique
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(ImagingTechniqueForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -357,6 +365,7 @@ class InstitutionForm(forms.ModelForm):
     class Meta:
         model = Institution
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(InstitutionForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -395,6 +404,7 @@ class MaterialForm(forms.ModelForm):
     class Meta:
         model = Material
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(MaterialForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -433,6 +443,7 @@ class ObjectForm(forms.ModelForm):
     class Meta:
         model = Object
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(ObjectForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -471,6 +482,7 @@ class PaintingStyleForm(forms.ModelForm):
     class Meta:
         model = PaintingStyle
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(PaintingStyleForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -509,6 +521,7 @@ class PaintingSubTechniqueForm(forms.ModelForm):
     class Meta:
         model = PaintingSubTechnique
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(PaintingSubTechniqueForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -547,6 +560,7 @@ class PeriodForm(forms.ModelForm):
     class Meta:
         model = Period
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(PeriodForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -585,6 +599,7 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -623,6 +638,7 @@ class PlaceForm(forms.ModelForm):
     class Meta:
         model = Place
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(PlaceForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -661,6 +677,7 @@ class ShapeForm(forms.ModelForm):
     class Meta:
         model = Shape
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(ShapeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -699,6 +716,7 @@ class ShapeComponentForm(forms.ModelForm):
     class Meta:
         model = ShapeComponent
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(ShapeComponentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -737,6 +755,7 @@ class ThreedDataForm(forms.ModelForm):
     class Meta:
         model = ThreedData
         fields = "__all__"
+
     def __init__(self, *args, **kwargs):
         super(ThreedDataForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -745,6 +764,3 @@ class ThreedDataForm(forms.ModelForm):
         self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-9'
         self.helper.add_input(Submit('submit', 'save'),)
-
-
-

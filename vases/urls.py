@@ -150,27 +150,27 @@ urlpatterns = [
         name='illustration_delete'),
     url(
         r'^illustrationtable/$',
-        views.IllustrationTableListView.as_view(),
+        views.IllustrationPanelListView.as_view(),
         name='illustrationtable_browse'
     ),
     url(
         r'^illustrationtable/detail/(?P<pk>[0-9]+)$',
-        views.IllustrationTableDetailView.as_view(),
+        views.IllustrationPanelDetailView.as_view(),
         name='illustrationtable_detail'
     ),
     url(
         r'^illustrationtable/create/$',
-        views.IllustrationTableCreate.as_view(),
+        views.IllustrationPanelCreate.as_view(),
         name='illustrationtable_create'
     ),
     url(
         r'^illustrationtable/edit/(?P<pk>[0-9]+)$',
-        views.IllustrationTableUpdate.as_view(),
+        views.IllustrationPanelUpdate.as_view(),
         name='illustrationtable_edit'
     ),
     url(
         r'^illustrationtable/delete/(?P<pk>[0-9]+)$',
-        views.IllustrationTableDelete.as_view(),
+        views.IllustrationPanelDelete.as_view(),
         name='illustrationtable_delete'),
     url(
         r'^imagingtechnique/$',
