@@ -31,8 +31,10 @@ def xlsx_to_classdicts(file):
                     else:
                         field['field_type'] = 'ManyToManyField'
                     field['related_class'] = row['field type'].split('|')[1].split(':')[0]
-                    field['related_name'] = "rvn_{}_{}".format(
-                        field_name, field['related_class'].lower()
+                    field['related_name'] = "rvn_{}_{}_{}".format(
+                        x[0].lower(),
+                        field_name,
+                        field['related_class'].lower()
                     )
                 elif row['field type'] == "URI":
                     field['field_type'] = "CharField"

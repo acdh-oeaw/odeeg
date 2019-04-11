@@ -29,6 +29,7 @@ mysql.py
 server.py
 postgres.py
 dev_secret.py
+pg_local.py
 
 # documentation build files
 
