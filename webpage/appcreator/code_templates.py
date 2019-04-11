@@ -255,6 +255,10 @@ from browsing.browsing_utils import model_to_dict
 {% for x in data %}
 class {{ x.model_name }}(models.Model):
     {% if x.model_helptext %}### {{ x.model_helptext }} ###{% endif %}
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     {%- for y in x.model_fields %}
     {%- if y.field_type == 'DateRangeField' %}
     {{ y.field_name }} = {{ y.field_type}}(
@@ -300,10 +304,23 @@ class {{ x.model_name }}(models.Model):
     {%- endfor %}
 
     class Meta:
+        {% if x.model_order == 'nan' %}
+        ordering = [
+            'id',
+        ]
+        {%- else %}
+        ordering = [
+            '{{ x.model_order }}',
+        ]
+        {%- endif %}
         verbose_name = "{{ x.model_verbose_name }}"
-
+    {% if x.model_representation == 'nan' %}
     def __str__(self):
         return "{}".format(self.id)
+    {%- else %}
+    def __str__(self):
+        return "{}".format(self.{{ x.model_representation }})
+    {% endif %}
 
     def field_dict(self):
         return model_to_dict(self)

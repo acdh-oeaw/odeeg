@@ -18,6 +18,12 @@ def xlsx_to_classdicts(file):
         class_dict['model_name'] = x[0]
         class_dict['model_helptext'] = x[1]['class name helptext'].iloc[0]
         class_dict['model_verbose_name'] = x[1]['class name verbose_name'].iloc[0]
+        class_dict['model_representation'] = "{}".format(
+            x[1]['class self representation'].iloc[0]
+        )
+        class_dict['model_order'] = "{}".format(
+            x[1]['class object order by field'].iloc[0]
+        )
         class_dict['model_fields'] = []
         for i, row in local_df.iterrows():
             field_name = row['field name technical']
