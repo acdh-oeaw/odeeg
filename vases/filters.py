@@ -38,7 +38,10 @@ class CertaintyListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Certainty
-        fields = "__all__"
+        fields = [
+            'cert_label',
+            'cert_id',
+            ]
 
 
 class CollectionSpecListFilter(django_filters.FilterSet):
@@ -50,7 +53,10 @@ class CollectionSpecListFilter(django_filters.FilterSet):
 
     class Meta:
         model = CollectionSpec
-        fields = "__all__"
+        fields = [
+            'collection_spec',
+            'partof_institution',
+            ]
 
 
 class CultureListFilter(django_filters.FilterSet):
@@ -67,7 +73,10 @@ class CultureListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Culture
-        fields = "__all__"
+        fields = [
+            'culture',
+            'culture_id',
+            ]
 
 
 class FabricListFilter(django_filters.FilterSet):
@@ -84,7 +93,10 @@ class FabricListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Fabric
-        fields = "__all__"
+        fields = [
+            'material_fabric',
+            'material_fabric_id',
+            ]
 
 
 class HardwareListFilter(django_filters.FilterSet):
@@ -96,7 +108,9 @@ class HardwareListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Hardware
-        fields = "__all__"
+        fields = [
+            'threed_hardware',
+            ]
 
 
 class IllustrationListFilter(django_filters.FilterSet):
@@ -118,7 +132,14 @@ class IllustrationListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Illustration
-        fields = "__all__"
+        fields = [
+            'folder_name',
+            'ill_date',
+            'ill_author',
+            'ill_software',
+            'ill_software_steps',
+            'ill_notes',
+            ]
 
 
 class IllustrationTableListFilter(django_filters.FilterSet):
@@ -140,7 +161,14 @@ class IllustrationTableListFilter(django_filters.FilterSet):
 
     class Meta:
         model = IllustrationTable
-        fields = "__all__"
+        fields = [
+            'folder_name',
+            'illtab_date',
+            'illtab_author',
+            'illtab_software',
+            'illtab_software_steps',
+            'illtab_notes',
+            ]
 
 
 class ImagingTechniqueListFilter(django_filters.FilterSet):
@@ -157,7 +185,10 @@ class ImagingTechniqueListFilter(django_filters.FilterSet):
 
     class Meta:
         model = ImagingTechnique
-        fields = "__all__"
+        fields = [
+            'threed_technique',
+            'threed_technique_id',
+            ]
 
 
 class InstitutionListFilter(django_filters.FilterSet):
@@ -179,7 +210,11 @@ class InstitutionListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Institution
-        fields = "__all__"
+        fields = [
+            'inst_name',
+            'inst_geo_id',
+            'inst_id',
+            ]
 
 
 class MaterialListFilter(django_filters.FilterSet):
@@ -196,7 +231,10 @@ class MaterialListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Material
-        fields = "__all__"
+        fields = [
+            'material',
+            'material_id',
+            ]
 
 
 class ObjectListFilter(django_filters.FilterSet):
@@ -243,7 +281,43 @@ class ObjectListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Object
-        fields = "__all__"
+        fields = [
+            'folder_name',
+            'collection_inst',
+            'collection_spec',
+            'inv_nr',
+            'bapd_nr',
+            'shape',
+            'shape_comp',
+            'object_associated_to_inv',
+            'period',
+
+            'culture',
+            'material',
+            'material_fabric',
+            'painting_style',
+            'painting_style_sub',
+            'provenance_spot',
+            'provenance_spot_cert',
+            'provenance_production',
+            'provenance_production_cert',
+            'provenance_attribution',
+            'provenance_acquisition',
+            'provenance_acquisition_date',
+            'bibref',
+            'collref',
+            'weight',
+            'width',
+            'height',
+            'length',
+            'fillingheight',
+            'fillingvolume',
+            'materialvolume',
+            'materialdensity',
+            'materialdensity_measure',
+            'boundingbox',
+            'object_notes',
+            ]
 
 
 class PaintingStyleListFilter(django_filters.FilterSet):
@@ -260,7 +334,10 @@ class PaintingStyleListFilter(django_filters.FilterSet):
 
     class Meta:
         model = PaintingStyle
-        fields = "__all__"
+        fields = [
+            'painting_style',
+            'painting_style_id',
+            ]
 
 
 class PaintingSubTechniqueListFilter(django_filters.FilterSet):
@@ -277,7 +354,10 @@ class PaintingSubTechniqueListFilter(django_filters.FilterSet):
 
     class Meta:
         model = PaintingSubTechnique
-        fields = "__all__"
+        fields = [
+            'painting_style_sub',
+            'painting_style_sub_id',
+            ]
 
 
 class PeriodListFilter(django_filters.FilterSet):
@@ -299,7 +379,12 @@ class PeriodListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Period
-        fields = "__all__"
+        fields = [
+            'period',
+            'period_abbrev',
+            'period_id',
+
+            ]
 
 
 class PersonListFilter(django_filters.FilterSet):
@@ -321,7 +406,12 @@ class PersonListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Person
-        fields = "__all__"
+        fields = [
+            'person_last_name',
+            'person_first_name',
+            'person_member_inst',
+            'person_id',
+            ]
 
 
 class PlaceListFilter(django_filters.FilterSet):
@@ -338,7 +428,12 @@ class PlaceListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Place
-        fields = "__all__"
+        fields = [
+            'place_name',
+            'geonames_id',
+            'coord_exact',
+            'place_type',
+            ]
 
 
 class ShapeListFilter(django_filters.FilterSet):
@@ -360,7 +455,11 @@ class ShapeListFilter(django_filters.FilterSet):
 
     class Meta:
         model = Shape
-        fields = "__all__"
+        fields = [
+            'shape',
+            'shape_alt',
+            'shape_id',
+            ]
 
 
 class ShapeComponentListFilter(django_filters.FilterSet):
@@ -377,7 +476,10 @@ class ShapeComponentListFilter(django_filters.FilterSet):
 
     class Meta:
         model = ShapeComponent
-        fields = "__all__"
+        fields = [
+            'shape_comp',
+            'shape_comp_id',
+            ]
 
 
 class ThreedDataListFilter(django_filters.FilterSet):
@@ -464,4 +566,34 @@ class ThreedDataListFilter(django_filters.FilterSet):
 
     class Meta:
         model = ThreedData
-        fields = "__all__"
+        fields = [
+            'folder_name',
+            'threed_location',
+            'threed_location_char',
+            'threed_date',
+            'threed_author',
+            'threed_technique',
+            'threed_hardware',
+            'threed_fov',
+            'threed_resolution',
+            'threed_acc',
+            'threed_texture_acquisition',
+            'threed_texture_color',
+            'threed_texture_resolution',
+            'threed_software',
+            'threed_scan_nrs',
+            'threed_merging_date',
+            'threed_merging_author',
+            'threed_merging_software',
+            'threed_postproc_date',
+            'threed_postproc_author',
+            'threed_postproc_software',
+            'threed_postproc_actions',
+            'threed_postproc_file',
+            'threed_postproc_low_date',
+            'threed_postproc_low_author',
+            'threed_postproc_low_software',
+            'threed_postproc_low_software_actions',
+            'threed_postproc_low_file',
+            'threed_notes',
+            ]

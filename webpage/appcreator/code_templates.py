@@ -83,7 +83,12 @@ class {{ x.model_name }}ListFilter(django_filters.FilterSet):
 
     class Meta:
         model = {{ x.model_name }}
-        fields = "__all__"
+        fields = [
+            {% for y in x.model_fields %}
+            {%- if y.field_type == 'DateRangeField' %}
+            {%- else %}'{{ y.field_name }}',
+            {%- endif %}
+            {% endfor %}]
 
 {% endfor %}
 """
