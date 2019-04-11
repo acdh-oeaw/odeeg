@@ -16,8 +16,8 @@ def xlsx_to_classdicts(file):
         local_df = x[1]
         class_dict = {}
         class_dict['model_name'] = x[0]
-        class_dict['model_helptext'] = df['class name helptext'].iloc[0]
-        class_dict['model_verbose_name'] = df['class name verbose_name'].iloc[0]
+        class_dict['model_helptext'] = x[1]['class name helptext'].iloc[0]
+        class_dict['model_verbose_name'] = x[1]['class name verbose_name'].iloc[0]
         class_dict['model_fields'] = []
         for i, row in local_df.iterrows():
             field_name = row['field name technical']

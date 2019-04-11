@@ -10,7 +10,7 @@ from browsing.browsing_utils import model_to_dict
 
 
 class Certainty(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with values about certainty used when associating a place with an object ###
     cert_label = models.CharField(
         max_length=250,
         blank=True,
@@ -29,7 +29,7 @@ class Certainty(models.Model):
 
 
 class CollectionSpec(models.Model):
-    ### General information about the object ###
+    ### Information about specific collections ###
     collection_spec = models.CharField(
         max_length=250,
         blank=True,
@@ -51,7 +51,7 @@ class CollectionSpec(models.Model):
 
 
 class Culture(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with cultures ###
     culture = models.CharField(
         max_length=250,
         blank=True,
@@ -70,7 +70,7 @@ class Culture(models.Model):
 
 
 class Fabric(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with fabrics ###
     material_fabric = models.CharField(
         max_length=250,
         blank=True,
@@ -89,7 +89,7 @@ class Fabric(models.Model):
 
 
 class Hardware(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with hardware for 3D imaging ###
     threed_hardware = models.CharField(
         max_length=250,
         blank=True,
@@ -102,7 +102,7 @@ class Hardware(models.Model):
 
 
 class Illustration(models.Model):
-    ### General information about the object ###
+    ### Information about illustrations for an object ###
     folder_name = models.ForeignKey(
         "Object",
         related_name='rvn_illustration_folder_name_object',
@@ -147,7 +147,7 @@ class Illustration(models.Model):
 
 
 class IllustrationTable(models.Model):
-    ### General information about the object ###
+    ### Information about illustrations in an illustrative table ###
     folder_name = models.ForeignKey(
         "Object",
         related_name='rvn_illustrationtable_folder_name_object',
@@ -192,7 +192,7 @@ class IllustrationTable(models.Model):
 
 
 class ImagingTechnique(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with imaging techniques ###
     threed_technique = models.CharField(
         max_length=250,
         blank=True,
@@ -211,7 +211,7 @@ class ImagingTechnique(models.Model):
 
 
 class Institution(models.Model):
-    ### General information about the object ###
+    ### Information about institutions ###
     inst_name = models.CharField(
         max_length=250,
         blank=True,
@@ -236,7 +236,7 @@ class Institution(models.Model):
 
 
 class Material(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with materials ###
     material = models.CharField(
         max_length=250,
         blank=True,
@@ -505,7 +505,7 @@ class Object(models.Model):
 
 
 class PaintingStyle(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with painting styles and techniques ###
     painting_style = models.CharField(
         max_length=250,
         blank=True,
@@ -524,7 +524,7 @@ class PaintingStyle(models.Model):
 
 
 class PaintingSubTechnique(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with sub techniques ###
     painting_style_sub = models.CharField(
         max_length=250,
         blank=True,
@@ -543,7 +543,7 @@ class PaintingSubTechnique(models.Model):
 
 
 class Period(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with periods ###
     period = models.CharField(
         max_length=250,
         blank=True,
@@ -573,7 +573,7 @@ class Period(models.Model):
 
 
 class Person(models.Model):
-    ### General information about the object ###
+    ### Information about persons ###
     person_last_name = models.CharField(
         max_length=250,
         blank=True,
@@ -607,7 +607,7 @@ class Person(models.Model):
 
 
 class Place(models.Model):
-    ### General information about the object ###
+    ### Information about places ###
     place_name = models.CharField(
         max_length=250,
         blank=True,
@@ -638,7 +638,7 @@ class Place(models.Model):
 
 
 class Shape(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with shape names ###
     shape = models.CharField(
         max_length=250,
         blank=True,
@@ -663,7 +663,7 @@ class Shape(models.Model):
 
 
 class ShapeComponent(models.Model):
-    ### General information about the object ###
+    ### A vocabulary with names of shape components ###
     shape_comp = models.CharField(
         max_length=250,
         blank=True,
@@ -682,7 +682,7 @@ class ShapeComponent(models.Model):
 
 
 class ThreedData(models.Model):
-    ### General information about the object ###
+    ### Information about 3d models for an object ###
     folder_name = models.ForeignKey(
         "Object",
         related_name='rvn_threeddata_folder_name_object',
