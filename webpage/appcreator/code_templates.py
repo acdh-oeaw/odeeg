@@ -265,6 +265,9 @@ class {{ x.model_name }}(models.Model):
     )
     {%- endfor %}
 
+    class Meta:
+        verbose_name = "{{ x.model_verbose_name }}"
+
     def __str__(self):
         return "{}".format(self.id)
 
