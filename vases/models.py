@@ -10,7 +10,11 @@ from browsing.browsing_utils import model_to_dict
 
 
 class Certainty(models.Model):
-    """ A vocabulary with values about certainty used when associating a place with an object """
+    ### A vocabulary with values about certainty used when associating a place with an object ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     cert_label = models.CharField(
         max_length=250,
         blank=True,
@@ -25,6 +29,10 @@ class Certainty(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Certainty"
 
     def __str__(self):
@@ -73,7 +81,11 @@ class Certainty(models.Model):
 
 
 class CollectionSpec(models.Model):
-    """ Information about specific collections """
+    ### Information about specific collections ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     collection_spec = models.CharField(
         max_length=250,
         blank=True,
@@ -91,6 +103,10 @@ class CollectionSpec(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Collections"
 
     def __str__(self):
@@ -139,7 +155,11 @@ class CollectionSpec(models.Model):
 
 
 class Culture(models.Model):
-    """ A vocabulary with cultures """
+    ### A vocabulary with cultures ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     culture = models.CharField(
         max_length=250,
         blank=True,
@@ -154,6 +174,10 @@ class Culture(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Cultures"
 
     def __str__(self):
@@ -202,7 +226,11 @@ class Culture(models.Model):
 
 
 class Fabric(models.Model):
-    """ A vocabulary with fabrics """
+    ### A vocabulary with fabrics ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     material_fabric = models.CharField(
         max_length=250,
         blank=True,
@@ -217,6 +245,10 @@ class Fabric(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Fabrics"
 
     def __str__(self):
@@ -265,7 +297,11 @@ class Fabric(models.Model):
 
 
 class Hardware(models.Model):
-    """ A vocabulary with hardware for 3D imaging """
+    ### A vocabulary with hardware for 3D imaging ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     threed_hardware = models.CharField(
         max_length=250,
         blank=True,
@@ -274,6 +310,10 @@ class Hardware(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Hardware for 3D imaging"
 
     def __str__(self):
@@ -322,7 +362,11 @@ class Hardware(models.Model):
 
 
 class Illustration(models.Model):
-    """ Information about illustrations for an object """
+    ### Information about illustrations for an object ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     folder_name = models.ForeignKey(
         "Object",
         related_name='rvn_illustration_folder_name_object',
@@ -363,6 +407,10 @@ class Illustration(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Illustrations"
 
     def __str__(self):
@@ -411,7 +459,11 @@ class Illustration(models.Model):
 
 
 class IllustrationPanel(models.Model):
-    """ Information about illustrations in an illustrative Tablet """
+    ### Information about illustrations in an illustrative Tablet ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     folder_name = models.ForeignKey(
         "Object",
         related_name='rvn_illustrationpanel_folder_name_object',
@@ -452,6 +504,10 @@ class IllustrationPanel(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Illustration Tablets"
 
     def __str__(self):
@@ -500,7 +556,11 @@ class IllustrationPanel(models.Model):
 
 
 class ImagingTechnique(models.Model):
-    """ A vocabulary with imaging techniques """
+    ### A vocabulary with imaging techniques ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     threed_technique = models.CharField(
         max_length=250,
         blank=True,
@@ -515,6 +575,10 @@ class ImagingTechnique(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Imaging Technique"
 
     def __str__(self):
@@ -563,7 +627,11 @@ class ImagingTechnique(models.Model):
 
 
 class Institution(models.Model):
-    """ Information about institutions """
+    ### Information about institutions ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     inst_name = models.CharField(
         max_length=250,
         blank=True,
@@ -584,6 +652,10 @@ class Institution(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Institutions"
 
     def __str__(self):
@@ -632,7 +704,11 @@ class Institution(models.Model):
 
 
 class Material(models.Model):
-    """ A vocabulary with materials """
+    ### A vocabulary with materials ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     material = models.CharField(
         max_length=250,
         blank=True,
@@ -647,6 +723,10 @@ class Material(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Materials"
 
     def __str__(self):
@@ -695,7 +775,11 @@ class Material(models.Model):
 
 
 class Object(models.Model):
-    """ General information about the object """
+    ### General information about the object ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     folder_name = models.CharField(
         max_length=250,
         blank=True,
@@ -941,10 +1025,15 @@ class Object(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'folder_name',
+        ]
         verbose_name = "Object"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.folder_name)
+
 
     def field_dict(self):
         return model_to_dict(self)
@@ -989,7 +1078,11 @@ class Object(models.Model):
 
 
 class PaintingStyle(models.Model):
-    """ A vocabulary with painting styles and techniques """
+    ### A vocabulary with painting styles and techniques ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     painting_style = models.CharField(
         max_length=250,
         blank=True,
@@ -1004,6 +1097,10 @@ class PaintingStyle(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Painting Style / Technique"
 
     def __str__(self):
@@ -1052,7 +1149,11 @@ class PaintingStyle(models.Model):
 
 
 class PaintingSubTechnique(models.Model):
-    """ A vocabulary with sub techniques """
+    ### A vocabulary with sub techniques ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     painting_style_sub = models.CharField(
         max_length=250,
         blank=True,
@@ -1067,6 +1168,10 @@ class PaintingSubTechnique(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Painting sub technique"
 
     def __str__(self):
@@ -1115,7 +1220,11 @@ class PaintingSubTechnique(models.Model):
 
 
 class Period(models.Model):
-    """ A vocabulary with periods """
+    ### A vocabulary with periods ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     period = models.CharField(
         max_length=250,
         blank=True,
@@ -1141,6 +1250,10 @@ class Period(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Periods"
 
     def __str__(self):
@@ -1189,7 +1302,11 @@ class Period(models.Model):
 
 
 class Person(models.Model):
-    """ Information about persons """
+    ### Information about persons ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     person_last_name = models.CharField(
         max_length=250,
         blank=True,
@@ -1219,6 +1336,10 @@ class Person(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Persons"
 
     def __str__(self):
@@ -1267,7 +1388,11 @@ class Person(models.Model):
 
 
 class Place(models.Model):
-    """ Information about places """
+    ### Information about places ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     place_name = models.CharField(
         max_length=250,
         blank=True,
@@ -1294,6 +1419,10 @@ class Place(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Places"
 
     def __str__(self):
@@ -1342,7 +1471,11 @@ class Place(models.Model):
 
 
 class Shape(models.Model):
-    """ A vocabulary with shape names """
+    ### A vocabulary with shape names ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     shape = models.CharField(
         max_length=250,
         blank=True,
@@ -1363,6 +1496,10 @@ class Shape(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "Shapes"
 
     def __str__(self):
@@ -1411,7 +1548,11 @@ class Shape(models.Model):
 
 
 class ShapeComponent(models.Model):
-    """ A vocabulary with names of shape components """
+    ### A vocabulary with names of shape components ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     shape_comp = models.CharField(
         max_length=250,
         blank=True,
@@ -1426,6 +1567,10 @@ class ShapeComponent(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "ShapeComponents"
 
     def __str__(self):
@@ -1474,7 +1619,11 @@ class ShapeComponent(models.Model):
 
 
 class ThreedData(models.Model):
-    """ Information about 3d models for an object """
+    ### Information about 3d models for an object ###
+    legacy_id = models.CharField(
+        max_length=300, blank=True,
+        verbose_name="Legacy ID"
+        )
     folder_name = models.ForeignKey(
         "Object",
         related_name='rvn_threeddata_folder_name_object',
@@ -1661,6 +1810,10 @@ class ThreedData(models.Model):
     )
 
     class Meta:
+
+        ordering = [
+            'id',
+        ]
         verbose_name = "3d data"
 
     def __str__(self):
