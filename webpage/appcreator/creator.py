@@ -86,3 +86,47 @@ def serialize_tables(dicts, app_name="my_app", file_name='output_tables.py'):
     with open(file_name, "w") as text_file:
         print(output, file=text_file)
     return file_name
+
+
+def serialize_views(dicts, app_name="my_app", file_name='output_views.py'):
+    t = Template(code_templates.VIEWS_PY)
+    output = t.render(
+        data=dicts,
+        app_name=app_name
+    )
+    with open(file_name, "w") as text_file:
+        print(output, file=text_file)
+    return file_name
+
+
+def serialize_forms(dicts, app_name="my_app", file_name='output_forms.py'):
+    t = Template(code_templates.FORMS_PY)
+    output = t.render(
+        data=dicts,
+        app_name=app_name
+    )
+    with open(file_name, "w") as text_file:
+        print(output, file=text_file)
+    return file_name
+
+
+def serialize_filters(dicts, app_name="my_app", file_name='output_filters.py'):
+    t = Template(code_templates.FILTERS_PY)
+    output = t.render(
+        data=dicts,
+        app_name=app_name
+    )
+    with open(file_name, "w") as text_file:
+        print(output, file=text_file)
+    return file_name
+
+
+def serialize_urls(dicts, app_name="my_app", file_name='output_urls.py'):
+    t = Template(code_templates.URLS_PY)
+    output = t.render(
+        data=dicts,
+        app_name=app_name
+    )
+    with open(file_name, "w") as text_file:
+        print(output, file=text_file)
+    return file_name
