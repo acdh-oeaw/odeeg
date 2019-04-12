@@ -43,6 +43,9 @@ class CertaintyFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'cert_label',
+                    'cert_id',
+
                     css_id="more"
                     ),
                 )
@@ -82,6 +85,9 @@ class CollectionSpecFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'collection_spec',
+                    'partof_institution',
+
                     css_id="more"
                     ),
                 )
@@ -121,6 +127,9 @@ class CultureFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'culture',
+                    'culture_id',
+
                     css_id="more"
                     ),
                 )
@@ -160,6 +169,9 @@ class FabricFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'material_fabric',
+                    'material_fabric_id',
+
                     css_id="more"
                     ),
                 )
@@ -199,6 +211,8 @@ class HardwareFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'threed_hardware',
+
                     css_id="more"
                     ),
                 )
@@ -238,6 +252,13 @@ class IllustrationFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'folder_name',
+                    'ill_date',
+                    'ill_author',
+                    'ill_software',
+                    'ill_software_steps',
+                    'ill_notes',
+
                     css_id="more"
                     ),
                 )
@@ -277,6 +298,13 @@ class IllustrationPanelFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'folder_name',
+                    'illtab_date',
+                    'illtab_author',
+                    'illtab_software',
+                    'illtab_software_steps',
+                    'illtab_notes',
+
                     css_id="more"
                     ),
                 )
@@ -316,6 +344,9 @@ class ImagingTechniqueFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'threed_technique',
+                    'threed_technique_id',
+
                     css_id="more"
                     ),
                 )
@@ -355,6 +386,10 @@ class InstitutionFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'inst_name',
+                    'inst_geo_id',
+                    'inst_id',
+
                     css_id="more"
                     ),
                 )
@@ -394,6 +429,9 @@ class MaterialFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'material',
+                    'material_id',
+
                     css_id="more"
                     ),
                 )
@@ -433,6 +471,42 @@ class ObjectFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'folder_name',
+                    'collection_inst',
+                    'collection_spec',
+                    'inv_nr',
+                    'bapd_nr',
+                    'shape',
+                    'shape_comp',
+                    'object_associated_to_inv',
+                    'period',
+
+                    'culture',
+                    'material',
+                    'material_fabric',
+                    'painting_style',
+                    'painting_style_sub',
+                    'provenance_spot',
+                    'provenance_spot_cert',
+                    'provenance_production',
+                    'provenance_production_cert',
+                    'provenance_attribution',
+                    'provenance_acquisition',
+                    'provenance_acquisition_date',
+                    'bibref',
+                    'collref',
+                    'weight',
+                    'width',
+                    'height',
+                    'length',
+                    'fillingheight',
+                    'fillingvolume',
+                    'materialvolume',
+                    'materialdensity',
+                    'materialdensity_measure',
+                    'boundingbox',
+                    'object_notes',
+
                     css_id="more"
                     ),
                 )
@@ -472,6 +546,9 @@ class PaintingStyleFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'painting_style',
+                    'painting_style_id',
+
                     css_id="more"
                     ),
                 )
@@ -511,6 +588,9 @@ class PaintingSubTechniqueFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'painting_style_sub',
+                    'painting_style_sub_id',
+
                     css_id="more"
                     ),
                 )
@@ -550,6 +630,11 @@ class PeriodFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'period',
+                    'period_abbrev',
+                    'period_id',
+
+
                     css_id="more"
                     ),
                 )
@@ -589,6 +674,11 @@ class PersonFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'person_last_name',
+                    'person_first_name',
+                    'person_member_inst',
+                    'person_id',
+
                     css_id="more"
                     ),
                 )
@@ -628,6 +718,11 @@ class PlaceFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'place_name',
+                    'geonames_id',
+                    'coord_exact',
+                    'place_type',
+
                     css_id="more"
                     ),
                 )
@@ -667,6 +762,10 @@ class ShapeFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'shape',
+                    'shape_alt',
+                    'shape_id',
+
                     css_id="more"
                     ),
                 )
@@ -706,6 +805,9 @@ class ShapeComponentFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'shape_comp',
+                    'shape_comp_id',
+
                     css_id="more"
                     ),
                 )
@@ -745,6 +847,36 @@ class ThreedDataFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
+                    'folder_name',
+                    'threed_location',
+                    'threed_location_char',
+                    'threed_date',
+                    'threed_author',
+                    'threed_technique',
+                    'threed_hardware',
+                    'threed_fov',
+                    'threed_resolution',
+                    'threed_acc',
+                    'threed_texture_acquisition',
+                    'threed_texture_color',
+                    'threed_texture_resolution',
+                    'threed_software',
+                    'threed_scan_nrs',
+                    'threed_merging_date',
+                    'threed_merging_author',
+                    'threed_merging_software',
+                    'threed_postproc_date',
+                    'threed_postproc_author',
+                    'threed_postproc_software',
+                    'threed_postproc_actions',
+                    'threed_postproc_file',
+                    'threed_postproc_low_date',
+                    'threed_postproc_low_author',
+                    'threed_postproc_low_software',
+                    'threed_postproc_low_software_actions',
+                    'threed_postproc_low_file',
+                    'threed_notes',
+
                     css_id="more"
                     ),
                 )

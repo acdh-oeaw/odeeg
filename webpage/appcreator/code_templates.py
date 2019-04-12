@@ -123,9 +123,11 @@ class {{ x.model_name }}FilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    {%- for y in x.fields %}
-                    '{{ y.field_name }}',
-                    {%- endfor %}
+                    {% for y in x.model_fields %}
+                    {%- if y.field_type == 'DateRangeField' or y.field_type == 'id' %}
+                    {%- else %}'{{ y.field_name }}',
+                    {%- endif %}
+                    {% endfor %}
                     css_id="more"
                     ),
                 )
