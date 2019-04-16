@@ -127,7 +127,7 @@ class {{ x.model_name }}FilterFormHelper(FormHelper):
                     {%- if y.field_type == 'DateRangeField' or y.field_type == 'id' %}
                     {%- else %}'{{ y.field_name }}',
                     {%- endif %}
-                    {% endfor %}
+                    {%- endfor %}
                     css_id="more"
                     ),
                 )
@@ -147,7 +147,6 @@ class {{ x.model_name }}Form(forms.ModelForm):
         self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-9'
         self.helper.add_input(Submit('submit', 'save'),)
-
 
 {% endfor %}
 """
@@ -322,7 +321,7 @@ class {{ x.model_name }}(models.Model):
     {%- else %}
     def __str__(self):
         return "{}".format(self.{{ x.model_representation }})
-    {% endif %}
+    {%- endif %}
 
     def field_dict(self):
         return model_to_dict(self)

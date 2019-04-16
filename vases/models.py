@@ -21,9 +21,8 @@ class Certainty(models.Model):
         verbose_name="Certainty",
         help_text="",
     )
-    cert_id = models.CharField(
-        max_length=250,
-        blank=True,
+    cert_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Certainty, Getty AAT ID",
         help_text="",
     )
@@ -31,12 +30,12 @@ class Certainty(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'cert_label',
         ]
         verbose_name = "Certainty"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.cert_label)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -105,12 +104,12 @@ class CollectionSpec(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'collection_spec',
         ]
         verbose_name = "Collections"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.collection_spec)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -166,9 +165,8 @@ class Culture(models.Model):
         verbose_name="Culture",
         help_text="",
     )
-    culture_id = models.CharField(
-        max_length=250,
-        blank=True,
+    culture_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Culture, Getty AAT ID",
         help_text="",
     )
@@ -176,12 +174,12 @@ class Culture(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'culture',
         ]
         verbose_name = "Cultures"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.culture)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -237,9 +235,8 @@ class Fabric(models.Model):
         verbose_name="Material: Fabric",
         help_text="",
     )
-    material_fabric_id = models.CharField(
-        max_length=250,
-        blank=True,
+    material_fabric_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Material: Fabric, Getty AAT ID",
         help_text="",
     )
@@ -247,12 +244,12 @@ class Fabric(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'material_fabric',
         ]
         verbose_name = "Fabrics"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.material_fabric)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -312,12 +309,12 @@ class Hardware(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'threed_hardware',
         ]
         verbose_name = "Hardware for 3D imaging"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.threed_hardware)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -376,6 +373,12 @@ class Illustration(models.Model):
         verbose_name="Folder name",
         help_text="Folder name of object",
     )
+    ill_file_name = models.CharField(
+        max_length=250,
+        blank=True,
+        verbose_name="File name",
+        help_text="File name of illustration",
+    )
     ill_date = models.DateField(
         blank=True, null=True,
         verbose_name="Creation date",
@@ -409,12 +412,12 @@ class Illustration(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'ill_file_name',
         ]
         verbose_name = "Illustrations"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.ill_file_name)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -459,7 +462,7 @@ class Illustration(models.Model):
 
 
 class IllustrationPanel(models.Model):
-    ### Information about illustrations in an illustrative Tablet ###
+    ### Information about illustrations in an illustrative table ###
     legacy_id = models.CharField(
         max_length=300, blank=True,
         verbose_name="Legacy ID"
@@ -472,6 +475,12 @@ class IllustrationPanel(models.Model):
         blank=True,
         verbose_name="Folder name",
         help_text="Folder name of object",
+    )
+    illtab_file_name = models.CharField(
+        max_length=250,
+        blank=True,
+        verbose_name="File name",
+        help_text="File name of illustration table",
     )
     illtab_date = models.DateField(
         blank=True, null=True,
@@ -506,12 +515,12 @@ class IllustrationPanel(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'illtab_file_name',
         ]
-        verbose_name = "Illustration Tablets"
+        verbose_name = "Illustration Tables"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.illtab_file_name)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -567,9 +576,8 @@ class ImagingTechnique(models.Model):
         verbose_name="3D Survey: imaging technique",
         help_text="",
     )
-    threed_technique_id = models.CharField(
-        max_length=250,
-        blank=True,
+    threed_technique_id = models.URLField(
+        blank=True, null=True,
         verbose_name="3D Survey: imaging technique [AAT ID]",
         help_text="",
     )
@@ -577,12 +585,12 @@ class ImagingTechnique(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'threed_technique',
         ]
         verbose_name = "Imaging Technique"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.threed_technique)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -638,15 +646,13 @@ class Institution(models.Model):
         verbose_name="Institution name",
         help_text="",
     )
-    inst_geo_id = models.CharField(
-        max_length=250,
-        blank=True,
+    inst_geo_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Geonames ID of institution",
         help_text="Collection [institution] [GeoNameID]",
     )
-    inst_id = models.CharField(
-        max_length=250,
-        blank=True,
+    inst_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Identifier of Institution",
         help_text="Preferably from GND, or then VIAF or ORCID",
     )
@@ -654,12 +660,12 @@ class Institution(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'inst_name',
         ]
         verbose_name = "Institutions"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.inst_name)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -715,9 +721,8 @@ class Material(models.Model):
         verbose_name="Material",
         help_text="",
     )
-    material_id = models.CharField(
-        max_length=250,
-        blank=True,
+    material_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Material, Getty AAT ID",
         help_text="",
     )
@@ -725,12 +730,12 @@ class Material(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'material',
         ]
         verbose_name = "Materials"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.material)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -943,9 +948,8 @@ class Object(models.Model):
         verbose_name="Bibliographic reference",
         help_text="",
     )
-    collref = models.CharField(
-        max_length=250,
-        blank=True,
+    collref = models.URLField(
+        blank=True, null=True,
         verbose_name="Collection reference",
         help_text="",
     )
@@ -1034,7 +1038,6 @@ class Object(models.Model):
     def __str__(self):
         return "{}".format(self.folder_name)
 
-
     def field_dict(self):
         return model_to_dict(self)
 
@@ -1089,9 +1092,8 @@ class PaintingStyle(models.Model):
         verbose_name="Painting style/technique",
         help_text="",
     )
-    painting_style_id = models.CharField(
-        max_length=250,
-        blank=True,
+    painting_style_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Painting style/technique, Getty AAT ID",
         help_text="",
     )
@@ -1099,12 +1101,12 @@ class PaintingStyle(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'painting_style',
         ]
         verbose_name = "Painting Style / Technique"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.painting_style)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -1160,9 +1162,8 @@ class PaintingSubTechnique(models.Model):
         verbose_name="Painting sub technique",
         help_text="",
     )
-    painting_style_sub_id = models.CharField(
-        max_length=250,
-        blank=True,
+    painting_style_sub_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Painting sub technique, Getty AAT ID",
         help_text="",
     )
@@ -1170,12 +1171,12 @@ class PaintingSubTechnique(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'painting_style_sub',
         ]
         verbose_name = "Painting sub technique"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.painting_style_sub)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -1237,9 +1238,8 @@ class Period(models.Model):
         verbose_name="Period, Abbreviation",
         help_text="",
     )
-    period_id = models.CharField(
-        max_length=250,
-        blank=True,
+    period_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Period, ID",
         help_text="",
     )
@@ -1252,12 +1252,12 @@ class Period(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'period_date_range',
         ]
         verbose_name = "Periods"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.period)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -1328,9 +1328,8 @@ class Person(models.Model):
         verbose_name="Member institution of person",
         help_text="",
     )
-    person_id = models.CharField(
-        max_length=250,
-        blank=True,
+    person_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Identifier of Person",
         help_text="Preferably from GND, or then VIAF or ORCID",
     )
@@ -1338,12 +1337,12 @@ class Person(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'person_last_name',
         ]
         verbose_name = "Persons"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.person_last_name)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -1399,9 +1398,8 @@ class Place(models.Model):
         verbose_name="Name of place",
         help_text="",
     )
-    geonames_id = models.CharField(
-        max_length=250,
-        blank=True,
+    geonames_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Identifier of place",
         help_text="",
     )
@@ -1421,12 +1419,12 @@ class Place(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'place_name',
         ]
         verbose_name = "Places"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.place_name)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -1488,9 +1486,8 @@ class Shape(models.Model):
         verbose_name="Shape, alternate names",
         help_text="",
     )
-    shape_id = models.CharField(
-        max_length=250,
-        blank=True,
+    shape_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Shape, Getty AAT ID",
         help_text="",
     )
@@ -1498,12 +1495,12 @@ class Shape(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'shape',
         ]
         verbose_name = "Shapes"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.shape)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -1559,9 +1556,8 @@ class ShapeComponent(models.Model):
         verbose_name="Shape components",
         help_text="",
     )
-    shape_comp_id = models.CharField(
-        max_length=250,
-        blank=True,
+    shape_comp_id = models.URLField(
+        blank=True, null=True,
         verbose_name="Shape components, Getty AAT ID",
         help_text="",
     )
@@ -1569,12 +1565,12 @@ class ShapeComponent(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'shape_comp',
         ]
         verbose_name = "ShapeComponents"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.shape_comp)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -1812,12 +1808,12 @@ class ThreedData(models.Model):
     class Meta:
 
         ordering = [
-            'id',
+            'folder_name',
         ]
         verbose_name = "3d data"
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{}".format(self.folder_name)
 
     def field_dict(self):
         return model_to_dict(self)
