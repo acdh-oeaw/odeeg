@@ -202,7 +202,7 @@ class {{ x.model_name }}ListView(GenericListView):
     formhelper_class = {{ x.model_name }}FilterFormHelper
     table_class = {{ x.model_name }}Table
     init_columns = [
-        'id',
+        'id', {%- if x.model_representation != 'nan' %} '{{ x.model_representation }}', {%- endif %}
     ]
 
 
@@ -230,6 +230,7 @@ class {{ x.model_name }}Update(BaseUpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super({{ x.model_name }}Update, self).dispatch(*args, **kwargs)
+
 
 class {{ x.model_name }}Delete(DeleteView):
     model = {{ x.model_name }}

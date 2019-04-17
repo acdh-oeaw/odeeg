@@ -38,7 +38,7 @@ class CertaintyListView(GenericListView):
     formhelper_class = CertaintyFilterFormHelper
     table_class = CertaintyTable
     init_columns = [
-        'id',
+        'id', 'cert_label',
     ]
 
 
@@ -67,6 +67,7 @@ class CertaintyUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(CertaintyUpdate, self).dispatch(*args, **kwargs)
 
+
 class CertaintyDelete(DeleteView):
     model = Certainty
     template_name = 'webpage/confirm_delete.html'
@@ -84,7 +85,7 @@ class CollectionSpecListView(GenericListView):
     formhelper_class = CollectionSpecFilterFormHelper
     table_class = CollectionSpecTable
     init_columns = [
-        'id',
+        'id', 'collection_spec',
     ]
 
 
@@ -113,6 +114,7 @@ class CollectionSpecUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(CollectionSpecUpdate, self).dispatch(*args, **kwargs)
 
+
 class CollectionSpecDelete(DeleteView):
     model = CollectionSpec
     template_name = 'webpage/confirm_delete.html'
@@ -130,7 +132,7 @@ class CultureListView(GenericListView):
     formhelper_class = CultureFilterFormHelper
     table_class = CultureTable
     init_columns = [
-        'id',
+        'id', 'culture',
     ]
 
 
@@ -159,6 +161,7 @@ class CultureUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(CultureUpdate, self).dispatch(*args, **kwargs)
 
+
 class CultureDelete(DeleteView):
     model = Culture
     template_name = 'webpage/confirm_delete.html'
@@ -176,7 +179,7 @@ class FabricListView(GenericListView):
     formhelper_class = FabricFilterFormHelper
     table_class = FabricTable
     init_columns = [
-        'id',
+        'id', 'material_fabric',
     ]
 
 
@@ -205,6 +208,7 @@ class FabricUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(FabricUpdate, self).dispatch(*args, **kwargs)
 
+
 class FabricDelete(DeleteView):
     model = Fabric
     template_name = 'webpage/confirm_delete.html'
@@ -222,7 +226,7 @@ class HardwareListView(GenericListView):
     formhelper_class = HardwareFilterFormHelper
     table_class = HardwareTable
     init_columns = [
-        'id',
+        'id', 'threed_hardware',
     ]
 
 
@@ -251,6 +255,7 @@ class HardwareUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(HardwareUpdate, self).dispatch(*args, **kwargs)
 
+
 class HardwareDelete(DeleteView):
     model = Hardware
     template_name = 'webpage/confirm_delete.html'
@@ -268,7 +273,7 @@ class IllustrationListView(GenericListView):
     formhelper_class = IllustrationFilterFormHelper
     table_class = IllustrationTable
     init_columns = [
-        'id',
+        'id', 'ill_file_name',
     ]
 
 
@@ -297,6 +302,7 @@ class IllustrationUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(IllustrationUpdate, self).dispatch(*args, **kwargs)
 
+
 class IllustrationDelete(DeleteView):
     model = Illustration
     template_name = 'webpage/confirm_delete.html'
@@ -314,7 +320,7 @@ class IllustrationPanelListView(GenericListView):
     formhelper_class = IllustrationPanelFilterFormHelper
     table_class = IllustrationPanelTable
     init_columns = [
-        'id',
+        'id', 'illtab_file_name',
     ]
 
 
@@ -343,10 +349,11 @@ class IllustrationPanelUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(IllustrationPanelUpdate, self).dispatch(*args, **kwargs)
 
+
 class IllustrationPanelDelete(DeleteView):
     model = IllustrationPanel
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('vases:illustrationtable_browse')
+    success_url = reverse_lazy('vases:illustrationpanel_browse')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -360,7 +367,7 @@ class ImagingTechniqueListView(GenericListView):
     formhelper_class = ImagingTechniqueFilterFormHelper
     table_class = ImagingTechniqueTable
     init_columns = [
-        'id',
+        'id', 'threed_technique',
     ]
 
 
@@ -389,6 +396,7 @@ class ImagingTechniqueUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(ImagingTechniqueUpdate, self).dispatch(*args, **kwargs)
 
+
 class ImagingTechniqueDelete(DeleteView):
     model = ImagingTechnique
     template_name = 'webpage/confirm_delete.html'
@@ -406,7 +414,7 @@ class InstitutionListView(GenericListView):
     formhelper_class = InstitutionFilterFormHelper
     table_class = InstitutionTable
     init_columns = [
-        'id',
+        'id', 'inst_name',
     ]
 
 
@@ -435,6 +443,7 @@ class InstitutionUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(InstitutionUpdate, self).dispatch(*args, **kwargs)
 
+
 class InstitutionDelete(DeleteView):
     model = Institution
     template_name = 'webpage/confirm_delete.html'
@@ -452,7 +461,7 @@ class MaterialListView(GenericListView):
     formhelper_class = MaterialFilterFormHelper
     table_class = MaterialTable
     init_columns = [
-        'id',
+        'id', 'material',
     ]
 
 
@@ -481,6 +490,7 @@ class MaterialUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(MaterialUpdate, self).dispatch(*args, **kwargs)
 
+
 class MaterialDelete(DeleteView):
     model = Material
     template_name = 'webpage/confirm_delete.html'
@@ -498,7 +508,7 @@ class ObjectListView(GenericListView):
     formhelper_class = ObjectFilterFormHelper
     table_class = ObjectTable
     init_columns = [
-        'id',
+        'id', 'folder_name',
     ]
 
 
@@ -527,6 +537,7 @@ class ObjectUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(ObjectUpdate, self).dispatch(*args, **kwargs)
 
+
 class ObjectDelete(DeleteView):
     model = Object
     template_name = 'webpage/confirm_delete.html'
@@ -544,7 +555,7 @@ class PaintingStyleListView(GenericListView):
     formhelper_class = PaintingStyleFilterFormHelper
     table_class = PaintingStyleTable
     init_columns = [
-        'id',
+        'id', 'painting_style',
     ]
 
 
@@ -573,6 +584,7 @@ class PaintingStyleUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(PaintingStyleUpdate, self).dispatch(*args, **kwargs)
 
+
 class PaintingStyleDelete(DeleteView):
     model = PaintingStyle
     template_name = 'webpage/confirm_delete.html'
@@ -590,7 +602,7 @@ class PaintingSubTechniqueListView(GenericListView):
     formhelper_class = PaintingSubTechniqueFilterFormHelper
     table_class = PaintingSubTechniqueTable
     init_columns = [
-        'id',
+        'id', 'painting_style_sub',
     ]
 
 
@@ -619,6 +631,7 @@ class PaintingSubTechniqueUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(PaintingSubTechniqueUpdate, self).dispatch(*args, **kwargs)
 
+
 class PaintingSubTechniqueDelete(DeleteView):
     model = PaintingSubTechnique
     template_name = 'webpage/confirm_delete.html'
@@ -636,7 +649,7 @@ class PeriodListView(GenericListView):
     formhelper_class = PeriodFilterFormHelper
     table_class = PeriodTable
     init_columns = [
-        'id',
+        'id', 'period',
     ]
 
 
@@ -665,6 +678,7 @@ class PeriodUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(PeriodUpdate, self).dispatch(*args, **kwargs)
 
+
 class PeriodDelete(DeleteView):
     model = Period
     template_name = 'webpage/confirm_delete.html'
@@ -682,7 +696,7 @@ class PersonListView(GenericListView):
     formhelper_class = PersonFilterFormHelper
     table_class = PersonTable
     init_columns = [
-        'id',
+        'id', 'person_last_name',
     ]
 
 
@@ -711,6 +725,7 @@ class PersonUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(PersonUpdate, self).dispatch(*args, **kwargs)
 
+
 class PersonDelete(DeleteView):
     model = Person
     template_name = 'webpage/confirm_delete.html'
@@ -728,7 +743,7 @@ class PlaceListView(GenericListView):
     formhelper_class = PlaceFilterFormHelper
     table_class = PlaceTable
     init_columns = [
-        'id',
+        'id', 'place_name',
     ]
 
 
@@ -757,6 +772,7 @@ class PlaceUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(PlaceUpdate, self).dispatch(*args, **kwargs)
 
+
 class PlaceDelete(DeleteView):
     model = Place
     template_name = 'webpage/confirm_delete.html'
@@ -774,7 +790,7 @@ class ShapeListView(GenericListView):
     formhelper_class = ShapeFilterFormHelper
     table_class = ShapeTable
     init_columns = [
-        'id',
+        'id', 'shape',
     ]
 
 
@@ -803,6 +819,7 @@ class ShapeUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(ShapeUpdate, self).dispatch(*args, **kwargs)
 
+
 class ShapeDelete(DeleteView):
     model = Shape
     template_name = 'webpage/confirm_delete.html'
@@ -820,7 +837,7 @@ class ShapeComponentListView(GenericListView):
     formhelper_class = ShapeComponentFilterFormHelper
     table_class = ShapeComponentTable
     init_columns = [
-        'id',
+        'id', 'shape_comp',
     ]
 
 
@@ -849,6 +866,7 @@ class ShapeComponentUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(ShapeComponentUpdate, self).dispatch(*args, **kwargs)
 
+
 class ShapeComponentDelete(DeleteView):
     model = ShapeComponent
     template_name = 'webpage/confirm_delete.html'
@@ -866,7 +884,7 @@ class ThreedDataListView(GenericListView):
     formhelper_class = ThreedDataFilterFormHelper
     table_class = ThreedDataTable
     init_columns = [
-        'id',
+        'id', 'folder_name',
     ]
 
 
@@ -894,6 +912,7 @@ class ThreedDataUpdate(BaseUpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ThreedDataUpdate, self).dispatch(*args, **kwargs)
+
 
 class ThreedDataDelete(DeleteView):
     model = ThreedData
