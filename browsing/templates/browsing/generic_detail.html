@@ -68,6 +68,11 @@
                                     {% endfor %}
                                 {% endif %}
                             </td>
+                            <td>
+                                {% if x.f_type == 'FK' %}
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>
