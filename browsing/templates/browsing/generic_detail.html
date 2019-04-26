@@ -49,16 +49,24 @@
     <div class="card-body">
         {% block custom %}
             <legend>Basic Information</legend>
-            {{ object.field_dict }}
-
                 <table class="table table-bordered table-hover">
-                    {% for key, value in object.field_dict.items %}
+                    {% for x in object.field_dict %}
                         <tr>
                             <th>
-                                {{ key }}
+                                {% if x.help_text %}
+                                    <abbr title="{{ x.help_text }}">{{ x.verbose_name }}</abbr>
+                                {% else %}
+                                    {{ x.verbose_name }}
+                                {% endif %}
                             </th>
                             <td>
-                                {{ value }}
+                                {% if x.f_type == 'M2M' %}
+                                    {% for y in x.value %}
+                                        <li>
+                                            <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

@@ -242,23 +242,34 @@ def model_to_dict(instance):
     """
     serializes a model.object to dict, including non editable fields as well as
     ManyToManyField fields
-    Taken from https://stackoverflow.com/questions/21925671/
     """
-    opts = instance._meta
-    data = {}
-    for f in opts.concrete_fields + opts.many_to_many:
-        if isinstance(f, ManyToManyField):
-            if instance.pk is None:
-                data[f.name] = []
-            else:
-                try:
-                    data[f.name] = list(f.value_from_object(instance).values_list('pk', flat=True))
-                except Exception as e:
-                    print(e)
-                    data[f.name] = []
+    field_dicts = []
+    for x in instance._meta.get_fields():
+        f_type = "{}".format(type(x))
+        field_dict = {
+                "name": x.name,
+                "verbose_name": getattr(x, 'verbose_name', x.name),
+                "help_text": getattr(x, 'help_text', ''),
+            }
+        if 'reverse_related' in f_type:
+            pass
+        elif 'related.ForeignKey' in f_type:
+            field_dict['value'] = getattr(instance, x.name, '')
+            field_dict['f_type'] = 'FK'
+        elif 'related.ManyToManyField' in f_type:
+            rel_obj = getattr(instance, x.name, '')
+            field_dict['value'] = rel_obj.all()
+            field_dict['f_type'] = 'M2M'
+        elif 'fields.DateTimeField' in f_type:
+            field_value = getattr(instance, x.name, '')
+            if field_value:
+                field_dict['value'] = (field_value.strftime("%Y-%m-%d %H:%M:%S"))
+                field_dict['f_type'] = 'DateTime'
         else:
-            data[f.name] = f.value_from_object(instance)
-    return data
+            field_dict['value'] = getattr(instance, x.name, '')
+            field_dict['f_type'] = 'SIMPLE'
+        field_dicts.append(field_dict)
+    return field_dicts
 
 
 def create_brows_config_obj(app_name, exclude_fields=[]):
