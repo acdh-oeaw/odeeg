@@ -63,14 +63,15 @@
                                 {% if x.f_type == 'M2M' %}
                                     {% for y in x.value %}
                                         <li>
-                                            <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                                            <a href="{{ y.get_absolute_url }}">{{ y.legacy_id }}</a>
                                         </li>
                                     {% endfor %}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if x.f_type == 'FK' %}
-                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                {% elif  x.f_type == 'FK' %}
+                                    <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
+                                {% elif  x.f_type == 'FK' %}
+                                    <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
+                                {% elif  x.f_type == 'SIMPLE' %}
+                                    {{ x.value }}
                                 {% endif %}
                             </td>
                         </tr>
