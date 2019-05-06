@@ -77,7 +77,7 @@ class HardwareTable(tables.Table):
 class IllustrationTable(tables.Table):
 
     id = tables.LinkColumn(verbose_name='ID')
-    ill_author = tables.ManyToManyColumn()
+    ill_author = tables.columns.ManyToManyColumn()
 
     class Meta:
         model = Illustration
@@ -88,7 +88,7 @@ class IllustrationTable(tables.Table):
 class IllustrationPanelTable(tables.Table):
 
     id = tables.LinkColumn(verbose_name='ID')
-    illtab_author = tables.ManyToManyColumn()
+    illtab_author = tables.columns.ManyToManyColumn()
 
     class Meta:
         model = IllustrationPanel
@@ -129,16 +129,16 @@ class MaterialTable(tables.Table):
 class ObjectTable(tables.Table):
 
     id = tables.LinkColumn(verbose_name='ID')
-    shape = tables.ManyToManyColumn()
-    shape_comp = tables.ManyToManyColumn()
-    object_associated_to_inv = tables.ManyToManyColumn()
-    period = tables.ManyToManyColumn()
-    culture = tables.ManyToManyColumn()
-    material = tables.ManyToManyColumn()
-    material_fabric = tables.ManyToManyColumn()
-    painting_style = tables.ManyToManyColumn()
-    painting_style_sub = tables.ManyToManyColumn()
-    provenance_acquisition = tables.ManyToManyColumn()
+    shape = tables.columns.ManyToManyColumn()
+    shape_comp = tables.columns.ManyToManyColumn()
+    object_associated_to_inv = tables.columns.ManyToManyColumn()
+    period = tables.columns.ManyToManyColumn()
+    culture = tables.columns.ManyToManyColumn()
+    material = tables.columns.ManyToManyColumn()
+    material_fabric = tables.columns.ManyToManyColumn()
+    painting_style = tables.columns.ManyToManyColumn()
+    painting_style_sub = tables.columns.ManyToManyColumn()
+    provenance_acquisition = tables.columns.ManyToManyColumn()
 
     class Meta:
         model = Object
@@ -189,7 +189,7 @@ class PersonTable(tables.Table):
 class PlaceTable(tables.Table):
 
     id = tables.LinkColumn(verbose_name='ID')
-    place_type = tables.ManyToManyColumn()
+    place_type = tables.columns.ManyToManyColumn()
 
     class Meta:
         model = Place
@@ -220,11 +220,11 @@ class ShapeComponentTable(tables.Table):
 class ThreedDataTable(tables.Table):
 
     id = tables.LinkColumn(verbose_name='ID')
-    threed_location = tables.ManyToManyColumn()
-    threed_author = tables.ManyToManyColumn()
-    threed_merging_author = tables.ManyToManyColumn()
-    threed_postproc_author = tables.ManyToManyColumn()
-    threed_postproc_low_author = tables.ManyToManyColumn()
+    threed_location = tables.columns.ManyToManyColumn()
+    threed_author = tables.columns.ManyToManyColumn()
+    threed_merging_author = tables.columns.ManyToManyColumn()
+    threed_postproc_author = tables.columns.ManyToManyColumn()
+    threed_postproc_low_author = tables.columns.ManyToManyColumn()
 
     class Meta:
         model = ThreedData

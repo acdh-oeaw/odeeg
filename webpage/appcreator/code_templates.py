@@ -167,7 +167,7 @@ class {{ x.model_name }}Table(tables.Table):
     id = tables.LinkColumn(verbose_name='ID')
     {%- for y in x.model_fields %}
     {%- if y.field_type == 'ManyToManyField' %}
-    {{ y.field_name }} = tables.ManyToManyColumn()
+    {{ y.field_name }} = tables.columns.ManyToManyColumn()
     {%- endif %}
     {%- endfor %}
 
