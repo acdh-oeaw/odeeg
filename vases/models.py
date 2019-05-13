@@ -21,8 +21,9 @@ class Certainty(models.Model):
         verbose_name="Certainty",
         help_text="",
     )
-    cert_id = models.URLField(
-        blank=True, null=True,
+    cert_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Certainty, Getty AAT ID",
         help_text="",
     )
@@ -100,6 +101,12 @@ class CollectionSpec(models.Model):
         verbose_name="Part of Institution",
         help_text="The institution the specific collection is part of",
     )
+    collection_spec_folder = models.CharField(
+        max_length=250,
+        blank=True,
+        verbose_name="Name of containing folder",
+        help_text="The folder in which objects of this collection are stored",
+    )
 
     class Meta:
 
@@ -165,8 +172,9 @@ class Culture(models.Model):
         verbose_name="Culture",
         help_text="",
     )
-    culture_id = models.URLField(
-        blank=True, null=True,
+    culture_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Culture, Getty AAT ID",
         help_text="",
     )
@@ -235,8 +243,9 @@ class Fabric(models.Model):
         verbose_name="Material: Fabric",
         help_text="",
     )
-    material_fabric_id = models.URLField(
-        blank=True, null=True,
+    material_fabric_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Material: Fabric, Getty AAT ID",
         help_text="",
     )
@@ -576,8 +585,9 @@ class ImagingTechnique(models.Model):
         verbose_name="3D Survey: imaging technique",
         help_text="",
     )
-    threed_technique_id = models.URLField(
-        blank=True, null=True,
+    threed_technique_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="3D Survey: imaging technique [AAT ID]",
         help_text="",
     )
@@ -646,8 +656,9 @@ class Institution(models.Model):
         verbose_name="Institution name",
         help_text="",
     )
-    inst_geo_id = models.URLField(
-        blank=True, null=True,
+    inst_geo_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Geonames ID of institution",
         help_text="Collection [institution] [GeoNameID]",
     )
@@ -721,8 +732,9 @@ class Material(models.Model):
         verbose_name="Material",
         help_text="",
     )
-    material_id = models.URLField(
-        blank=True, null=True,
+    material_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Material, Getty AAT ID",
         help_text="",
     )
@@ -1092,8 +1104,9 @@ class PaintingStyle(models.Model):
         verbose_name="Painting style/technique",
         help_text="",
     )
-    painting_style_id = models.URLField(
-        blank=True, null=True,
+    painting_style_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Painting style/technique, Getty AAT ID",
         help_text="",
     )
@@ -1162,8 +1175,9 @@ class PaintingSubTechnique(models.Model):
         verbose_name="Painting sub technique",
         help_text="",
     )
-    painting_style_sub_id = models.URLField(
-        blank=True, null=True,
+    painting_style_sub_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Painting sub technique, Getty AAT ID",
         help_text="",
     )
@@ -1248,11 +1262,21 @@ class Period(models.Model):
         verbose_name="Period, date range",
         help_text="",
     )
+    period_iso_start = models.DateField(
+        blank=True, null=True,
+        verbose_name="Period, date range start in ISO",
+        help_text="",
+    )
+    period_iso_end = models.DateField(
+        blank=True, null=True,
+        verbose_name="Period, date range end in ISO",
+        help_text="",
+    )
 
     class Meta:
 
         ordering = [
-            'period_date_range',
+            'period_iso_start',
         ]
         verbose_name = "Periods"
 
@@ -1486,8 +1510,9 @@ class Shape(models.Model):
         verbose_name="Shape, alternate names",
         help_text="",
     )
-    shape_id = models.URLField(
-        blank=True, null=True,
+    shape_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Shape, Getty AAT ID",
         help_text="",
     )
@@ -1556,8 +1581,9 @@ class ShapeComponent(models.Model):
         verbose_name="Shape components",
         help_text="",
     )
-    shape_comp_id = models.URLField(
-        blank=True, null=True,
+    shape_comp_id = models.CharField(
+        max_length=250,
+        blank=True,
         verbose_name="Shape components, Getty AAT ID",
         help_text="",
     )
