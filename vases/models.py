@@ -1074,7 +1074,10 @@ class Object(models.Model):
             return results, result_list
 
     def get_thumbs(self):
-        binaries = self.get_binaries()[1]
+        try:
+            binaries = self.get_binaries()[1]
+        except IndexError:
+            return []
         thumbs = [x.replace(ACDHID_DOMAIN, THUMB_SERVICE) for x in binaries]
         return thumbs
 

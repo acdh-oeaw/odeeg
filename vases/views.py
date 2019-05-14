@@ -515,7 +515,7 @@ class ObjectListView(GenericListView):
 class ObjectDetailView(DetailView):
 
     model = Object
-    template_name = 'browsing/generic_detail.html'
+    template_name = 'vases/object_detail.html'
 
 
 class ObjectCreate(BaseCreateView):
