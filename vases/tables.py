@@ -139,6 +139,10 @@ class ObjectTable(tables.Table):
     painting_style = tables.columns.ManyToManyColumn()
     painting_style_sub = tables.columns.ManyToManyColumn()
     provenance_acquisition = tables.columns.ManyToManyColumn()
+    thumbnail = tables.columns.TemplateColumn(
+        template_name="vases/templatecolumn/thumbcolumn.html",
+        orderable=False
+    )
 
     class Meta:
         model = Object

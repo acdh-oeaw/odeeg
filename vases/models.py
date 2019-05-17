@@ -1073,13 +1073,31 @@ class Object(models.Model):
             result_list = arche_utils.results_to_list(results, 'uri')
             return results, result_list
 
+    def get_tifs(self):
+        if self.folder_name is None or self.folder_name == "":
+            return []
+        else:
+            startstr = "/".join([ARCHE_URI_CONST, self.get_col_abbr(), self.folder_name])
+            san_query = arche_utils.sanitize_querystring(
+                arche_utils.query_tifs, startstr
+            )
+            results = arche_utils.get_results(san_query)
+            result_list = arche_utils.results_to_list(results, 'uri')
+            return results, result_list
+
     def get_thumbs(self):
         try:
-            binaries = self.get_binaries()[1]
+            binaries = self.get_tifs()[1]
         except IndexError:
             return []
         thumbs = [x.replace(ACDHID_DOMAIN, THUMB_SERVICE) for x in binaries]
         return thumbs
+
+    def get_thumb(self):
+        try:
+            return "{}".format(self.get_thumbs()[0])
+        except IndexError:
+            return ""
 
     def field_dict(self):
         return model_to_dict(self)
