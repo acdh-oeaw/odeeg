@@ -251,8 +251,9 @@ def model_to_dict(instance):
                 "verbose_name": getattr(x, 'verbose_name', x.name),
                 "help_text": getattr(x, 'help_text', ''),
             }
-        if 'reverse_related' in f_type:
-            pass
+        if x.name.startswith('rvn_'):
+            field_dict['value'] = getattr(instance, x.name, '').all()
+            field_dict['f_type'] = 'REVRESE_RELATION'
         elif 'related.ForeignKey' in f_type:
             field_dict['value'] = getattr(instance, x.name, '')
             field_dict['f_type'] = 'FK'
@@ -266,7 +267,7 @@ def model_to_dict(instance):
                 field_dict['value'] = (field_value.strftime("%Y-%m-%d %H:%M:%S"))
                 field_dict['f_type'] = 'DateTime'
         else:
-            field_dict['value'] = getattr(instance, x.name, '')
+            field_dict['value'] = f"{getattr(instance, x.name, '')}"
             field_dict['f_type'] = 'SIMPLE'
         field_dicts.append(field_dict)
     return field_dicts

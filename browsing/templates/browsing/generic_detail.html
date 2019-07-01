@@ -51,6 +51,7 @@
             <legend>Basic Information</legend>
                 <table class="table table-bordered table-hover">
                     {% for x in object.field_dict %}
+                    {% if x.value %}
                         <tr>
                             <th>
                                 {% if x.help_text %}
@@ -70,12 +71,21 @@
                                     <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
                                 {% elif  x.f_type == 'FK' %}
                                     <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
+                                {% elif  x.f_type == 'REVRESE_RELATION' %}
+                                    {% for y in x.value %}
+                                        <li>
+                                            <a href="{{ y.get_absolute_url }}">{{ y.legacy_id }}</a>
+                                        </li>
+                                    {% endfor %}
+
                                 {% elif  x.f_type == 'SIMPLE' %}
                                     {{ x.value }}
                                 {% endif %}
                             </td>
                         </tr>
+                    {% endif %}
                     {% endfor %}
+
                 </table>
             </div>
         {% endblock custom %}
