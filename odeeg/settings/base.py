@@ -17,7 +17,7 @@ REDMINE_ID = 11625
 ARCHE_BG = "https://arche-curation.acdh-dev.oeaw.ac.at/blazegraph/sparql"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, '../../'))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, '../'))))
 
 # Application definition
 
