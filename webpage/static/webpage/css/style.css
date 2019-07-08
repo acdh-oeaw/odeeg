@@ -4,11 +4,111 @@
 }
 
 a {
-    color: #88dbdf;
+    color: #C4461C;
 }
 .help-block {
 	font-size: 0.9em;
 }
 .create-label {
 	font-weight: 700;
+}
+
+/*body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.9rem;
+    padding-top: 70px;
+}*/
+
+h1, h2, h3, h4, h5, h6{
+    font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
+}
+
+h1 {
+    font-size: 2.25rem;
+}
+
+h2 {
+    font-size: 2.0rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1.0rem;
+}
+
+header {
+    flex: 0 0 auto;
+}
+
+nav.navbar {
+    color: #f8f9fa;
+    background-color: #444444;
+}
+
+/*#odeeg-logo-navbar {
+    width: 8rem;
+    min-width: 104px;
+    height: auto;
+    position: relative;
+    bottom: -0.35rem;
+}*/
+
+#empty-logo-place {
+    width: 7rem;
+}
+
+#logo-title-section {
+    text-align: left !important;
+    font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
+    line-height: 1.25rem;
+    vertical-align: bottom;
+}
+
+#logo-title-section img{
+    width: 8em;
+    display: inline-block;
+    padding-bottom: 0.75em;
+}
+
+#logo-title-section p{
+    display: inline-block;
+    margin-bottom: -0.5em !important;
+}
+
+#logo-title-section i {
+    color: #808080;
+}
+
+/** round icons for myCarousel **/
+.carousel-indicators--round li {
+    border-radius: 10px;
+    margin: 1px 3px;
+    height: 10px;
+    max-width: 10px;
+    border: 1px solid #FFF;
+    background-color: transparent;
+}
+.carousel-indicators .active {
+    background-color: #fff;
+    max-width: 12px;
+    margin: 0 3px;
+    height: 12px;
+}
+
+.carousel .carousel-inner .carousel-item {
+    height: 425px;
 }

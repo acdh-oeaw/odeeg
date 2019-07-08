@@ -6,9 +6,16 @@
     <legend>Basic Information</legend>
         {% for x in  object.get_thumbs %}
             <li>
-                <img src="{{ x }}" >    
+                <img src="{{ x }}" >
             </li>
         {% endfor %}
+        <h2>Binaries</h2>
+        {% for y in  object.get_binaries %}
+            <li>
+                <img src="{{ y }}" >
+            </li>
+        {% endfor %}
+        <h2>Hello !</h2>
         <table class="table table-bordered table-hover">
             {% for x in object.field_dict %}
                 <tr>
