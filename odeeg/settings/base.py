@@ -12,10 +12,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
-ACDH_IMPRINT_URL = "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
-REDMINE_ID = 11625
-ARCHE_BG = "https://arche-curation.acdh-dev.oeaw.ac.at/blazegraph/sparql"
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, '../'))))
 
@@ -23,31 +19,49 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__
 
 INSTALLED_APPS = [
     'dal',
-    'django.contrib.admin',
     'dal_select2',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'reversion',
     'crispy_forms',
     'django_filters',
     'django_tables2',
     'rest_framework',
+    'haystack',
+    'idprovider',
     'webpage',
     'browsing',
     'vocabs',
-    'vases',
+    'entities',
+    'stats',
+    'arche',
+    # 'bib',
+    'charts',
+    'dobjects',
 ]
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,7 +87,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'webpage.webpage_content_processors.installed_apps',
                 'webpage.webpage_content_processors.is_dev_version',
-                'webpage.webpage_content_processors.get_db_name',
             ],
         },
     },
@@ -103,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
@@ -123,14 +136,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 ARCHE_SETTINGS = {
-    'project_name': ROOT_URLCONF.split('.')[0],
-    'base_url': "https://id.acdh.oeaw.ac.at/{}".format(ROOT_URLCONF.split('.')[0])
+    'project_name': 'ODeeg',
+    'base_url': "https://id.acdh.oeaw.ac.at/odeeg"
 }
 
-VOCABS_DEFAULT_PEFIX = os.path.basename(BASE_DIR)
+VOCABS_DEFAULT_PEFIX = 'odeeg'
 
 VOCABS_SETTINGS = {
     'default_prefix': VOCABS_DEFAULT_PEFIX,
-    'default_ns': "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
-    'default_lang': "en"
+    'default_ns': "http://www.vocabs/odeeg/",
+    'default_lang': "eng"
 }

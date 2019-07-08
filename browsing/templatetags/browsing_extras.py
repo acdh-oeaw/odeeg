@@ -13,17 +13,15 @@ def nav_menu(app=None):
         models = ContentType.objects.filter(app_label=app)
         result = []
         for x in models:
-            modelname = x.model_class().__name__.lower()
-            model_verbose_name = x.model_class()._meta.verbose_name
-            # modelname = modelname.replace(" ", "").lower()
+            modelname = x.name
+            modelname = modelname.replace(" ", "").lower()
             try:
                 fetched_model = ContentType.objects.get(
                     app_label=app, model=modelname).model_class()
                 item = {
-                    'name': fetched_model._meta.verbose_name,
+                    'name': modelname.title(),
                 }
-            except Exception as e:
-                print(e)
+            except:
                 item = {
                     'name': None
                 }
@@ -41,8 +39,7 @@ def class_definition(context):
     try:
         values['class_name'] = context['class_name']
         values['docstring'] = context['docstring']
-    except Exception as e:
-        print(e)
+    except:
         pass
     return values
 
@@ -51,6 +48,5 @@ def class_definition(context):
 def column_selector(context):
     try:
         return {'columns': context['togglable_colums']}
-    except Exception as e:
-        print(e)
+    except:
         return {'columns': None}

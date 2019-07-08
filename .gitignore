@@ -18,7 +18,6 @@ vocabs/migrations/*
 bib/migrations/*
 webpage/migrations/*
 places/migrations/*
-output_*.py
 
 
 # Ipython Notebook checkpoints
@@ -29,13 +28,12 @@ mysql.py
 server.py
 postgres.py
 dev_secret.py
-pg_local.py
 
 # documentation build files
 
 /docs/_*/*
 /vocabs/data/spreadsheets/cv_burial.xlsx
-/Untitled*.ipynb
+/Untitled.ipynb
 /arche/data/fileType.json
 /arche/data/fileList.json
 /dump.json

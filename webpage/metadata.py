@@ -17,5 +17,4 @@ PROJECT_METADATA = {
         ('fab fa-youtube fa-2x', 'https://www.youtube.com/channel/UCgaEMaMbPkULYRI5u6gvG-w'),
     ],
     'app_type': 'database',
-    'imprint': '/imprint'
 }

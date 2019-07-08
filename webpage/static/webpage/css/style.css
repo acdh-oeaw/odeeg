@@ -1,14 +1,299 @@
-.card {
-    overflow: visible;
-    margin-bottom: 20px;
+html {
+    height: 100%;
 }
 
-a {
-    color: #88dbdf;
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.9rem;
+    padding-top: 70px;
+}
+
+a, a:hover{
+    color: #C4461C;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
+}
+
+h1 {
+    font-size: 2.25rem;
+}
+
+h2 {
+    font-size: 2.0rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1.0rem;
+}
+
+/*remove round corners everywhere*/
+/** {
+  border-radius: 0 !important;
+}*/
+
+header {
+    flex: 0 0 auto;
+}
+
+nav.navbar a.dropdown-toggle{
+    color: #f8f9fa;
+}
+
+a.nav-link{
+    padding-bottom: 0;
+}
+
+#logo-title-section {
+    text-align: left !important;
+    font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
+    line-height: 1.25rem;
+    vertical-align: bottom;
+}
+
+#logo-title-section i {
+    color: #808080;
+}
+
+.main-content{
+    flex: 1 0 auto;
+}
+
+.detail-title {
+    font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;
+}
+
+
+/** round icons for myCarousel **/
+.carousel-indicators--round li {
+    border-radius: 10px;
+    margin: 1px 3px;
+    height: 10px;
+    max-width: 10px;
+    border: 1px solid #FFF;
+    background-color: transparent;
+}
+.carousel-indicators .active {
+    background-color: #fff;
+    max-width: 12px;
+    margin: 0 3px;
+    height: 12px;
+}
+
+/**
+* Styling of results overview page
+**/
+
+legend{
+    font-size: 1rem !important;
+    color: #808080;
+    display: inline-block;
+    width: auto;
+}
+
+div.dropdown {
+    display: inline-block;
+    float: right;
+    font-size: 0.8rem;
+}
+
+#dropdownMenu1 {
+    font-size: 0.8rem;
+    color: #808080;
+}
+
+.detail-left-side, .search-left-side{
+    border: none;
+}
+
+.list-toggle-buttons{
+    color: #C4461C;
+    text-align: right;
+}
+
+.list-toggle-buttons i{
+    color: #C4461C;
+}
+
+.list-toggle-buttons i.active{
+    color: #808080;
+}
+
+.thumbnail{
+    display: none;
+}
+
+th.thumbnail{
+    display: none !important;
+}
+
+.thumbnail div{
+    width: 120px;
+    height: 120px;
+    border-left: 1px solid #dee2e6;
+}
+
+.thumbnail img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+}
+
+/* ul.dropdown-menu {
+    transform: translate3d(-68px, 33px, 0px) !important;
+} */
+
+/**
+* styling of detail view of vases
+**/
+
+i.fa-info-circle {
+    color: rgba(0,0,0,.125);
+}
+
+.table-information td, .table-information th {
+    padding: 0 0 0.3rem 0;
+    border: none;
+}
+
+.table-information th {
+    color: #343a40;
+    /*font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;*/
+    font-weight: normal;
+    font-size: 1rem;
+    width: 25%;
+}
+
+hr.hr-detail-view {
+    border-style: dashed;
+    border-color: rgba(0,0,0,.125);
+}
+
+
+/**
+* Styling of 3d viewer and image viewer
+**/
+
+#toolbar img {
+    margin-bottom: 3% !important;
+    width: 35% !important;
+    height: auto !important;
+}
+
+
+footer {
+    flex: 0 0 auto;
+    background-color: #333333;
+    padding: 20px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 30px;
+    color: #c5c5c5;
+}
+
+/*custom acdh logo css*/
+
+#acdh-logo {
+    width: 25%;
+    height: auto;
+    padding: 10px 0 10px 0;
+}
+
+#github-logo {
+    width: 10%;
+    height: auto;
+    padding: 10px 0 10px 0;
+}
+
+#odeeg-logo {
+    width: 14%;
+    min-width: 104px;
+    height: auto;
+    padding: 0 5px 5px 0;
+    float: left;
+    margin: 0 1rem 0 0.5rem;
+    margin-top: -0.35rem;
+}
+
+#odeeg-logo-navbar {
+    width: 8rem;
+    min-width: 104px;
+    height: auto;
+    position: relative;
+    bottom: -0.35rem;
+    right: 2.0rem;
+}
+
+#img-homelink {
+    height: 2rem;
+}
+
+#empty-logo-place {
+    width: 6rem;
+}
+
+
+@media (max-width: 768px) {
+    #acdh-logo, #orea-logo {
+        width: 15%;
+    }
+    #github-logo {
+        width: 7%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1105px) {
+    .navbar-right {
+        float: none !important;
+    }
+}
+
+/*Button's text is all in caps and bold. When adding html markup text should be all in lowercase. */
+.btn {
+   /* font-weight: bold;
+    font-variant: small-caps;*/
+    white-space: normal;
+    margin-bottom: 10px;
+}
+
+/* css for checkbox widget in filters */
+.chbx-select-multi {
+  /* 1.5-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.8); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  padding: 10px;
+  margin: 5px 10px 5px 10px;
+  border: 1px solid #aaa;
+
+}
+/*overriding css for field labels, helptext in filters*/
+.control-label {
+    font-weight: 600;
 }
 .help-block {
-	font-size: 0.9em;
-}
-.create-label {
-	font-weight: 700;
+    font-size: 0.8rem;
 }
