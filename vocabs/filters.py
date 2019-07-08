@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from .models import SkosConcept, SkosConceptScheme, get_all_children, SkosLabel, SkosCollection
+from .models import SkosConcept, SkosConceptScheme, get_all_children, SkosLabel
 
 
 django_filters.filters.LOOKUP_TYPES = [
@@ -37,26 +37,19 @@ def generous_concept_filter(queryset, name, value):
 class SkosConceptListFilter(django_filters.FilterSet):
 
     pref_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-filter-autocomplete'),
+        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-autocomplete'),
         queryset=SkosConcept.objects.all(),
         lookup_expr='icontains',
-        label='skos:prefLabel',
+        label='PrefLabel',
         help_text=False,
     )
-    collection = django_filters.ModelChoiceFilter(
-        queryset=SkosCollection.objects.all(),
-        help_text=False,
-    )
-    other_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='vocabs-ac:skoslabel-filter-autocomplete'),
-        queryset=SkosLabel.objects.all(),
+
+    scheme = django_filters.ModelMultipleChoiceFilter(
+        queryset=SkosConceptScheme.objects.all(),
         lookup_expr='icontains',
+        label='in SkosConceptScheme',
         help_text=False,
     )
-    other_label__isoCode = django_filters.CharFilter(
-        lookup_expr='icontains',
-        label="Other label iso code",
-        )
 
     class Meta:
         model = SkosConcept
@@ -92,10 +85,10 @@ class SkosConceptSchemeListFilter(django_filters.FilterSet):
         help_text=SkosConceptScheme._meta.get_field('dc_title').help_text,
         label=SkosConceptScheme._meta.get_field('dc_title').verbose_name
         )
-    dc_creator = django_filters.CharFilter(
+    dct_creator = django_filters.CharFilter(
         lookup_expr='icontains',
-        help_text=False,
-        label=SkosConceptScheme._meta.get_field('dc_creator').verbose_name
+        help_text=SkosConceptScheme._meta.get_field('dct_creator').help_text,
+        label=SkosConceptScheme._meta.get_field('dct_creator').verbose_name
         )
 
     class Meta:
@@ -103,34 +96,12 @@ class SkosConceptSchemeListFilter(django_filters.FilterSet):
         fields = '__all__'
 
 
-class SkosCollectionListFilter(django_filters.FilterSet):
-
-    name = django_filters.CharFilter(
-        lookup_expr='icontains',
-        label=SkosCollection._meta.get_field('name').verbose_name
-        )
-    creator = django_filters.CharFilter(
-        lookup_expr='icontains',
-        label=SkosCollection._meta.get_field('creator').verbose_name
-        )
-    has_members__pref_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-filter-autocomplete'),
-        queryset=SkosConcept.objects.all(),
-        lookup_expr='icontains',
-        help_text=False,
-    )
-
-    class Meta:
-        model = SkosCollection
-        fields = '__all__'
-
-
 class SkosLabelListFilter(django_filters.FilterSet):
 
-    name = django_filters.CharFilter(
+    label = django_filters.CharFilter(
         lookup_expr='icontains',
-        help_text=SkosLabel._meta.get_field('name').help_text,
-        label=SkosLabel._meta.get_field('name').verbose_name
+        help_text=SkosLabel._meta.get_field('label').help_text,
+        label=SkosLabel._meta.get_field('label').verbose_name
         )
 
     class Meta:
