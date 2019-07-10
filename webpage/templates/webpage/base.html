@@ -79,8 +79,8 @@
                 <a title="About" href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">About <span class="caret"></span></a>
                 <ul class=" dropdown-menu" role="menu">
                   <li class="nav-item dropdown-submenu">
-                    <a title="Level 1" href="{% url 'webpage:staticpage' template='about' %}" class="nav-link">About the project</a>
-                    <a title="Level 1" href="{% url 'webpage:staticpage' template='imprint' %}" class="nav-link">Imprint | Impressum</a>
+                    <a title="About" href="{% url 'webpage:staticpage' template='about' %}" class="nav-link">About the project</a>
+                    <a title="Imprint" href="{% url 'webpage:staticpage' template='imprint' %}" class="nav-link">Imprint | Impressum</a>
                   </li>
                 </ul>
               </li>
@@ -144,8 +144,10 @@
                     </li>
                 {% endif %}
             {% endif %}
+            </ul>
+            <ul id="user-menu" class="navbar-nav">
             {% if user.is_authenticated %}
-            <li class="nav-item dropdown ml-auto">
+            <li class="nav-item dropdown mr-auto">
                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {{ user.get_username }}
                 </a>
@@ -154,9 +156,9 @@
                 </div>
             </li>
             {% else %}
-            <li class="nav-item dropdown ml-auto">
-                <a class="nav-link" href="{% url 'webpage:user_login' %}">
-                <i class="fas fa-sign-in-alt"></i>
+            <li class="nav-item dropdown mr-auto">
+                <a class="nav-link" href="{% url 'webpage:user_login' %}" title"log-in">
+                Login <i data-feather="log-in">Login</i>
                 </a>
             </li>
             {% endif %}
@@ -192,7 +194,7 @@
           </div>
         </div>
     </section>
-    <div class="wrapper fundament-default-footer" id="wrapper-footer-full">
+    <div class="wrapper fundament-default-footer bg-dark" id="wrapper-footer-full">
           <div class="container" id="footer-full-content" tabindex="-1">
             <div class="footer-separator">
               <i data-feather="message-circle"></i> Contact
@@ -200,26 +202,32 @@
             <div class="row">
               <div class="footer-widget col-lg-1 col-md-2 col-sm-2 col-xs-6 col-3">
                 <div class="textwidget custom-html-widget">
-                    <a href="https://www.oeaw.ac.at/acdh/acdh-home/" target="_blank" rel="noopener" aria-label="ACDH">
-                        <img src="https://shared.acdh.oeaw.ac.at/acdh-common-assets/images/acdh_logo.svg" class="image" alt="ACDH" title="Austrian Centre for Digital Humanities"/>
+                    <a href="https://www.oeaw.ac.at/antike/" target="_blank" rel="noopener" aria-label="IKAnt">
+                        <img src="https://shared.acdh.oeaw.ac.at/acdh-common-assets/images/partnerlogos/ikant/IKAnt_greyborder.png" class="image" alt="ACDH" title="Austrian Centre for Digital Humanities"/>
                     </a>
                 </div>
-                <div class="textwidget custom-html-widget">
-                    <img src="{% static 'webpage/img/partner_logo.png' %}" class="image" alt="Partner Logo" title="Partner Logo"/>
+              </div>
+              <div class="footer-widget col-lg-1 col-md-2 col-sm-2 col-xs-6 col-3">
+                <div class="textwidget custom-html-widget text-center">
+                    <a href="https://www.oeaw.ac.at/acdh/acdh-home/" target="_blank" rel="noopener" aria-label="ACDH">
+                        <img src="https://shared.acdh.oeaw.ac.at/acdh-common-assets/images/ACDH_noText_white.svg" class="image" id="acdh-logo" alt="ACDH" title="Austrian Centre for Digital Humanities"/>
+                    </a>
+                </div>
+              </div>
+              <div class="footer-widget col-lg-1 col-md-2 col-sm-2 col-xs-6 col-3">
+                <div class="textwidget custom-html-widget text-center">
+                    <a href="https://www.oeaw.ac.at/oesterreichische-akademie-der-wissenschaften/" target="_blank" rel="noopener" aria-label="ÖAW">
+                        <img src="https://shared.acdh.oeaw.ac.at/acdh-common-assets/images/partnerlogos/oeaw/OEAW_short_white.svg" class="image" id="oeaw-logo" alt="ACDH" title="Austrian Centre for Digital Humanities"/>
+                    </a>
                 </div>
               </div>
               <!-- .footer-widget -->
-              <div class="footer-widget col-lg-4 col-md-4 col-sm-6 col-9">
-              </div>
-              <!-- .footer-widget -->
-              <div class="footer-widget col-lg-3 col-md-4 col-sm-4 ml-auto">
+              <div class="footer-widget col-lg-1 col-md-2 col-sm-2 col-xs-6 col-3 ml-auto text-right">
                 <div class="textwidget custom-html-widget">
-                  {% social_media %}
-                  <div class="navbar-icons">
-                      <a href="{% projects_metadata 'github' %}" target="_blank" rel="noopener">
-                          <i class="fab fa-github"></i>
-                      </a>
-                  </div>
+                  <!--{% social_media %}-->
+                  <a href="{% projects_metadata 'github' %}" target="_blank" rel="noopener">
+                      <i data-feather="github"></i>
+                  </a>
                   {% if user.is_authenticated %}
                       {% if DB_NAME %}
                           <div class="footer-imprint-bar">
@@ -233,8 +241,8 @@
           </div>
         </div>
         <!-- #wrapper-footer-full -->
-        <div class="footer-imprint-bar" id="wrapper-footer-secondary" style="text-align:center; padding:0.4rem 0; font-size: 0.9rem;">
-            <a href="{% projects_metadata 'imprint' %}">Impressum/Imprint</a>
+        <div class="footer-imprint-bar bg-dark" id="wrapper-footer-secondary" style="text-align:center; padding:0.4rem 0; font-size: 0.9rem;">
+            <a href="{% projects_metadata 'imprint' %}" class="text-muted">Impressum/Imprint</a>
         </div>
     </div>
         {% block scripts %}

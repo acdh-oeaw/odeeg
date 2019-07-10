@@ -3,18 +3,34 @@
 {% load webpage_extras %}
 {% block title %} About {% endblock %}
 {% block content %}
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h1 class="card-title">{% projects_metadata 'title' %}</h1>
-        </div>
-        <div class="card-body">
-            <div>
-                <p>
-                    {% projects_metadata 'description' %}
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+
+            <div class="col-md-12 content-area" id="primary">
+              <main class="site-main" id="main">
+                <article>
+                  <header class="entry-header" id="about-header">
+                    <div class="entry-top-thumbnail"><img src="../dist/fundament/images/example-img-1.jpg" alt=""></div>
+                    <h1 class="entry-title">{% projects_metadata 'title' %}</h1>
+                    <h3><i>{% projects_metadata 'subtitle_de' %}</i><br>
+                    {% projects_metadata 'subtitle_en' %}</h3>
+
+                  </header><!-- .entry-header -->
+                  <div class="entry-content">
+                    <p>  {% projects_metadata 'description' %}</p>
+                    <p>This database includes a large variety and number of born digital assets, with a special focus on 3D data (including raw and post-processed data), but also photographs, scientific illustrations, and corresponding archaeological and technical metadata. Approximately 320 objects have been 3D scanned during previous CVA-Austria projects, as well as during the course of the ODEEG project. All data is deposited and archived in <a href="https://arche.acdh.oeaw.ac.at/">ARCHE</a>, for long-term preservation In order to exploit extra knowledge and provide more useful information, it also incorporates links to other datasets on the Web, such as <a href="https://www.geonames.org/">GeoNames</a>, <a href="https://chronontology.dainst.org/">Chronontology</a>, <a href="https://test.perio.do/">PeriodO</a>, and <a href="http://www.getty.edu/research/tools/vocabularies/aat/">AAT</a>. Linked Open Data (LOD) and FAIR data principles are applied.</p>
+                    <p>Within the ODEEG project, we have also developed the ODDEG App package to analyse further our 3D models. This package is freely available for download and enables to both calculate the filling capacity and wall thickness of a vessel, to automatically reconstruct the inner surfaces of incomplete 3D scanned vessels, and to generate automatically profile sections and illustrations.</p>
+                    <p>But in short, the main objectives of ODEEG are to: Digitally document ancient vessels in 3D; Ensure long-term digital preservation of the documentation; Make a variety of data available for researchers via a dedicated online open-access database, referencing to the <a href="http://www.beazley.ox.ac.uk/pottery/default.htm">Beazley Archive Pottery Database</a> (BAPD, University of Oxford). We aim at creating an ideal foundation to gain further knowledge and help answering innovative scientific questions dealing with interior and exterior measurements of ancient vessels, by providing a publicly available, long-term, online archive.</p>
+                    <h2>Acknowledgements</h2>
+                    <p>The ODEEG project has been funded by ÖAW, through the Go!Digital programme (id: 0703, 2017-2019). We are also grateful to the following institutions and people for granting access to the archaeological objects and/or to further data: Kunsthistorisches Museum, Vienna, Austria; University of Graz, Austria; as well as to all members of the 3D scanning teams which collaborated in previous CVA-Austria projects conducted by C. Lang-Auinger.</p>
+                    <h2>Using & Citing ODEEG</h2>
+                    <p>Unless stated otherwise, all ODEEG online data is licensed by IKAnt-ÖAW under the <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> license.</p>
+                    <p>All photographs of the objects from the Kunsthistorisches Museum Wien have been made available to ODEEG by the KHM-Museumsverband, and are licensed by the same institution under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> license.</p>
+                    <p>As such, you are free to share and adapt ODEEG data for non-commercial purposes, and as long as you attribute the source data accordingly.</p>
+                    <h6><i data-feather="book-open"></i> Citing the ODEEG database (example):</h6>
+                    <p>ODEEG (2017-2019). ODEEG. Online Database for research on the development of pottery shapes and dimensions. Edited by Claudia Lang-Auinger, Vera Moitinho de Almeida, Stefan Spelitz, Martina Trognitz, and Peter Andorfer. https://odeeg.acdh.oeaw.ac.at/, accessed January 01, 2019.</p>
+                    <h6><i data-feather="book-open"></i> Citing a specific dataset from the ODEEG database (example):</h6>
+                    <p>Lang-Auinger, C., Moitinho de Almeida, V., Spelitz, S. (2019). “ODEEG: object ANSA IV 3728, Kunsthistorisches Museum Wien [dataset]”. ODEEG. Online Database for research on the development of pottery shapes and dimensions. http://hdl.handle.net/10803/129161</p>
+                  </div><!-- .entry-content -->
+                </article>
+              </main><!-- #main -->
+            </div><!-- #primary -->
 {% endblock %}

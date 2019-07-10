@@ -14,7 +14,7 @@
   <div class="card-wrapper">
     <article class="card col-md-6 flat-style">
       <div class="card-inner card-vertical" style="min-height:420px;">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div id="homeCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators carousel-indicators--round">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -58,7 +58,7 @@
       <!-- .entry-header -->
       <div class="entry-content">
         <p>{% projects_metadata 'description' %}</p>
-        <a class="btn btn-round mb-1" href="#">Read More</a>
+        <div id="read-more"><a href="{% url 'webpage:staticpage' template='about' %}">Read More</a></div>
       </div>
       <!-- .entry-content -->
     </div>

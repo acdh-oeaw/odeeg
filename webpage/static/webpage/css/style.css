@@ -1,6 +1,22 @@
-.card {
-    overflow: visible;
-    margin-bottom: 20px;
+body {
+  background-color: #fefefe;
+}
+
+.bg-dark * {
+  color: #cdcdcd;
+  background-color: #444444 !important;
+}
+
+.navbar-dark .navbar-nav .nav-link, .navbar.navbar-dark .navbar-search, .navbar.navbar-dark .navbar-social-icon, .navbar.navbar-dark button.navbar-search-icon {
+  color: #cdcdcd;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+  color: #fefefe;
+}
+
+#wrapper-footer-full {
+  background-color: #444444 !important;
 }
 
 a {
@@ -59,6 +75,11 @@ nav.navbar {
     background-color: #444444;
 }
 
+.navbar {
+  border: none;
+  padding-bottom: 0;
+}
+
 /*#odeeg-logo-navbar {
     width: 8rem;
     min-width: 104px;
@@ -89,9 +110,15 @@ nav.navbar {
     margin-bottom: -0.5em !important;
 }
 
-#logo-title-section i {
+#logo-title-section i, #about-header i{
     color: #808080;
 }
+
+#user-menu {
+  margin-right: 0;
+}
+
+/** Carousel **/
 
 /** round icons for myCarousel **/
 .carousel-indicators--round li {
@@ -111,4 +138,29 @@ nav.navbar {
 
 .carousel .carousel-inner .carousel-item {
     height: 425px;
+}
+
+#homeCarousel {
+  margin-right: 30px;
+}
+
+.card-inner {
+  border: none !important;
+  padding: 0 !important;
+}
+
+#read-more {
+  width: 100%;
+  text-align: right;
+}
+
+
+/** FOOTER **/
+
+#acdh-logo{
+  max-height: 1.8em;
+}
+
+#oeaw-logo{
+  max-height: 1.8em;
 }
