@@ -79,7 +79,7 @@
                 <a title="About" href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">About <span class="caret"></span></a>
                 <ul class=" dropdown-menu" role="menu">
                   <li class="nav-item dropdown-submenu">
-                    <a title="About" href="{% url 'webpage:staticpage' template='about' %}" class="nav-link">About the project</a>
+                    <a title="About" href="{% url 'webpage:staticpage' template='about' %}" class="nav-link">About the Project</a>
                     <a title="Imprint" href="{% url 'webpage:staticpage' template='imprint' %}" class="nav-link">Imprint | Impressum</a>
                   </li>
                 </ul>
@@ -183,13 +183,13 @@
           <div class="container" id="content" tabindex="-1">
             <div class="row">
               {% if DEV_VERSION %}
-              <div class="alert alert-danger" role="alert">
+              <div class="alert alert-danger col-md-12" role="alert">
                   This is a the DEVELOPMENT instance. Click <a href="#">here</a> for the Production version
               </div>
               {% endif %}
-              <div id="content">
+            </div>
+            <div class="row">
                   {% block content %}{% endblock %}
-              </div>
             </div>
           </div>
         </div>
