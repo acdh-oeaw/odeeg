@@ -44,3 +44,4 @@ pg_local.py
 /myenv/*
 /whoosh_index/*
 dump.sql
+local_*
