@@ -1,0 +1,48 @@
+{% extends "browsing/generic_detail.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}{{ object }}{% endblock %}
+{% block custom %}
+    <legend>Basic Information</legend>
+        {% for x in  object.get_thumbs %}
+            <li>
+                <img src="{{ x }}" >
+            </li>
+        {% endfor %}
+        <h2>Binaries</h2>
+        {% for y in  object.get_binaries %}
+            <li>
+                <img src="{{ y }}" >
+            </li>
+        {% endfor %}
+        <h2>Hello !</h2>
+        <table class="table table-bordered table-hover">
+            {% for x in object.field_dict %}
+                <tr>
+                    <th>
+                        {% if x.help_text %}
+                            <abbr title="{{ x.help_text }}">{{ x.verbose_name }}</abbr>
+                        {% else %}
+                            {{ x.verbose_name }}
+                        {% endif %}
+                    </th>
+                    <td>
+                        {% if x.f_type == 'M2M' %}
+                            {% for y in x.value %}
+                                <li>
+                                    <a href="{{ y.get_absolute_url }}">{{ y.legacy_id }}</a>
+                                </li>
+                            {% endfor %}
+                        {% elif  x.f_type == 'FK' %}
+                            <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
+                        {% elif  x.f_type == 'FK' %}
+                            <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
+                        {% elif  x.f_type == 'SIMPLE' %}
+                            {{ x.value }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock custom %}
