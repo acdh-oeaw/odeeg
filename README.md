@@ -13,3 +13,10 @@ The ODEEG project has been funded by the go!digital programme 2016, Austria, and
 5. adapt settings file and folder to your needs (e.g. add server.py with according settings)
 6. makemigrations and migrate `python manage.py makemigrations|migrate --settings=odeeg.settings.dev`
 7. spin up the (dev) server: `python manage.py runserver --settings=odeeg.settings.dev`
+
+
+## build search index
+
+`python manage.py rebuild_index --settings=odeeg.settings.{mysettingsfile}`
+
+see django-haystack docs for more information: https://django-haystack.readthedocs.io/en/master/management_commands.html`
