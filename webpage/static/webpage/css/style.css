@@ -134,6 +134,7 @@ nav.navbar {
     border: 1px solid #FFF;
     background-color: transparent;
 }
+
 .carousel-indicators .active {
     background-color: #fff;
     max-width: 12px;
@@ -143,6 +144,12 @@ nav.navbar {
 
 .carousel .carousel-inner .carousel-item {
     height: 425px;
+}
+
+.carousel-wrapper {
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #homeCarousel {
