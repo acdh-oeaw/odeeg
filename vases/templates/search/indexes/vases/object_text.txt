@@ -1,0 +1,6 @@
+{{ object.legacy_id }}
+{{ object.folder_name }}
+{{ object.collection_inst.inst_name }}
+{% for x in object.shape.all %}
+{{ x.shape }}
+{% endfor %}

@@ -2,6 +2,10 @@ body {
   background-color: #fefefe;
 }
 
+.highlighted {
+    background-color: yellow;
+}
+
 .bg-dark * {
   color: #cdcdcd;
   background-color: #444444 !important;

@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^vases/', include('vases.urls', namespace='vases')),
     url(r'^vocabs/', include('vocabs.urls', namespace='vocabs')),
     url(r'^vocabs-ac/', include('vocabs.dal_urls', namespace='vocabs-ac')),
+    url(r'^search/', include('haystack.urls')),
     url(r'^', include('webpage.urls', namespace='webpage')),
 ]
 

@@ -45,3 +45,4 @@ pg_local.py
 /whoosh_index/*
 dump.sql
 local_*
+whoosh_index

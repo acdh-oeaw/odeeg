@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reversion',
+    'haystack',
     'crispy_forms',
     'django_filters',
     'django_tables2',
@@ -40,6 +41,13 @@ INSTALLED_APPS = [
     'vocabs',
     'vases',
 ]
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
