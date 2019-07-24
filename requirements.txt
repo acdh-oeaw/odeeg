@@ -8,6 +8,7 @@ django-autocomplete-light==3.3.5
 django-cors-headers==3.0.2
 django-crispy-forms==1.7.2
 django-filter==2.1.0
+django-haystack=2.8.1
 django-leaflet==0.24.0
 django-reversion==3.0.4
 django-super-deduper==0.1.2
@@ -35,4 +36,5 @@ sqlparse==0.3.0
 ujson==1.35
 uritemplate==3.0.0
 urllib3==1.25.3
+Whoosh==2.7.4
 wincertstore==0.2
