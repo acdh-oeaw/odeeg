@@ -3,7 +3,11 @@ body {
 }
 
 .highlighted {
-    background-color: yellow;
+    background-color: #e2a38e;
+    /** alt: complementary blue and light grey
+     #1c9ac4;color: #efefef;
+     **/
+    padding: 0 0.15rem;
 }
 
 .bg-dark * {

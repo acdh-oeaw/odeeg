@@ -1,6 +1,43 @@
+{{ object.inv_nr }}
+{{ object.bapd_nr }}
+{{ object.object_dating }}
+{{ object.provenance_attribution }}
+{{ object.bibref }}
+{{ object.collref }}
 {{ object.legacy_id }}
 {{ object.folder_name }}
 {{ object.collection_inst.inst_name }}
+{{ object.collection_spec.collection_spec }}
 {% for x in object.shape.all %}
 {{ x.shape }}
+{% endfor %}
+{% for x in object.shape_comp.all %}
+{{ x.shape_comp }}
+{% endfor %}
+{% for x in object.period.all %}
+{{ x.period }}
+{% endfor %}
+{% for x in object.culture.all %}
+{{ x.culture }}
+{% endfor %}
+{% for x in object.material.all %}
+{{ x.material }}
+{% endfor %}
+{% for x in object.material_fabric.all %}
+{{ x.material_fabric }}
+{% endfor %}
+{% for x in object.painting_style.all %}
+{{ x.painting_style }}
+{% endfor %}
+{% for x in object.painting_style_sub.all %}
+{{ x.painting_style_sub }}
+{% endfor %}
+{% for x in object.provenance_spot.all %}
+{{ x.provenance_spot }}
+{% endfor %}
+{% for x in object.provenance_production.all %}
+{{ x.provenance_production }}
+{% endfor %}
+{% for x in object.provenance_acquisition.all %}
+{{ x.provenance_acquisition }}
 {% endfor %}
