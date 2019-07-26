@@ -129,6 +129,7 @@ class MaterialTable(tables.Table):
 class ObjectTable(tables.Table):
 
     id = tables.LinkColumn(verbose_name='ID')
+    inv_nr = tables.LinkColumn(verbose_name='Inv. Nr.')
     shape = tables.columns.ManyToManyColumn()
     shape_comp = tables.columns.ManyToManyColumn()
     object_associated_to_inv = tables.columns.ManyToManyColumn()
@@ -141,12 +142,13 @@ class ObjectTable(tables.Table):
     provenance_acquisition = tables.columns.ManyToManyColumn()
     thumbnail = tables.columns.TemplateColumn(
         template_name="vases/templatecolumn/thumbcolumn.html",
-        orderable=False
+        orderable=False,
+        verbose_name= ''
     )
 
     class Meta:
         model = Object
-        sequence = ('id',)
+        sequence = ('id', 'thumbnail', 'inv_nr', 'shape', 'period')
         attrs = {"class": "table table-responsive table-hover"}
 
 

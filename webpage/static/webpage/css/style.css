@@ -264,6 +264,75 @@ nav.navbar {
     box-shadow: 0 0 0 .2rem rgba(196, 70, 28, 0.25);
     border-color: #C4461C;
 }
+
+
+/** List view of Objects **/
+.list-toggle-buttons{
+    text-align: right;
+}
+
+.list-toggle-buttons button{
+    padding: 0.3rem;
+    background: none;
+    color: #C4461C;
+    font-size: 1.3rem;
+}
+
+.list-toggle-buttons button.focus,
+.list-toggle-buttons button:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.list-toggle-buttons button.active{
+    color: #808080;
+}
+
+.list-toggle-buttons button .feather{
+  height: 1em;
+  margin-top: -4px;
+  vertical-align: middle;
+  width: 1em;
+}
+
+.results-table tr td:first-child{
+  padding: 0;
+}
+
+.img-thumbnail{
+    display: none;
+}
+
+th.img-thumbnail{
+    display: none !important;
+}
+
+div.img-thumbnail{
+    width: 110px;
+    height: 110px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+div.img-thumbnail img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+
+
+/** Pagination **/
+
 .pagemarker{
   padding: 5px 10px 5px 10px;
 }
@@ -273,7 +342,6 @@ nav.navbar {
   border-color: #C4461C;
   color: #ffffff;
 }
-
 
 /** FOOTER **/
 

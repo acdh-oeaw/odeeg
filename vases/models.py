@@ -1045,14 +1045,13 @@ class Object(models.Model):
     )
 
     class Meta:
-
         ordering = [
-            'folder_name',
+            'inv_nr',
         ]
-        verbose_name = "Object"
+        verbose_name = "Objects"
 
     def __str__(self):
-        return "{}".format(self.folder_name)
+        return "{}".format(self.inv_nr)
 
     def get_col_abbr(self):
         try:

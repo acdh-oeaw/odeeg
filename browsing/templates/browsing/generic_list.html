@@ -22,6 +22,30 @@
         }
     });
     });
+    // Get the elements with class="column"
+    var elements = document.getElementsByClassName("img-thumbnail");
+    // Declare a loop variable
+    var i;
+    // hide thumbnails
+    function hideThumbs() {
+      for (i = 0; i < elements.length; i++) {
+        elements[i].style.display = "none";
+        var buttonShow = document.getElementById("hideThumbs");
+        buttonShow.classList.add("active");
+        var buttonHide = document.getElementById("showThumbs");
+        buttonHide.classList.remove("active");
+      }
+    }
+    // Show thumbnails
+    function showThumbs() {
+      for (i = 0; i < elements.length; i++) {
+        elements[i].style.display = "inherit";
+        var buttonShow = document.getElementById("showThumbs");
+        buttonShow.classList.add("active");
+        var buttonHide = document.getElementById("hideThumbs");
+        buttonHide.classList.remove("active");
+      }
+    }
     </script>
     <style>
 
@@ -100,8 +124,14 @@
             <div class="col-md-9" id="results">
                 <div class="card">
                     <div class="card-body">
+                      <div class="list-toggle-buttons">
+                        {% if request.path == "/vases/object/" %}
+                            <button class="btn active" onclick="hideThumbs()" data-toggle="tooltip" data-placement="bottom" title="Hide thumbnails" id="hideThumbs"><i data-feather="list"></i></button>
+                            <button class="btn" onclick="showThumbs()" data-toggle="tooltip" data-placement="bottom" title="Show thumbnails" id="showThumbs"><i data-feather="grid"></i></button>
+                        {% endif %}
+                      </div>
                         {% with table.paginator.count as total %}
-                        <legend>Total results: {{ total }}</legend>
+                        <legend>Results: {{ total }} items</legend>
                             {% if entity == "skosconcept" %}
                             <div class="btn-group" role="group" style="padding-bottom: 10px;">
                               <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="The file will contain only search results">
@@ -116,7 +146,7 @@
                             {% if conf_items %}
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle dropdown-custom" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <i class="fas fa-download"></i>
+                                        <i data-feather="download"></i>
                                         Download
                                         <span class="caret"></span>
                                     </button>
@@ -129,13 +159,13 @@
                             {% endif %}
                         {% endwith %}
                         {% block table %}
-{% if enable_merge and user.is_authenticated %}
-    <form action="{% url 'browsing:merge_objects' %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="model_name" value="{{ entity }}"/>
-        <input type="hidden" name="app_name" value="{{ app_name }}"/>
-{% endif %}
-        <table class="table" {% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
+        {% if enable_merge and user.is_authenticated %}
+            <form action="{% url 'browsing:merge_objects' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="model_name" value="{{ entity }}"/>
+                <input type="hidden" name="app_name" value="{{ app_name }}"/>
+        {% endif %}
+        <table class="table results-table" {% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
               {% block table.thead %}
               {% if table.show_header %}
               <thead>

@@ -508,7 +508,7 @@ class ObjectListView(GenericListView):
     formhelper_class = ObjectFilterFormHelper
     table_class = ObjectTable
     init_columns = [
-        'id', 'folder_name',
+        'thumbnail', 'inv_nr', 'shape', 'period',
     ]
 
 
