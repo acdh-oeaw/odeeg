@@ -165,9 +165,19 @@ nav.navbar {
   padding: 0 !important;
 }
 
+.carousel-wrapper h2{
+  font-size: 1.8em;
+}
+
+.teaser-text p{
+  margin-bottom: 0.1em;
+}
+
 #read-more {
   width: 100%;
   text-align: right;
+  margin-bottom: 2em;
+  font-size: 0.9em;
 }
 
 .entry-top-thumbnail {
@@ -189,7 +199,11 @@ nav.navbar {
 
 /** LEFT SEARCH COLUMN **/
 
-#left-list h3, #left-list h4{
+#left-list h3{
+  font-size: 1.45rem;
+}
+
+#left-list h4{
   font-size: 1.25rem;
 }
 
@@ -269,6 +283,7 @@ nav.navbar {
 /** List view of Objects **/
 .list-toggle-buttons{
     text-align: right;
+    margin-bottom: 0.4em;
 }
 
 .list-toggle-buttons button{
@@ -276,6 +291,7 @@ nav.navbar {
     background: none;
     color: #C4461C;
     font-size: 1.3rem;
+    margin-top: -0.45em;
 }
 
 .list-toggle-buttons button.focus,
@@ -294,6 +310,11 @@ nav.navbar {
   vertical-align: middle;
   width: 1em;
 }
+
+#results-legend {
+  font-size: 1rem;
+}
+
 
 .results-table tr td:first-child{
   padding: 0;
@@ -328,6 +349,21 @@ div.img-thumbnail img{
     padding: 0;
     background: transparent;
 }
+
+/** Detail view, generic **/
+
+h2 .feather{
+  height: 1em;
+  margin-top: -4px;
+  vertical-align: middle;
+  width: 1em;
+}
+
+h2 small .feather{
+  height: 0.8em;
+  width: 0.8em;
+}
+
 
 
 

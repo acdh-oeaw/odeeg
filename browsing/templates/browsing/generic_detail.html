@@ -10,26 +10,26 @@
                 <div class="col-md-2">
                     {% if object.get_prev %}
                         <h2>
-                            <a href="{{ object.get_prev }}">
-                                <i class="fas fa-chevron-left" title="previous"></i>
+                            <a href="{{ object.get_prev }}" title="previous">
+                                <i data-feather="chevron-left"></i>
                             </a>
                         </h2>
                     {% endif %}
                 </div>
                 <div class="col-md-8">
                     <h2 style="text-align: center;">
-                        <small><a href="{{ object.get_listview_url }}"><i class="fas fa-chevron-up" title="back to listview"></i></a></small>
+                        <small><a href="{{ object.get_listview_url }}" title="back to listview><i data-feather="skip-back""></i></a></small>
                         {{ object }}
                         {% if user.is_authenticated %}
                             <small>
-                                <a href="{{ object.get_edit_url }}">
-                                    <i class="far fa-edit" title="edit"></i>
+                                <a href="{{ object.get_edit_url }} title="edit"">
+                                    <i data-feather="edit-3"></i>
                                 </a>
                             </small>
                             |
                             <small>
-                                <a href="{{ object.get_delete_url }}">
-                                    <i class="far fa-trash-alt" title="delete"></i>
+                                <a href="{{ object.get_delete_url }} title="delete"">
+                                    <i data-feather="trash-2"></i>
                                 </a>
                             </small>
                         {% endif %}
@@ -38,8 +38,8 @@
             <div class="col-md-2">
                 <h2>
                     {% if object.get_next %}
-                    <a href="{{ object.get_next }}" style="float:right">
-                        <i class="fas fa-chevron-right" title="next"></i>
+                    <a href="{{ object.get_next }}" style="float:right" title="next">
+                        <i data-feather="chevron-right"></i>
                     </a>
                 </h2>
                 {% endif %}

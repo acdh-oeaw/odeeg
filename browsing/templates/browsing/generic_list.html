@@ -55,7 +55,7 @@
             <div class="col-md-3" id="left-list">
                 <div class="card">
                     <div class="card-body">
-                        <h3 style="margin-bottom:15px;">
+                        <h3 style="margin-bottom: 0.55em;">
                              Browse {% class_definition %} {% block list_title %}{% endblock %}
                         </h3>
                         {% if get_arche_dump %}
@@ -131,7 +131,7 @@
                         {% endif %}
                       </div>
                         {% with table.paginator.count as total %}
-                        <legend>Results: {{ total }} items</legend>
+                        <legend id="results-legend">Result: {{ total }} items</legend>
                             {% if entity == "skosconcept" %}
                             <div class="btn-group" role="group" style="padding-bottom: 10px;">
                               <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="The file will contain only search results">
