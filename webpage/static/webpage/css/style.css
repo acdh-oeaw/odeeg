@@ -315,6 +315,9 @@ nav.navbar {
   font-size: 1rem;
 }
 
+#download-option{
+  text-align: right;
+}
 
 .results-table tr td:first-child{
   padding: 0;

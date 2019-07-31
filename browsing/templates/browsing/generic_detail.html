@@ -4,6 +4,7 @@
 {% block title %}{{ object.name }}{% endblock %}
 {% block content %}
 <!-- <div class="container"> -->
+
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -18,17 +19,17 @@
                 </div>
                 <div class="col-md-8">
                     <h2 style="text-align: center;">
-                        <small><a href="{{ object.get_listview_url }}" title="back to listview><i data-feather="skip-back""></i></a></small>
+                        <small><a href="{{ object.get_listview_url }}" title="back to listview"><i data-feather="corner-left-up"></i></a></small>
                         {{ object }}
                         {% if user.is_authenticated %}
                             <small>
-                                <a href="{{ object.get_edit_url }} title="edit"">
+                                <a href="{{ object.get_edit_url }}" title="edit">
                                     <i data-feather="edit-3"></i>
                                 </a>
                             </small>
                             |
                             <small>
-                                <a href="{{ object.get_delete_url }} title="delete"">
+                                <a href="{{ object.get_delete_url }}" title="delete">
                                     <i data-feather="trash-2"></i>
                                 </a>
                             </small>
