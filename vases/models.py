@@ -813,7 +813,7 @@ class Object(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name="Collection, Institution",
+        verbose_name="Institution",
         help_text="Name of the collection where the object is kept at; as defined by Getty AAT ID: 300025976",
     )
     collection_spec = models.ForeignKey(
@@ -822,7 +822,7 @@ class Object(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name="Collection, Specific",
+        verbose_name="Collection",
         help_text="Name of the specific collection the object is part of; as defined by Getty AAT ID: 300025976",
     )
     inv_nr = models.CharField(

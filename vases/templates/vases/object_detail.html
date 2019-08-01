@@ -29,21 +29,29 @@
               </td>
           </tr>
           <tr>
-              <th>{% get_verbose_name object "located_at" %}</th>
+              <th>{% get_verbose_name object "collection_inst" %}, {% get_verbose_name object "collection_spec" %}</th>
               <td>
-                  <a href="{{ object.located_at.get_absolute_url }}">{{ object.located_at }}</a>
+                  <a href="{{ object.collection_inst.get_absolute_url }}">{{ object.collection_inst }}</a>, {{ object.collection_spec }}
               </td>
           </tr>
           <tr>
-              <th>{% get_verbose_name object "id_inv_nr" %}</th>
+              <th>{% get_verbose_name object "inv_nr" %}</th>
               <td>
-                  {{ object.id_inv_nr }}
+                  {{ object.inv_nr }}
               </td>
           </tr>
           <tr>
               <th>{% get_verbose_name object "bapd_nr" %}</th>
               <td>
                   {{ object.bapd_nr }}
+              </td>
+          </tr>
+          <tr>
+              <th>{% get_verbose_name object "shape" %}</th>
+              <td>
+                  {% for y in object.shape.all %}
+                      <a href="{{ y.get_absolute_url }}">{{ y.legacy_id }}</a>
+                  {% endfor %}
               </td>
           </tr>
           <tr>
