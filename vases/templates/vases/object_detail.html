@@ -5,7 +5,7 @@
 {% block custom %}
 
 <div class="row">
-  <div class="col-md-3" id="left-list">
+  <div class="col-md-4" id="left-list">
         {% for x in  object.get_thumbs %}
             <li>
                 <img src="{{ x }}" >
@@ -18,52 +18,246 @@
             </li>
         {% endfor %}
     </div>
-    <div class="col-md-9">
-        <table class="table table-bordered table-hover">
-          <tr>
-              <th>{% get_verbose_name object "folder_name" %}
-                  <span data-toggle="tooltip" data-placement="right" data-html="true" title="{% get_help_text object 'folder_name' %}"> <i data-feather="info"></i></span>
-              </th>
-              <td>
-                  {{ object.folder_name }}
-              </td>
-          </tr>
-          <tr>
-              <th>{% get_verbose_name object "collection_inst" %}, {% get_verbose_name object "collection_spec" %}</th>
-              <td>
-                  <a href="{{ object.collection_inst.get_absolute_url }}">{{ object.collection_inst }}</a>, {{ object.collection_spec }}
-              </td>
-          </tr>
-          <tr>
-              <th>{% get_verbose_name object "inv_nr" %}</th>
-              <td>
-                  {{ object.inv_nr }}
-              </td>
-          </tr>
-          <tr>
-              <th>{% get_verbose_name object "bapd_nr" %}</th>
-              <td>
-                  {{ object.bapd_nr }}
-              </td>
-          </tr>
-          <tr>
-              <th>{% get_verbose_name object "shape" %}</th>
-              <td>
-                  {% for y in object.shape.all %}
-                      <a href="{{ y.get_absolute_url }}">{{ y.legacy_id }}</a>
-                  {% endfor %}
-              </td>
-          </tr>
-          <tr>
-              <th>{% get_verbose_name object "period" %}</th>
-              <td>
-                  <a href="{{ object.period.get_absolute_url }}">{{ object.period }}</a>
-                  {% if object.period.get_dates_str %}
-                  ({{ object.period.get_dates_str }})
-                  {% endif %}
-              </td>
-          </tr>
+    <div class="col-md-8">
+      <table class="table table-information table-hover">
+        <tr>
+            <th>{% get_verbose_name object "folder_name" %}
+                <span data-toggle="tooltip" data-placement="right" data-html="true" title="{% get_help_text object 'folder_name' %}"> <i data-feather="info"></i></span>
+            </th>
+            <td>
+                {{ object.folder_name }}
+            </td>
+        </tr>
+        <tr>
+            <th>{% get_verbose_name object "collection_spec" %}</th>
+            <td>
+                {{ object.collection_spec }}, <a href="{{ object.collection_inst.get_absolute_url }}">{{ object.collection_inst }}</a>
+            </td>
+        </tr>
+        <tr>
+            <th>{% get_verbose_name object "inv_nr" %}</th>
+            <td>
+                {{ object.inv_nr }}
+            </td>
+        </tr>
+        <tr>
+            <th>{% get_verbose_name object "bapd_nr" %}</th>
+            <td>
+                {{ object.bapd_nr }}
+            </td>
+        </tr>
+        <tr>
+            <th>{% get_verbose_name object "shape" %}</th>
+            <td>
+                {% for y in object.shape.all %}
+                    <a href="{{ y.get_absolute_url }}">{{ y.shape }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>{% get_verbose_name object "period" %}</th>
+            <td>
+              {% for y in object.period.all %}
+                <a href="{{ y.get_absolute_url }}">{{ y.period }}</a>
+              <!--  {% if y.period.get_dates_str %}
+                ({{ object.period.get_dates_str }})
+                {% endif %} -->
+                {% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>Provenance</th>
+            <td>
+                <small>{% get_verbose_name object "provenance_spot" %}:</small> <a href="{{ object.provenance_spot.get_absolute_url }}">{% if object.provenance_spot %}{{ object.provenance_spot }}{% else %} &ndash; {% endif %}</a>
+                {% if object.provenance_spot_cert %}
+                ({{ object.provenance_spot_cert }})
+                {% endif %} <br/>
+                <small>{% get_verbose_name object "provenance_production" %}:</small> <a href="{{ object.provenance_production.get_absolute_url }}">{{ object.provenance_production }}</a>
+                {% if object.prov_attr_artist %}
+                  <small>{% get_verbose_name object "provenance_attribution" %}:</small> {{ object.provenance_attribution }}
+                {% endif %}
+                <br/>
+                <small>{% get_verbose_name object "provenance_acquisition" %}:</small>
+                {% for y in object.provenance_acquisition.all %}<a href="{{y.get_absolute_url }}">{{ y.place_name }}</a>{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>{% get_verbose_name object "material_fabric" %}</th>
+            <td>
+                {% for y in object.material_fabric.all %}
+                    <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                    {% if not forloop.last %}, {% endif %}
+                {%  endfor  %}
+            </td>
+        </tr>
+        <tr>
+            <th>Technique</th>
+            <td>
+                <small>Painting:</small> {% for x in object.painting_style.all %}
+                    <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                    {% if not forloop.last %}, {% endif %}
+                {%  endfor  %}
+                {% if object.painting_style_sub.all %}
+                /
+                {% for x in object.painting_style_sub.all %}
+                     <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                     {% if not forloop.last %}, {% endif %}
+                {%  endfor  %}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>{% get_verbose_name object "bibref" %}</th>
+            <td>
+                {{ object.bibref }}
+            </td>
+        </tr>
+        <tr>
+            <th>{% get_verbose_name object "collref" %}</th>
+            <td>
+                <a href="{{ object.collref }}">{{ object.collref }}</a>
+            </td>
+        </tr>
+        {% if object.object_associated_to_inv.all %}
+            <tr>
+                <th>{% get_verbose_name object "object_associated_to_inv" %}</th>
+                <td>
+                    {% for y in object.object_associated_to_inv.all %}
+                        <a href="{{ y.get_absolute_url }}">{{ y }} ({{ y.folder_name }})</a>
+                    {%  endfor  %}
+                </td>
+            </tr>
+        {% endif %}
+      </table>
+      <hr class="hr-detail-view"/>
+       <legend>Measurements</legend>
+       <table class="table table-information table-hover">
+           <tr>
+               <th>{% get_verbose_name object "weight" %}</th>
+               <td>
+                   {{ object.weight|floatformat:3  }}
+               </td>
+           </tr>
+           <tr>
+               <th>{% get_verbose_name object "height" %}</th>
+               <td>
+                   {{ object.height|floatformat:3  }}
+               </td>
+           </tr>
+           <tr>
+               <th>{% get_verbose_name object "width" %}</th>
+               <td>
+                   {{ object.width|floatformat:3  }}
+               </td>
+           </tr>
+           <tr>
+               <th>{% get_verbose_name object "length" %}</th>
+               <td>
+                   {{ object.length|floatformat:3  }}
+               </td>
+           </tr>
+           <tr>
+               <th>{% get_verbose_name object "fillingheight" %}</th>
+               <td>
+                   {{ object.fillingheight|floatformat:3  }}
+               </td>
+           </tr>
+           <tr>
+               <th>{% get_verbose_name object "fillingvolume" %}</th>
+               <td>
+                   {{ object.fillingvolume|floatformat:3  }}
+               </td>
+           </tr>
+           <tr>
+               <th>{% get_verbose_name object "materialvolume" %}</th>
+               <td>
+                   {{ object.materialvolume|floatformat:3  }}
+               </td>
+           </tr>
+           <tr>
+               <th>{% get_verbose_name object "materialdensity" %}</th>
+               <td>
+                   {{ object.materialdensity|floatformat:3  }}
+               </td>
+           </tr>
+           <tr>
+               <th>{% get_verbose_name object "boundingbox" %}</th>
+               <td>
+                   {{ object.boundingbox|floatformat:3  }}
+               </td>
+           </tr>
+       </table>
+      {% if object.rvn_threeddata_folder_name_object.all %}
+         {% for y in object.rvn_threeddata_folder_name_object.all %}
+             <hr class="hr-detail-view"/>
+             <legend>3D Models</legend>
+             <table class="table table-information table-hover">
+                 <tr>
+                     <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
+                     <td>
+                         <small>Type:</small> {{ y.threed_technique }}<br/>
+                         <small>Hardware:</small> {{ y.threed_hardware }}<br/>
+                         <small>Characteristics:</small> {{ y.threed_fov }}, {{ y.threed_resolution }}
+                     </td>
+                 </tr>
+                 <tr>
+                     <th>3D Data</th>
+                     <td>
+                         <small>acquisition:</small> {{ y.survey_location }}
+                     </td>
+                 </tr>
+             </table>
+        {% endfor %}
+      {% endif %}
+      {% if object.rvn_illustration_folder_name_object.all %}
+         {% for y in object.rvn_illustration_folder_name_object.all %}
+             <hr class="hr-detail-view"/>
+             <legend>Illustrations</legend>
+             <table class="table table-information table-hover">
+                 <tr>
+                     <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
+                     <td>
+                         <small>Type:</small> {{ y.threed_technique }}<br/>
+                         <small>Hardware:</small> {{ y.threed_hardware }}<br/>
+                         <small>Characteristics:</small> {{ y.threed_fov }}, {{ y.threed_resolution }}
+                     </td>
+                 </tr>
+                 <tr>
+                     <th>3D Data</th>
+                     <td>
+                         <small>acquisition:</small> {{ y.survey_location }}
+                     </td>
+                 </tr>
+             </table>
+        {% endfor %}
+      {% endif %}
+      {% if object.rvn_illustrationpanel_folder_name_object.all %}
+         {% for y in object.rvn_illustrationpanel_folder_name_object.all %}
+             <hr class="hr-detail-view"/>
+             <legend>Illustration Panels</legend>
+             <table class="table table-information table-hover">
+                 <tr>
+                     <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
+                     <td>
+                         <small>Type:</small> {{ y.threed_technique }}<br/>
+                         <small>Hardware:</small> {{ y.threed_hardware }}<br/>
+                         <small>Characteristics:</small> {{ y.threed_fov }}, {{ y.threed_resolution }}
+                     </td>
+                 </tr>
+                 <tr>
+                     <th>3D Data</th>
+                     <td>
+                         <small>acquisition:</small> {{ y.survey_location }}
+                     </td>
+                 </tr>
+             </table>
+        {% endfor %}
+      {% endif %}
 
+      <hr class="hr-detail-view"/>
+      <table class="table table-information table-hover">
 
             {% for x in object.field_dict %}
                 <tr>
@@ -92,6 +286,8 @@
                 </tr>
             {% endfor %}
         </table>
+
+        <hr class="hr-detail-view"/>
       </div>
     </div>
 {% endblock custom %}

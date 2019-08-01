@@ -129,7 +129,7 @@ class MaterialTable(tables.Table):
 class ObjectTable(tables.Table):
 
     id = tables.LinkColumn(verbose_name='ID')
-    inv_nr = tables.LinkColumn(verbose_name='Inv. Nr.')
+    inv_nr = tables.LinkColumn(verbose_name='Inv. Nr.', orderable=True)
     shape = tables.columns.ManyToManyColumn()
     shape_comp = tables.columns.ManyToManyColumn()
     object_associated_to_inv = tables.columns.ManyToManyColumn()

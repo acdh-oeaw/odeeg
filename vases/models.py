@@ -855,8 +855,8 @@ class Object(models.Model):
         "Object",
         related_name='rvn_object_object_associated_to_inv_object',
         blank=True,
-        verbose_name="Object is associated to, ID Inv. Nr.",
-        help_text="",
+        verbose_name="Object is associated to",
+        help_text="Object is associated to, ID Inv. Nr.",
     )
     period = models.ManyToManyField(
         "Period",
@@ -888,8 +888,8 @@ class Object(models.Model):
         "Fabric",
         related_name='rvn_object_material_fabric_fabric',
         blank=True,
-        verbose_name="Material: Fabric",
-        help_text="",
+        verbose_name="Fabric (BAPD)",
+        help_text="Material: Fabric",
     )
     painting_style = models.ManyToManyField(
         "PaintingStyle",
@@ -951,7 +951,7 @@ class Object(models.Model):
         "Place",
         related_name='rvn_object_provenance_acquisition_place',
         blank=True,
-        verbose_name="Place of latest acquisition",
+        verbose_name="Latest acquisition",
         help_text="Provenance: place of latest acquisition (modern times)",
     )
     provenance_acquisition_date = models.DateField(
@@ -961,7 +961,7 @@ class Object(models.Model):
     )
     bibref = models.TextField(
         blank=True,
-        verbose_name="Bibliographic reference",
+        verbose_name="Bibliographic Reference",
         help_text="",
     )
     collref = models.URLField(
@@ -1734,8 +1734,8 @@ class ThreedData(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name="3D Survey: imaging technique",
-        help_text="",
+        verbose_name="Type",
+        help_text="3D Survey: imaging technique",
     )
     threed_hardware = models.ForeignKey(
         "Hardware",
@@ -1743,8 +1743,8 @@ class ThreedData(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name="3D Survey: hardware ['hardware' AAT ID: 300312368]",
-        help_text="",
+        verbose_name="Model",
+        help_text="3D Survey: hardware ['hardware' AAT ID: 300312368]",
     )
     threed_fov = models.CharField(
         max_length=250,

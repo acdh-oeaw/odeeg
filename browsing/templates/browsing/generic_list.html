@@ -133,14 +133,15 @@
                         {% with table.paginator.count as total %}
                         <legend id="results-legend">Result: {{ total }} items</legend>
                             {% if entity == "skosconcept" %}
-                            <div class="btn-group" role="group" style="padding-bottom: 10px;">
-                              <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="The file will contain only search results">
-                                <i class="fas fa-download"></i> Download
+                            <div class="dropdown" id="download-option">
+                              <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle dropdown-custom" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="The file will contain only search results">
+                                <i data-feather="download"></i><span class="caret"></span>
                               </button>
                               <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                 <a class="dropdown-item" href="{% url 'vocabs:vocabs-download' %}{% querystring %}">RDF/XML</a>
                                 <a class="dropdown-item" href="{% url 'vocabs:vocabs-download' %}?format=turtle&{% querystring %}">Turtle</a>
                               </div>
+
                             </div>
                             {% endif %}
                             {% if conf_items %}
