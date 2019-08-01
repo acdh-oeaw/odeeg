@@ -6,7 +6,6 @@
 
 <div class="row">
   <div class="col-md-3" id="left-list">
-    <legend>Basic Information</legend>
         {% for x in  object.get_thumbs %}
             <li>
                 <img src="{{ x }}" >
@@ -21,6 +20,43 @@
     </div>
     <div class="col-md-9">
         <table class="table table-bordered table-hover">
+          <tr>
+              <th>{% get_verbose_name object "folder_name" %}
+                  <span data-toggle="tooltip" data-placement="right" data-html="true" title="{% get_help_text object 'folder_name' %}"> <i data-feather="info"></i></span>
+              </th>
+              <td>
+                  {{ object.folder_name }}
+              </td>
+          </tr>
+          <tr>
+              <th>{% get_verbose_name object "located_at" %}</th>
+              <td>
+                  <a href="{{ object.located_at.get_absolute_url }}">{{ object.located_at }}</a>
+              </td>
+          </tr>
+          <tr>
+              <th>{% get_verbose_name object "id_inv_nr" %}</th>
+              <td>
+                  {{ object.id_inv_nr }}
+              </td>
+          </tr>
+          <tr>
+              <th>{% get_verbose_name object "bapd_nr" %}</th>
+              <td>
+                  {{ object.bapd_nr }}
+              </td>
+          </tr>
+          <tr>
+              <th>{% get_verbose_name object "period" %}</th>
+              <td>
+                  <a href="{{ object.period.get_absolute_url }}">{{ object.period }}</a>
+                  {% if object.period.get_dates_str %}
+                  ({{ object.period.get_dates_str }})
+                  {% endif %}
+              </td>
+          </tr>
+
+
             {% for x in object.field_dict %}
                 <tr>
                     <th>
