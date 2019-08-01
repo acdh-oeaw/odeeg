@@ -1,42 +1,132 @@
-{% extends "browsing/generic_detail.html" %}
+{% extends "webpage/base.html" %}
 {% load staticfiles %}
-{% load vases_extras %}
 {% load webpage_extras %}
-{% block title %}{{ object }}{% endblock %}
-{% block custom %}
+{% load vases_extras %}
+{% block title %}{{ object.shape }}{% endblock %}
+{% block content %}
+<!-- <div class="container"> -->
 
-<div class="row">
-  <div class="col-md-3" id="left-list">
-
-    <div class="col-md-9">
-        
-        <legend>
-            Photos
-        </legend>
-        {% get_item_by_type object 'Photos' as items %}
-        {% for x in items %}
-            <a href="{{ x.id }}?PARAM=info.json&format=iiif">{{ x.id }}?PARAM=info.json&format=iiif</a>
-        {% endfor %}
-        <legend>
-            Illustrations
-        </legend>
-        {% get_item_by_type object 'Illustrations' as items %}
-        {% for x in items %}
-            {{ x.id }}
-        {% endfor %}
-        {% for x in object.rvn_threeddata_folder_name_object.all %}
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>
-                        3D Scanner
-                    </th>
-                    <td>
-                        <small>type:</small> {{ x.threed_technique }} <br />
-                        <small>model:</small> {{ x.threed_hardware }}
-                    </td>
-                </tr>
-            </table>
-        {% endfor %}
-      </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                        <h2>
+                            <a href="{{ object.get_prev }}" title="previous">
+                                <i data-feather="chevron-left"></i>
+                            </a>
+                        </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h2 style="text-align: center;">
+                        <small><a href="{{ object.get_listview_url }}" title="back to listview"><i data-feather="corner-left-up"></i></a></small>
+                        {{ object }}
+                        {% if user.is_authenticated %}
+                            <small>
+                                <a href="{{ object.get_edit_url }}" title="edit">
+                                    <i data-feather="edit-3"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{{ object.get_delete_url }}" title="delete">
+                                    <i data-feather="trash-2"></i>
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h2>
+                </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{{ object.get_next }}" style="float:right" title="next">
+                        <i data-feather="chevron-right"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
     </div>
-{% endblock custom %}
+    <div class="card-body">
+        <div class="row">
+          <div class="col-md-5">
+              <legend>
+                  Photos
+              </legend>
+              {% get_item_by_type object 'Photos' as items %}
+                  {% for x in items %}
+                      <a href="{{ x.id }}?PARAM=info.json&format=iiif">{{ x.id }}?PARAM=info.json&format=iiif</a>
+                  {% endfor %}
+                  <hr />
+              <legend>
+                  Illustrations
+              </legend>
+              {% get_item_by_type object 'Illustrations' as items %}
+              {% for x in items %}
+                  {{ x.id }}
+              {% endfor %}
+          </div>
+            <div class="col-md-7">
+                <legend>
+                    Vase
+                </legend>
+                <table class="table  table-hover">
+                    <tr>
+                        <th>
+                            Collection
+                        </th>
+                        <td>
+                            {{ object.collection_inst }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            ID Inv.Nr.
+                        </th>
+                        <td>
+                            {{ object.inv_nr }}, {{ object.collection_spec }}
+                        </td>
+                    </tr>
+                </table>
+                <legend>
+                    Measurements
+                </legend>
+                <table class="table  table-hover">
+                    <tr>
+                        <th>
+                            Weight (g)
+                        </th>
+                        <td>
+                            {{ object.weight }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Height (max)
+                        </th>
+                        <td>
+                            {{ object.height }}
+                        </td>
+                    </tr>
+                </table>
+                <legend>
+                    3D Models
+                </legend>
+                {% for x in object.rvn_threeddata_folder_name_object.all %}
+                    <table class="table  table-hover">
+                        <tr>
+                            <th>
+                                3D Scanner
+                            </th>
+                            <td>
+                                <small>type:</small> {{ x.threed_technique }} <br />
+                                <small>model:</small> {{ x.threed_hardware }}
+                            </td>
+                        </tr>
+                    </table>
+                {% endfor %}
+              </div>
+            </div>
+        </div>
+{% endblock content %}
