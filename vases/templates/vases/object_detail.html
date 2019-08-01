@@ -1,53 +1,42 @@
 {% extends "browsing/generic_detail.html" %}
 {% load staticfiles %}
+{% load vases_extras %}
 {% load webpage_extras %}
 {% block title %}{{ object }}{% endblock %}
 {% block custom %}
 
 <div class="row">
   <div class="col-md-3" id="left-list">
-    <legend>Basic Information</legend>
-        {% for x in  object.get_thumbs %}
-            <li>
-                <img src="{{ x }}" >
-            </li>
-        {% endfor %}
-        <h2>Binaries</h2>
-        {% for y in  object.get_binaries %}
-            <li>
-                <img src="{{ y }}" >
-            </li>
-        {% endfor %}
-    </div>
+
     <div class="col-md-9">
-        <table class="table table-bordered table-hover">
-            {% for x in object.field_dict %}
+        
+        <legend>
+            Photos
+        </legend>
+        {% get_item_by_type object 'Photos' as items %}
+        {% for x in items %}
+            <a href="{{ x.id }}?PARAM=info.json&format=iiif">{{ x.id }}?PARAM=info.json&format=iiif</a>
+        {% endfor %}
+        <legend>
+            Illustrations
+        </legend>
+        {% get_item_by_type object 'Illustrations' as items %}
+        {% for x in items %}
+            {{ x.id }}
+        {% endfor %}
+        {% for x in object.rvn_threeddata_folder_name_object.all %}
+            <table class="table table-bordered table-hover">
                 <tr>
                     <th>
-                        {% if x.help_text %}
-                            <abbr title="{{ x.help_text }}">{{ x.verbose_name }}</abbr>
-                        {% else %}
-                            {{ x.verbose_name }}
-                        {% endif %}
+                        3D Scanner
                     </th>
                     <td>
-                        {% if x.f_type == 'M2M' %}
-                            {% for y in x.value %}
-                                <li>
-                                    <a href="{{ y.get_absolute_url }}">{{ y.legacy_id }}</a>
-                                </li>
-                            {% endfor %}
-                        {% elif  x.f_type == 'FK' %}
-                            <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
-                        {% elif  x.f_type == 'FK' %}
-                            <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
-                        {% elif  x.f_type == 'SIMPLE' %}
-                            {{ x.value }}
-                        {% endif %}
+                        <small>type:</small> {{ x.threed_technique }} <br />
+                        <small>model:</small> {{ x.threed_hardware }}
                     </td>
                 </tr>
-            {% endfor %}
-        </table>
+            </table>
+        {% endfor %}
       </div>
     </div>
 {% endblock custom %}

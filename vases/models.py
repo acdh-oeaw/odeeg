@@ -430,7 +430,7 @@ class Illustration(models.Model):
         verbose_name = "Illustrations"
 
     def __str__(self):
-        return "{}".format(self.ill_file_name)
+        return "Illustration of: {}".format(self.folder_name)
 
     def field_dict(self):
         return model_to_dict(self)
@@ -1071,6 +1071,33 @@ class Object(models.Model):
             results = arche_utils.get_results(san_query)
             result_list = arche_utils.results_to_list(results, 'uri')
             return results, result_list
+
+    def binaries_by_type(self):
+        items = []
+        for x in self.get_binaries()[1]:
+            item_type = x.rsplit('/')[-2]
+            item_mime = x.rsplit('.')[-1]
+            item = {
+                'id': x,
+                'item_type': item_type,
+                'item_mime': item_mime
+            }
+            items.append(item)
+        return items
+
+    def get_item_by_type(self, item_type):
+        filtered_items = []
+        for x in self.binaries_by_type():
+            if x['item_type'] == item_type:
+                filtered_items.append(x)
+        return filtered_items
+
+    def get_item_by_mime(self, item_mime):
+        filtered_items = []
+        for x in self.binaries_by_type():
+            if x['item_mime'] == item_mime:
+                filtered_items.append(x)
+        return filtered_items
 
     def get_tifs(self):
         if self.folder_name is None or self.folder_name == "":
@@ -1887,7 +1914,7 @@ class ThreedData(models.Model):
         verbose_name = "3d data"
 
     def __str__(self):
-        return "{}".format(self.folder_name)
+        return "3D model of: {}".format(self.folder_name)
 
     def field_dict(self):
         return model_to_dict(self)

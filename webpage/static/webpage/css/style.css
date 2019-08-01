@@ -323,13 +323,7 @@ nav.navbar {
   padding: 0;
 }
 
-.img-thumbnail{
-    display: none;
-}
 
-th.img-thumbnail{
-    display: none !important;
-}
 
 div.img-thumbnail{
     width: 110px;
