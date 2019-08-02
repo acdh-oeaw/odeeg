@@ -6,14 +6,14 @@
         <h1 style="text-align: center;">Metadata {{ object.title }}
         {% if user.is_authenticated %}
             <small>
-                <a href="{% url 'vocabs:metadata_update' pk=object.id %}">
-                    <i class="far fa-edit" title="edit"></i>
+                <a href="{% url 'vocabs:metadata_update' pk=object.id %}" title="edit">
+                    <i data-feather="edit-3"></i>
                 </a>
             </small>
                 |
             <small>
-                <a href="{% url 'vocabs:metadata_delete' pk=object.id %}">
-                    <i class="far fa-trash-alt" title="delete"></i>
+                <a href="{% url 'vocabs:metadata_delete' pk=object.id %}" title="delete">
+                    <i data-feather="trash-2"></i>
                 </a>
             </small>
          {% endif %}
@@ -57,7 +57,7 @@
             {% for creator in object.creator_as_list %}
             <li>{{ creator }}</li>
             {% endfor %}
-            {% endif %}  
+            {% endif %}
             </td>
         </tr>
         <tr>
@@ -67,7 +67,7 @@
              {% for contributor in object.contributor_as_list %}
             <li>{{ contributor }}</li>
             {% endfor %}
-            {% endif %}   
+            {% endif %}
             </td>
         </tr>
         <tr>
@@ -111,7 +111,7 @@
                 {% for x in topConcepts %}
                 <li><a href="{{ x.get_absolute_url }}">{{x}}</a></li>
                 {% endfor %}
-            </td> 
+            </td>
         </tr>
         {% endif %}
         <tr>
