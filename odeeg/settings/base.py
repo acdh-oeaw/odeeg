@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'webpage',
     'browsing',
+    'charts',
     'vocabs',
     'vases',
 ]

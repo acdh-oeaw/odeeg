@@ -485,7 +485,6 @@ class ObjectFilterFormHelper(FormHelper):
                     'folder_name',
                     'collection_inst',
                     'collection_spec',
-                    'inv_nr',
                     'bapd_nr',
                     'shape',
                     'shape_comp',
