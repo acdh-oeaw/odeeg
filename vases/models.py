@@ -1068,7 +1068,7 @@ class Object(models.Model):
         else:
             startstr = "/".join([ARCHE_URI_CONST, self.get_col_abbr(), self.folder_name])
             san_query = arche_utils.sanitize_querystring(
-                arche_utils.query_all_binaries, startstr
+                arche_utils.query_all_binaries, f"{startstr}/"
             )
             results = arche_utils.get_results(san_query)
             result_list = arche_utils.results_to_list(results, 'uri')
@@ -1080,7 +1080,7 @@ class Object(models.Model):
         else:
             startstr = "/".join([ARCHE_URI_CONST, self.get_col_abbr(), self.folder_name])
             san_query = arche_utils.sanitize_querystring(
-                arche_utils.query_tifs, startstr
+                arche_utils.query_tifs, f"{startstr}/"
             )
             results = arche_utils.get_results(san_query)
             result_list = arche_utils.results_to_list(results, 'uri')
