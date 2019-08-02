@@ -1,6 +1,7 @@
 {% extends "browsing/generic_detail.html" %}
 {% load staticfiles %}
 {% load webpage_extras %}
+{% load vases_extras %}
 {% block title %}{{ object }}{% endblock %}
 {% block custom %}
 
@@ -17,6 +18,24 @@
                 <img src="{{ y }}" >
             </li>
         {% endfor %}
+
+        <legend>
+            Photos
+        </legend>
+        {% get_item_by_type object 'Photos' as items %}
+            {% for x in items %}
+                <a href="{{ x.id }}?PARAM=info.json&format=iiif">{{ x.id }}?PARAM=info.json&format=iiif</a>
+            {% endfor %}
+            <hr />
+        <legend>
+            Illustrations
+        </legend>
+        {% get_item_by_type object 'Illustrations' as items %}
+        {% for x in items %}
+            {{ x.id }}
+        {% endfor %}
+
+
     </div>
     <div class="col-md-8">
       <table class="table table-information table-hover">

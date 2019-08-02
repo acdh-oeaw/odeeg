@@ -974,56 +974,56 @@ class Object(models.Model):
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Weight (g)",
-        help_text="",
+        help_text="Weight in grams",
     )
     width = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Width (mm)",
-        help_text="",
+        help_text="Width in millimetres",
     )
     height = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Height (mm)",
-        help_text="",
+        help_text="Height in millimetres",
     )
     length = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Length (mm)",
-        help_text="",
+        help_text="Length in millimetres",
     )
     fillingheight = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Max. Filling Height (mm)",
-        help_text="",
+        help_text="Maximum filling heigth in millimetres",
     )
     fillingvolume = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Max. Filling Volume (cm3)",
-        help_text="",
+        help_text="Maximum filling volume in cm3",
     )
     materialvolume = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Material Volume (cm3)",
-        help_text="",
+        help_text="Material volume in cm3",
     )
     materialdensity = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Material Density (g/cm3)",
-        help_text="",
+        help_text="Material density in g/cm3",
     )
     materialdensity_measure = models.CharField(
         max_length=250,
@@ -1036,7 +1036,7 @@ class Object(models.Model):
         decimal_places=10,
         blank=True, null=True,
         verbose_name="Bounding Box (cm3)",
-        help_text="",
+        help_text="Bounding box in cm3",
     )
     object_notes = models.TextField(
         blank=True,

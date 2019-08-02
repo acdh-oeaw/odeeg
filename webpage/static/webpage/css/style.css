@@ -180,6 +180,13 @@ nav.navbar {
   font-size: 0.9em;
 }
 
+#startsearch-info{
+  width: 50%;
+  font-size: 0.75em;
+  color: #495057;
+  padding-left: 0.5em;
+}
+
 .entry-top-thumbnail {
     margin: -15px 0 15px;
 }
@@ -411,10 +418,14 @@ hr.hr-detail-view {
 
 /** FOOTER **/
 
-#acdh-logo{
-  max-height: 1.8em;
+#logo-section{
+  max-height: 4em;
 }
 
-#oeaw-logo{
-  max-height: 1.8em;
+#oeaw-logo, #ikant-logo{
+  max-height: 3em;
+}
+
+#acdh-logo{
+  height: 3em;
 }
