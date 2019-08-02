@@ -143,7 +143,7 @@ class ObjectTable(tables.Table):
     thumbnail = tables.columns.TemplateColumn(
         template_name="vases/templatecolumn/thumbcolumn.html",
         orderable=False,
-        verbose_name= ''
+        verbose_name= 'Thumbnail'
     )
 
     class Meta:
