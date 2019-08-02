@@ -156,6 +156,13 @@
                 {% for y in object.shape.all %}
                     <a href="{{ y.get_absolute_url }}">{{ y.shape }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
+                {% if object.shape_comp %}
+                <br/>
+                <small>Components:</small>
+                {% for y in object.shape_comp.all %}<a href="{{y.get_absolute_url }}">{{ y.shape_comp }}</a>{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+                {% endif %}
+                <br/>
             </td>
         </tr>
         <tr>

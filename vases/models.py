@@ -5,6 +5,7 @@ import vases.arche_utils as arche_utils
 from django.db import models
 from django.urls import reverse
 from django.contrib.postgres.fields import DateRangeField
+from django.utils.safestring import mark_safe
 
 from vocabs.models import SkosConcept
 
@@ -974,56 +975,56 @@ class Object(models.Model):
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Weight (g)",
+        verbose_name=mark_safe("Weight <small>(g)</small>"),
         help_text="Weight in grams",
     )
     width = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Width (mm)",
+        verbose_name=mark_safe("Width <small>(mm)</small>"),
         help_text="Width in millimetres",
     )
     height = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Height (mm)",
+        verbose_name=mark_safe("Height <small>(mm)</small>"),
         help_text="Height in millimetres",
     )
     length = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Length (mm)",
+        verbose_name=mark_safe("Length <small>(mm)</small>"),
         help_text="Length in millimetres",
     )
     fillingheight = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Max. Filling Height (mm)",
+        verbose_name=mark_safe("Max. Filling Height <small>(mm)</small>"),
         help_text="Maximum filling heigth in millimetres",
     )
     fillingvolume = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Max. Filling Volume (cm3)",
+        verbose_name=mark_safe("Max. Filling Volume <small>(cm3)</small>"),
         help_text="Maximum filling volume in cm3",
     )
     materialvolume = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Material Volume (cm3)",
+        verbose_name=mark_safe("Material Volume <small>(cm3)</small>"),
         help_text="Material volume in cm3",
     )
     materialdensity = models.DecimalField(
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Material Density (g/cm3)",
+        verbose_name=mark_safe("Material Density <small>(g/cm3)</small>"),
         help_text="Material density in g/cm3",
     )
     materialdensity_measure = models.CharField(
@@ -1036,7 +1037,7 @@ class Object(models.Model):
         max_digits=19,
         decimal_places=10,
         blank=True, null=True,
-        verbose_name="Bounding Box (cm3)",
+        verbose_name=mark_safe("Bounding Box <small>(cm3)</small>"),
         help_text="Bounding box in cm3",
     )
     object_notes = models.TextField(
