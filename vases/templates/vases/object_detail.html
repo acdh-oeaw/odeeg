@@ -5,34 +5,122 @@
 {% block title %}{{ object }}{% endblock %}
 {% block custom %}
 
+<!-- 3DHOP -->
+    <!--STYLESHEET-->
+    <link type="text/css" rel="stylesheet" href="{% static 'webpage/libraries/3dhop/minimal/stylesheet/3dhop.css' %}"/>
+    <!--SPIDERGL-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/spidergl.js' %}"></script>
+
+    <!--PRESENTER-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/presenter.js' %}"></script>
+    <!--3D MODELS LOADING AND RENDERING-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/nexus.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/ply.js' %}"></script>
+    <!--TRACKBALLS-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/trackball_sphere.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/trackball_turntable.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/trackball_turntable_pan.js' %}"></script>
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/trackball_pantilt.js' %}"></script>
+    <!--UTILITY-->
+    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/init.js' %}"></script>
+
 <div class="row">
   <div class="col-md-4" id="left-list">
-        {% for x in  object.get_thumbs %}
+    <div class="card">
+        <div class="card-body">
+      <!--  {% for x in  object.get_thumbs %}
             <li>
                 <img src="{{ x }}" >
             </li>
+        {% endfor %}-->
+        <h2>3D Model</h2>
+        {% get_item_by_type object '3Dscan_lowRes-data' as items %}
+        {{ items.0.id }}
+        <br/>List:
+        {% for x in items %}
+        {{ x.id }}{% if not forloop.last %},
+        {% endif %}
         {% endfor %}
-        <h2>Binaries</h2>
-        {% for y in  object.get_binaries %}
-            <li>
-                <img src="{{ y }}" >
-            </li>
-        {% endfor %}
-      <legend>
-          Photos
-      </legend>
-      {% get_item_by_type object 'Photos' as items %}
-          {% for x in items %}
-              <a href="{{ x.id }}?PARAM=info.json&format=iiif">{{ x.id }}?PARAM=info.json&format=iiif</a>
-          {% endfor %}
-          <hr />
-      <legend>
-          Illustrations
-      </legend>
-      {% get_item_by_type object 'Illustrations' as items %}
-      {% for x in items %}
-          {{ x.id }}
-      {% endfor %}
+        <div>
+        <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
+        <div id="toolbar">
+            <img id="home" title="Home" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/home.png' %}"/><br/>
+            <img id="zoomin" title="Zoom In" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/zoomin.png' %}"/><br/>
+            <img id="zoomout" title="Zoom Out" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/zoomout.png' %}"/><br/>
+            <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
+            <img id="light" title="Enable Light Control" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/light.png' %}"/><br/>
+            <img id="full_on" title="Exit Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
+            <img id="full" title="Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full.png' %}"/>
+        </div>
+        <canvas id="draw-canvas" style="height: 350px;"/>
+        </div>
+      </div>
+      <script type="text/javascript">
+          var presenter = null;
+          function setup3dhop() {
+              presenter = new Presenter("draw-canvas");
+              var meshUrl = " https://id.acdh.oeaw.ac.at/ODeeg/Collections/AT-Vienna-KHM/KHM-ANSA-IV3/3D-data/3Dscan_lowRes-data/KHM-ANSA-IV3_3D02.ply"
+              presenter.setScene({
+                  meshes: {
+                      "3dmodel" : { url: meshUrl }
+                  },
+                  modelInstances : {
+                      "Model1" : { mesh : "3dmodel" }
+                  }
+              });
+          }
+
+          function actionsToolbar(action) {
+              if(action=='home') presenter.resetTrackball();
+              else if(action=='zoomin') presenter.zoomIn();
+              else if(action=='zoomout') presenter.zoomOut();
+              else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
+              else if(action=='full'  || action=='full_on') fullscreenSwitch();
+          }
+
+          $(document).ready(function(){
+              init3dhop();
+              setup3dhop();
+          //    resizeCanvas(300,350);
+              moveToolbar(0,5);
+          });
+      </script>
+      <hr />
+      <legend>Photos</legend>
+      <div id="openseadragon-photo" style="height: 350px;"></div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/openseadragon.min.js"></script>
+      <script type="text/javascript">
+          var viewer = OpenSeadragon({
+              id: "openseadragon-photo",
+              protocol: "http://iiif.io/api/image",
+              prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
+              sequenceMode : true,
+              showReferenceStrip: true,
+              tileSources: [{% get_item_by_type object 'Photos' as items %}
+                  {% for x in items %}
+                      "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
+                  {% endfor %}]
+          });
+      </script>
+      <hr />
+      <legend>Illustrations</legend>
+      <div id="openseadragon-ill" style="height: 350px;"></div>
+      <script type="text/javascript">
+          var viewer = OpenSeadragon({
+              id: "openseadragon-ill",
+              protocol: "http://iiif.io/api/image",
+              prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
+              sequenceMode : true,
+              showReferenceStrip: true,
+              tileSources: [{% get_item_by_type object 'Illustrations' as items %}
+                  {% for x in items %}
+                      "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
+                  {% endfor %}]
+          });
+      </script>
+
+      </div>
+      </div>
     </div>
     <div class="col-md-8">
       <table class="table table-information table-hover">
@@ -307,3 +395,37 @@
       </div>
     </div>
 {% endblock custom %}
+
+<!--
+  <script type="text/javascript">
+      var presenter = null;
+      function setup3dhop() {
+          presenter = new Presenter("draw-canvas");
+          // var meshUrl = "{% static 'webpage/libraries/3dhop/models/KHM-ANSA-IV1_3D02.ply' %}";
+          var meshUrl = "{% get_item_by_type object '3Dscan_lowRes-data' as items %}
+                  {{ items.0.id }}"
+          presenter.setScene({
+              meshes: {
+                  "3dmodel" : { url: meshUrl }
+              },
+              modelInstances : {
+                  "Model1" : { mesh : "3dmodel" }
+              }
+          });
+      }
+
+      function actionsToolbar(action) {
+          if(action=='home') presenter.resetTrackball();
+          else if(action=='zoomin') presenter.zoomIn();
+          else if(action=='zoomout') presenter.zoomOut();
+          else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
+          else if(action=='full'  || action=='full_on') fullscreenSwitch();
+      }
+
+      $(document).ready(function(){
+          init3dhop();
+          setup3dhop();
+          moveToolbar(0,5);
+      });
+  </script>
+  -->

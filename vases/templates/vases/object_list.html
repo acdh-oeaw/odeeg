@@ -22,12 +22,10 @@
     });
     });
     </script>
-    <style>
 
-    </style>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div id="left-list" class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h3 style="margin-bottom:15px;">
@@ -102,7 +100,7 @@
                         {% with table.paginator.count as total %}
                         <legend>Result: {{ total }} items</legend>
                             {% if conf_items %}
-                                <div class="dropdown">
+                                <div class="dropdown" id="download-option">
                                     <button class="btn btn-default dropdown-toggle dropdown-custom" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Download">
                                         <i data-feather="download"></i><span class="caret"></span>
                                         <span class="caret"></span>
