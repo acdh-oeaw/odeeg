@@ -154,7 +154,7 @@
       </div>
     </div>
     <div class="col-md-8">
-      <table class="table table-information table-hover">
+      <table class="table table-responsive table-information table-hover">
         <tr>
             <th>{% get_verbose_name object "folder_name" %}
                 <span data-toggle="tooltip" data-placement="right" data-html="true" title="{% get_help_text object 'folder_name' %}"> <i data-feather="info"></i></span>
@@ -193,8 +193,7 @@
                   <br/>
                   <small>Components:</small>
                   {% for y in object.shape_comp.all %}
-                    <a href="{{y.get_absolute_url }}">{{ y.shape_comp }}</a>
-                    {% if not forloop.last %}, {% endif %}
+                    <a href="{{y.get_absolute_url }}">{{ y.shape_comp }}</a>{% if not forloop.last %}, {% endif %}
                   {% endfor %}
                 {% endif %}
                 <br/>
@@ -204,12 +203,15 @@
             <th>{% get_verbose_name object "period" %}</th>
             <td>
               {% for y in object.period.all %}
-                <a href="{{ y.get_absolute_url }}">{{ y.period }}</a>
-              <!--  {% if y.period.get_dates_str %}
-                ({{ object.period.get_dates_str }})
-                {% endif %} -->
-                {% if not forloop.last %}, {% endif %}
+                <a href="{{ y.get_absolute_url }}">{{ y.period }}{% if y.get_dates_str %}
+                  ({{ y.get_dates_str }}){% endif %}</a>{% if not forloop.last %}, {% endif %}
               {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>Object dating</th>
+            <td>
+              {{ object.get_dating_str }}
             </td>
         </tr>
         <tr>
@@ -231,33 +233,44 @@
                 <small>{% get_verbose_name object "provenance_acquisition" %}:</small>
                   {% for y in object.provenance_acquisition.all %}<a href="{{y.get_absolute_url }}">{% if y.place_name == '(no data entered)' %} &ndash;{% else %}{{ y.place_name }}</a>{% if not forloop.last %}, {% endif %}{% endif %}
                   {% endfor %}
-
-
             </td>
         </tr>
         <tr>
-            <th>{% get_verbose_name object "material_fabric" %}</th>
+            <th>{% get_verbose_name object "culture" %}</th>
             <td>
-                {% for y in object.material_fabric.all %}
-                    <a href="{{ y.get_absolute_url }}">{{ y }}</a>
-                    {% if not forloop.last %}, {% endif %}
+                {% for y in object.culture.all %}
+                    <a href="{{ y.get_absolute_url }}">{{ y }}</a>{% if not forloop.last %}, {% endif %}
                 {%  endfor  %}
+            </td>
+        </tr>
+        <tr>
+            <th>Material</th>
+            <td>
+              <small>{% get_verbose_name object "material" %}:</small>
+              {% for y in object.material.all %}
+                <a href="{{ y.get_absolute_url }}">{{ y }}</a>{% if not forloop.last %}, {% endif %}
+              {%  endfor  %}
+              <br/>
+              <small>{% get_verbose_name object "material_fabric" %}:</small>
+              {% for y in object.material_fabric.all %}
+                  <a href="{{ y.get_absolute_url }}">{{ y }}</a>{% if not forloop.last %}, {% endif %}
+              {%  endfor  %}
             </td>
         </tr>
         <tr>
             <th>Technique</th>
             <td>
-                <small>Painting:</small> {% for x in object.painting_style.all %}
-                    <a href="{{ y.get_absolute_url }}">{{ y }}</a>
-                    {% if not forloop.last %}, {% endif %}
+                <small>{% get_verbose_name object "painting_style" %}:</small>
+                {% for y in object.painting_style.all %}
+                    <a href="{{ y.get_absolute_url }}">{{ y }}</a>{% if not forloop.last %}, {% endif %}
                 {%  endfor  %}
-                {% if object.painting_style_sub.all %}
-                /
-                {% for x in object.painting_style_sub.all %}
-                     <a href="{{ y.get_absolute_url }}">{{ y }}</a>
-                     {% if not forloop.last %}, {% endif %}
+                <br/>
+                <small>{% get_verbose_name object "painting_style_sub" %}:</small>
+                {% for y in object.painting_style_sub.all %}
+                     <a href="{{ y.get_absolute_url }}">{{ y|default_if_none:"&ndash;" }}</a>{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                  &ndash;
                 {%  endfor  %}
-                {% endif %}
             </td>
         </tr>
         <tr>
@@ -269,7 +282,13 @@
         <tr>
             <th>{% get_verbose_name object "collref" %}</th>
             <td>
-                <a href="{{ object.collref }}">{{ object.collref }}</a>
+              {% if object.collref %}
+                {% if not object.collref == 'nan' %}
+                  <a href="{{ object.collref }}">{{ object.collref }}<i data-feather="external-link"></i></a>
+                {% endif %}
+              {% else %}
+                &ndash;
+              {% endif %}
             </td>
         </tr>
         {% if object.object_associated_to_inv.all %}
@@ -282,62 +301,104 @@
                 </td>
             </tr>
         {% endif %}
-      </table>
+        <tr>
+            <th>{% get_verbose_name object "object_notes" %}</th>
+            <td>
+                {{ object.notes }}
+            </td>
+        </tr>
+      </div>
       <hr class="hr-detail-view"/>
        <legend>Measurements</legend>
-       <table class="table table-information table-hover">
+       <table class="table table-responsive table-information table-hover">
            <tr>
                <th>{% get_verbose_name object "weight" %}</th>
                <td>
+                 {% if not object.weight|stringformat:"s" == "NaN" %}
                    {{ object.weight|floatformat:3  }}
+                   {% else %}
+                     &ndash;
+                 {% endif %}
                </td>
            </tr>
            <tr>
                <th>{% get_verbose_name object "height" %}</th>
                <td>
+                {% if not object.height|stringformat:"s" == "NaN" %}
                    {{ object.height|floatformat:3  }}
+                   {% else %}
+                     &ndash;
+                 {% endif %}
                </td>
            </tr>
            <tr>
                <th>{% get_verbose_name object "width" %}</th>
                <td>
+                {% if not object.width|stringformat:"s" == "NaN" %}
                    {{ object.width|floatformat:3  }}
+                   {% else %}
+                     &ndash;
+                 {% endif %}
                </td>
            </tr>
            <tr>
                <th>{% get_verbose_name object "length" %}</th>
                <td>
+                {% if not object.length|stringformat:"s" == "NaN" %}
                    {{ object.length|floatformat:3  }}
+                   {% else %}
+                     &ndash;
+                 {% endif %}
                </td>
            </tr>
            <tr>
                <th>{% get_verbose_name object "fillingheight" %}</th>
                <td>
+                 {% if not object.fillingheight|stringformat:"s" == "NaN" %}
                    {{ object.fillingheight|floatformat:3  }}
+                   {% else %}
+                     &ndash;
+                 {% endif %}
                </td>
            </tr>
            <tr>
                <th>{% get_verbose_name object "fillingvolume" %}</th>
                <td>
+                 {% if not object.fillingvolume|stringformat:"s" == "NaN" %}
                    {{ object.fillingvolume|floatformat:3  }}
+                 {% else %}
+                   &ndash;
+                 {% endif %}
                </td>
            </tr>
            <tr>
                <th>{% get_verbose_name object "materialvolume" %}</th>
                <td>
+                 {% if not object.materialvolume|stringformat:"s" == "NaN" %}
                    {{ object.materialvolume|floatformat:3  }}
+                 {% else %}
+                   &ndash;
+                 {% endif %}
                </td>
            </tr>
            <tr>
                <th>{% get_verbose_name object "materialdensity" %}</th>
                <td>
-                   {{ object.materialdensity|floatformat:3  }}
+                 {% if not object.materialdensity|stringformat:"s" == "NaN" %}
+                   {{ object.materialdensity|floatformat:3  }}{% if object.materialdensity_measure and not object.materialdensity_measure == 'nan' %} - {{ object.materialdensity_measure }}{% endif %}
+                 {% else %}
+                   &ndash;
+                 {% endif %}
                </td>
            </tr>
            <tr>
                <th>{% get_verbose_name object "boundingbox" %}</th>
                <td>
+                 {% if not object.boundingbox|stringformat:"s" == "NaN" %}
                    {{ object.boundingbox|floatformat:3  }}
+                 {% else %}
+                   &ndash;
+                 {% endif %}
                </td>
            </tr>
        </table>
@@ -345,7 +406,7 @@
          {% for y in object.rvn_threeddata_folder_name_object.all %}
              <hr class="hr-detail-view"/>
              <legend>3D Models</legend>
-             <table class="table table-information table-hover">
+             <table class="table table-responsive table-information table-hover">
                  <tr>
                      <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
                      <td>
@@ -367,7 +428,7 @@
          {% for y in object.rvn_illustration_folder_name_object.all %}
              <hr class="hr-detail-view"/>
              <legend>Illustrations</legend>
-             <table class="table table-information table-hover">
+             <table class="table table-responsive table-information table-hover">
                  <tr>
                      <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
                      <td>
@@ -389,7 +450,7 @@
          {% for y in object.rvn_illustrationpanel_folder_name_object.all %}
              <hr class="hr-detail-view"/>
              <legend>Illustration Panels</legend>
-             <table class="table table-information table-hover">
+             <table class="table table-responsive table-information table-hover">
                  <tr>
                      <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
                      <td>
@@ -407,39 +468,6 @@
              </table>
         {% endfor %}
       {% endif %}
-
-      <hr class="hr-detail-view"/>
-      <table class="table table-information table-hover">
-
-            {% for x in object.field_dict %}
-                <tr>
-                    <th>
-                        {% if x.help_text %}
-                            <abbr title="{{ x.help_text }}">{{ x.verbose_name }}</abbr>
-                        {% else %}
-                            {{ x.verbose_name }}
-                        {% endif %}
-                    </th>
-                    <td>
-                        {% if x.f_type == 'M2M' %}
-                            {% for y in x.value %}
-                                <li>
-                                    <a href="{{ y.get_absolute_url }}">{{ y.legacy_id }}</a>
-                                </li>
-                            {% endfor %}
-                        {% elif  x.f_type == 'FK' %}
-                            <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
-                        {% elif  x.f_type == 'FK' %}
-                            <a href="{{ x.value.get_absolute_url }}">{{ x.value }}</a>
-                        {% elif  x.f_type == 'SIMPLE' %}
-                            {{ x.value }}
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-
-        <hr class="hr-detail-view"/>
       </div>
     </div>
 {% endblock custom %}

@@ -11,7 +11,7 @@
   })
 </script>
 
-    <div class="card">
+    <div class="card w-100">
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
@@ -56,7 +56,7 @@
     <div class="card-body">
         {% block custom %}
             <legend>Basic Information</legend>
-                <table class="table table-bordered table-hover">
+                <table class="table table-responsive table-hover">
                     {% for x in object.field_dict %}
                     {% if x.value %}
                         <tr>

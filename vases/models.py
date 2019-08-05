@@ -1066,6 +1066,22 @@ class Object(models.Model):
             abbr = "AT-Vienna-KHM"
         return abbr
 
+    # return nicely formatted string with dates
+    def get_dating_str(self):
+        if self.object_dating_end:
+            if self.object_dating_end < 0:
+                return "{} - {} {}".format(abs(self.object_dating_start),                abs(self.object_dating_end), "BCE")
+            elif self.object_dating_start < 0:
+                return "{} {} - {} {}".format(abs(self.object_dating_start),               "BCE", self.object_dating_end, "CE")
+            else:
+                return "{} - {} {}".format(self.object_dating_start, self.object_dating_end, "CE")
+        elif self.object_dating_start:
+            if self.object_dating_start < 0:
+                    "{} {}".format(self.object_dating_start, "BCE")
+            return "{}".format(self.object_dating_start)
+        else:
+            return "{}".format(self.id)
+
     def get_binaries(self):
         if self.folder_name is None or self.folder_name == "":
             return []
@@ -1362,6 +1378,22 @@ class Period(models.Model):
     def field_dict(self):
         return model_to_dict(self)
 
+    # return nicely formatted string with dates
+    def get_dates_str(self):
+        if self.period_dating_end:
+            if self.period_dating_end < 0:
+                return "{} - {} {}".format(abs(self.period_dating_start),                abs(self.period_dating_end), "BCE")
+            elif self.period_dating_start < 0:
+                return "{} {} - {} {}".format(abs(self.period_dating_start),               "BCE", self.period_dating_end, "CE")
+            else:
+                return "{} - {} {}".format(self.period_dating_start, self.period_dating_end, "CE")
+        elif self.period_dating_start:
+            if self.period_dating_start < 0:
+                    "{} {}".format(self.period_dating_start, "BCE")
+            return "{}".format(self.period_dating_start)
+        else:
+            return "{}".format(self.id)
+
     @classmethod
     def get_listview_url(self):
         return reverse('vases:period_browse')
@@ -1523,8 +1555,6 @@ class Place(models.Model):
         max_digits=20, decimal_places=12, blank=True, null=True,
         help_text="The longitude of the place"
     )
-
-
 
     class Meta:
 
