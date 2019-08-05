@@ -4,7 +4,6 @@ import vases.arche_utils as arche_utils
 
 from django.db import models
 from django.urls import reverse
-from django.contrib.postgres.fields import DateRangeField
 from django.utils.safestring import mark_safe
 
 from vocabs.models import SkosConcept
@@ -867,11 +866,16 @@ class Object(models.Model):
         verbose_name="Period",
         help_text="",
     )
-    object_dating = DateRangeField(
+    object_dating_start = models.IntegerField(
         blank=True, null=True,
-        verbose_name="Object dating",
+        verbose_name="Object dating start",
         help_text="",
     )
+    object_dating_end = models.IntegerField(
+            blank=True, null=True,
+            verbose_name="Object dating end",
+            help_text="",
+        )
     culture = models.ManyToManyField(
         "Culture",
         related_name='rvn_object_culture_culture',
@@ -1334,26 +1338,21 @@ class Period(models.Model):
         verbose_name="Period, ID",
         help_text="",
     )
-    period_date_range = DateRangeField(
+    period_dating_start = models.IntegerField(
         blank=True, null=True,
-        verbose_name="Period, date range",
+        verbose_name="Period dating start",
         help_text="",
     )
-    period_iso_start = models.DateField(
+    period_dating_end = models.IntegerField(
         blank=True, null=True,
-        verbose_name="Period, date range start in ISO",
-        help_text="",
-    )
-    period_iso_end = models.DateField(
-        blank=True, null=True,
-        verbose_name="Period, date range end in ISO",
+        verbose_name="Period dating end",
         help_text="",
     )
 
     class Meta:
 
         ordering = [
-            'period_iso_start',
+            'period_dating_start',
         ]
         verbose_name = "Periods"
 
