@@ -387,6 +387,14 @@ h2 small .feather{
   width: 0.8em;
 }
 
+small .feather{
+  height: 1em;
+  margin-top: -4px;
+  vertical-align: middle;
+  width: 1em;
+}
+
+
 /**
 * styling of detail view of vases
 **/

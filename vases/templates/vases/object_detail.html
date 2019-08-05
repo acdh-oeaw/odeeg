@@ -164,7 +164,7 @@
             </td>
         </tr>
         <tr>
-            <th>{% get_verbose_name object "collection_spec" %}</th>
+            <th><span data-toggle="tooltip" data-placement="right" data-html="true" title="{% get_help_text object 'collection_spec' %}">{% get_verbose_name object "collection_spec" %}</span></th>
             <td>
                 {{ object.collection_spec }}, <a href="{{ object.collection_inst.get_absolute_url }}">{{ object.collection_inst }}</a>
             </td>
@@ -178,7 +178,9 @@
         <tr>
             <th>{% get_verbose_name object "bapd_nr" %}</th>
             <td>
-                {{ object.bapd_nr }}
+                {% if  object.bapd_nr == 'nan' %}&ndash;
+                {% else %} {{ object.bapd_nr|default:"&ndash" }}
+                {% endif %}
             </td>
         </tr>
         <tr>
@@ -187,11 +189,13 @@
                 {% for y in object.shape.all %}
                     <a href="{{ y.get_absolute_url }}">{{ y.shape }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}
-                {% if object.shape_comp %}
-                <br/>
-                <small>Components:</small>
-                {% for y in object.shape_comp.all %}<a href="{{y.get_absolute_url }}">{{ y.shape_comp }}</a>{% if not forloop.last %}, {% endif %}
-              {% endfor %}
+                {% if object.shape_comp.all.0.shape_comp %}
+                  <br/>
+                  <small>Components:</small>
+                  {% for y in object.shape_comp.all %}
+                    <a href="{{y.get_absolute_url }}">{{ y.shape_comp }}</a>
+                    {% if not forloop.last %}, {% endif %}
+                  {% endfor %}
                 {% endif %}
                 <br/>
             </td>
@@ -211,18 +215,24 @@
         <tr>
             <th>Provenance</th>
             <td>
-                <small>{% get_verbose_name object "provenance_spot" %}:</small> <a href="{{ object.provenance_spot.get_absolute_url }}">{% if object.provenance_spot %}{{ object.provenance_spot }}{% else %} &ndash; {% endif %}</a>
+                <small>{% get_verbose_name object "provenance_spot" %}:</small> <a href="{{ object.provenance_spot.get_absolute_url }}">{% if object.provenance_spot.place_name == '(no data entered)' %} &ndash; {% else %}{{ object.provenance_spot }}{% endif %}</a>
                 {% if object.provenance_spot_cert %}
-                ({{ object.provenance_spot_cert }})
-                {% endif %} <br/>
-                <small>{% get_verbose_name object "provenance_production" %}:</small> <a href="{{ object.provenance_production.get_absolute_url }}">{{ object.provenance_production }}</a>
+                <small>({{ object.provenance_spot_cert.cert_label }} <a href="http://vocab.getty.edu/page/aat/{{ object.provenance_spot_cert.cert_id }}"><i data-feather="external-link"></i></a>)</small>
+                {% endif %}
+                <br/>
+                <small>{% get_verbose_name object "provenance_production" %}:</small> <a href="{{ object.provenance_production.get_absolute_url }}">{% if object.provenance_production.place_name == '(no data entered)' %} &ndash;{% else %}{{ object.provenance_production }}{% endif %}</a>
+                {% if object.provenance_production_cert %}
+                <small>({{ object.provenance_production_cert.cert_label }} <a href="http://vocab.getty.edu/page/aat/{{ object.provenance_spot_production.cert_id }}"><i data-feather="external-link"></i></a>)</small>
+                {% endif %}
                 {% if object.prov_attr_artist %}
                   <small>{% get_verbose_name object "provenance_attribution" %}:</small> {{ object.provenance_attribution }}
                 {% endif %}
                 <br/>
                 <small>{% get_verbose_name object "provenance_acquisition" %}:</small>
-                {% for y in object.provenance_acquisition.all %}<a href="{{y.get_absolute_url }}">{{ y.place_name }}</a>{% if not forloop.last %}, {% endif %}
-              {% endfor %}
+                  {% for y in object.provenance_acquisition.all %}<a href="{{y.get_absolute_url }}">{% if y.place_name == '(no data entered)' %} &ndash;{% else %}{{ y.place_name }}</a>{% if not forloop.last %}, {% endif %}{% endif %}
+                  {% endfor %}
+
+
             </td>
         </tr>
         <tr>
