@@ -33,77 +33,82 @@
                 <img src="{{ x }}" >
             </li>
         {% endfor %}-->
-        <h2>3D Model</h2>
-        {% get_item_by_type object '3Dscan_lowRes-data' as items %}
-        {{ items.0.id }}
-        <br/>List:
-        {% for x in items %}
-        {{ x.id }}{% if not forloop.last %},
-        {% endif %}
-        {% endfor %}
+        <h3>3D Model</h3>
+      {% get_item_by_type object '3Dscan_lowRes-data' as items %}
+      {% if items %}
         <div>
-        <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
-        <div id="toolbar">
-            <img id="home" title="Home" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/home.png' %}"/><br/>
-            <img id="zoomin" title="Zoom In" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/zoomin.png' %}"/><br/>
-            <img id="zoomout" title="Zoom Out" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/zoomout.png' %}"/><br/>
-            <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
-            <img id="light" title="Enable Light Control" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/light.png' %}"/><br/>
-            <img id="full_on" title="Exit Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
-            <img id="full" title="Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full.png' %}"/>
+          <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
+            <div id="toolbar">
+                <img id="home" title="Home" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/home.png' %}"/><br/>
+                <img id="zoomin" title="Zoom In" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/zoomin.png' %}"/><br/>
+                <img id="zoomout" title="Zoom Out" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/zoomout.png' %}"/><br/>
+                <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
+                <img id="light" title="Enable Light Control" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/light.png' %}"/><br/>
+                <img id="full_on" title="Exit Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
+                <img id="full" title="Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full.png' %}"/>
+            </div>
+            <canvas id="draw-canvas" style="height: 350px;"/>
+          </div>
         </div>
-        <canvas id="draw-canvas" style="height: 350px;"/>
-        </div>
-      </div>
-      <script type="text/javascript">
-          var presenter = null;
-          function setup3dhop() {
-              presenter = new Presenter("draw-canvas");
-              var meshUrl = " https://id.acdh.oeaw.ac.at/ODeeg/Collections/AT-Vienna-KHM/KHM-ANSA-IV3/3D-data/3Dscan_lowRes-data/KHM-ANSA-IV3_3D02.ply"
-              presenter.setScene({
-                  meshes: {
-                      "3dmodel" : { url: meshUrl }
-                  },
-                  modelInstances : {
-                      "Model1" : { mesh : "3dmodel" }
-                  }
+        {% with newMeshUrl=items.0.id  %}
+          <script type="text/javascript">
+              var presenter = null;
+              function setup3dhop() {
+                  presenter = new Presenter("draw-canvas");
+                  var meshUrl = "{{ newMeshUrl }}"
+                  presenter.setScene({
+                      meshes: {
+                          "3dmodel" : { url: meshUrl }
+                      },
+                      modelInstances : {
+                          "Model1" : { mesh : "3dmodel" }
+                      }
+                  });
+              }
+              function actionsToolbar(action) {
+                  if(action=='home') presenter.resetTrackball();
+                  else if(action=='zoomin') presenter.zoomIn();
+                  else if(action=='zoomout') presenter.zoomOut();
+                  else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
+                  else if(action=='full'  || action=='full_on') fullscreenSwitch();
+              }
+
+              $(document).ready(function(){
+                  init3dhop();
+                  setup3dhop();
+                  moveToolbar(0,5);
               });
-          }
-
-          function actionsToolbar(action) {
-              if(action=='home') presenter.resetTrackball();
-              else if(action=='zoomin') presenter.zoomIn();
-              else if(action=='zoomout') presenter.zoomOut();
-              else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
-              else if(action=='full'  || action=='full_on') fullscreenSwitch();
-          }
-
-          $(document).ready(function(){
-              init3dhop();
-              setup3dhop();
-          //    resizeCanvas(300,350);
-              moveToolbar(0,5);
-          });
-      </script>
+          </script>
+        {% endwith %}
+      {% else %}
+        <p>No 3D model available for this object.</p>
+      {% endif %}
       <hr />
-      <legend>Photos</legend>
-      <div id="openseadragon-photo" style="height: 350px;"></div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/openseadragon.min.js"></script>
-      <script type="text/javascript">
-          var viewer = OpenSeadragon({
-              id: "openseadragon-photo",
-              protocol: "http://iiif.io/api/image",
-              prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
-              sequenceMode : true,
-              showReferenceStrip: true,
-              tileSources: [{% get_item_by_type object 'Photos' as items %}
-                  {% for x in items %}
-                      "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
-                  {% endfor %}]
-          });
-      </script>
+      <h3>Photos</h3>
+      {% get_item_by_type object 'Photos' as photoItems %}
+      {% if photoItems %}
+        <div id="openseadragon-photo" style="height: 350px;"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/openseadragon.min.js"></script>
+        <script type="text/javascript">
+            var viewer = OpenSeadragon({
+                id: "openseadragon-photo",
+                protocol: "http://iiif.io/api/image",
+                prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
+                sequenceMode : true,
+                showReferenceStrip: true,
+                tileSources: [
+                    {% for x in photoItems %}
+                        "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
+                    {% endfor %}]
+            });
+        </script>
+      {% else %}
+        <p>No photos available for this object.</p>
+      {% endif %}
       <hr />
-      <legend>Illustrations</legend>
+      <h3>Illustrations</h3>
+      {% get_item_by_type object 'Illustrations' as illItems %}
+      {% if illItems %}
       <div id="openseadragon-ill" style="height: 350px;"></div>
       <script type="text/javascript">
           var viewer = OpenSeadragon({
@@ -112,12 +117,38 @@
               prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
               sequenceMode : true,
               showReferenceStrip: true,
-              tileSources: [{% get_item_by_type object 'Illustrations' as items %}
-                  {% for x in items %}
+              tileSources: [
+                  {% for x in illItems %}
                       "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
                   {% endfor %}]
           });
       </script>
+      {% else %}
+        <p>No illustrations available for this object.</p>
+      {% endif %}
+      <hr />
+      <h3>Illustration Panel</h3>
+      {% get_item_by_type object 'IllustrationTables' as illtabItems %}
+      {% if illtabItems %}
+      <div id="openseadragon-illtab" style="height: 350px;"></div>
+      <script type="text/javascript">
+          var viewer = OpenSeadragon({
+              id: "openseadragon-illtab",
+              protocol: "http://iiif.io/api/image",
+              prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
+              sequenceMode : true,
+              showReferenceStrip: true,
+              tileSources: [
+                  {% for x in illtabItems %}
+                    {%if '.svg' not in x.id %}
+                      "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
+                    {% endif %}
+                  {% endfor %}]
+          });
+      </script>
+      {% else %}
+        <p>No illustrations panel available for this object.</p>
+      {% endif %}
 
       </div>
       </div>
