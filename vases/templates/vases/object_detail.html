@@ -47,7 +47,8 @@
                 <img id="full_on" title="Exit Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
                 <img id="full" title="Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full.png' %}"/>
             </div>
-            <canvas id="draw-canvas" style="height: 350px;"/>
+            <!-- be sure to delete width and height setting from 3dhop.css #draw-canvas -->
+            <canvas id="draw-canvas" style="min-height: 350px;"/>
           </div>
         </div>
         {% with newMeshUrl=items.0.id  %}
@@ -155,12 +156,13 @@
     </div>
     <div class="col-md-8">
       <table class="table table-responsive table-information table-hover">
+       <tbody>
         <tr>
             <th>{% get_verbose_name object "folder_name" %}
                 <span data-toggle="tooltip" data-placement="right" data-html="true" title="{% get_help_text object 'folder_name' %}"> <i data-feather="info"></i></span>
             </th>
             <td>
-                {{ object.folder_name }}
+                <a href="{{ object.get_arche_url }}" title="View files on ARCHE">{{ object.folder_name }}<img src="{% static 'webpage/img/arche_icon.svg' %}" class="arche-icon" /></a>
             </td>
         </tr>
         <tr>
@@ -276,7 +278,11 @@
         <tr>
             <th>{% get_verbose_name object "bibref" %}</th>
             <td>
-                {{ object.bibref }}
+              {% if object.bibref == '(no data entered)'%}
+                <small>{{ object.bibref }}</small>
+              {% else %}
+                {{ object.bibref|default_if_none:'&ndash' }}
+              {% endif %}
             </td>
         </tr>
         <tr>
@@ -284,7 +290,7 @@
             <td>
               {% if object.collref %}
                 {% if not object.collref == 'nan' %}
-                  <a href="{{ object.collref }}">{{ object.collref }}<i data-feather="external-link"></i></a>
+                  <a href="{{ object.collref }}">{{ object.collref }} <i data-feather="external-link"></i></a>
                 {% endif %}
               {% else %}
                 &ndash;
@@ -307,10 +313,12 @@
                 {{ object.notes }}
             </td>
         </tr>
-      </div>
+        </tbody>
+        </table>
       <hr class="hr-detail-view"/>
        <legend>Measurements</legend>
        <table class="table table-responsive table-information table-hover">
+        <tbody>
            <tr>
                <th>{% get_verbose_name object "weight" %}</th>
                <td>
@@ -401,73 +409,95 @@
                  {% endif %}
                </td>
            </tr>
+         </tbody>
        </table>
       {% if object.rvn_threeddata_folder_name_object.all %}
          {% for y in object.rvn_threeddata_folder_name_object.all %}
              <hr class="hr-detail-view"/>
              <legend>3D Models</legend>
              <table class="table table-responsive table-information table-hover">
+               <tbody>
                  <tr>
-                     <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
+                     <th>Acquisition<small> <br/><a href="{{ y.get_absolute_url }}">more</a></small></th>
                      <td>
-                         <small>Type:</small> {{ y.threed_technique }}<br/>
-                         <small>Hardware:</small> {{ y.threed_hardware }}<br/>
-                         <small>Characteristics:</small> {{ y.threed_fov }}, {{ y.threed_resolution }}
+                         <small>Location:</small> {% for z in y.threed_location.all %}<a href="{{ z.get_absolute_url }}"> {{ z.inst_name }} {% endfor %}</a> {% if y.threed_location_char %} ({{ y.threed_location_char }}) {% endif %} {% if y.threed_date %} | {{ y.threed_date|date:'m. Y' }} {% endif %}<br/>
+                         <small>By:</small> {% for z in y.threed_author.all %}<a href="{{ z.get_absolute_url }}"> {{ z.person_first_name }} {{ z.person_last_name }}</a> ({{ z.person_member_inst }}){% if not forloop.last %}, {% endif %}{% endfor %}<br/>
+                         <small>Technique:</small> <a href="{{ y.threed_technique.get_absolute_url }}">{{ y.threed_technique }}</a><br/>
+                         <small>Hardware:</small> <a href="{{ y.threed_hardware.get_absolute_url }}">{{ y.threed_hardware }}</a><br/>
+                         <small>Characteristics:</small> {{ y.threed_fov }} {% if y.threed_resolution %} | {{ y.threed_resolution }} {% endif %} {% if y.threed_acc %} | {{ y.threed_acc }} {% endif %}<br/>
+                         <small>Texture:</small> {{ y.get_threed_texture_acquisition_display }} {% if y.threed_texture_color %}| {{ y.get_threed_texture_color_display }} {% endif %}{% if y.threed_texture_resolution %}| {{ y.threed_texture_resolution }}{% endif %}<br/>
+                         <small>Software:</small> {{ y.threed_software }} {% if y.threed_scan_nrs %}, {{ y.threed_scan_nrs }} scans{% endif %}
                      </td>
                  </tr>
                  <tr>
-                     <th>3D Data</th>
+                     <th>Alignment & Merging</th>
                      <td>
-                         <small>acquisition:</small> {{ y.survey_location }}
+                         <small>By:</small> {% for z in y.threed_merging_author.all %}<a href="{{ z.get_absolute_url }}"> {{ z.person_first_name }} {{ z.person_last_name }}</a> ({{ z.person_member_inst }}){% if not forloop.last %}, {% endif %}{% endfor %}{% if y.threed_merging_date %} | {{ y.threed_merging_date|date:'m. Y' }} {% endif %}<br/>
+                          <small>Software:</small> {{ y.threed_merging_software }}<br/>
                      </td>
                  </tr>
+                 <tr>
+                     <th>Post-Processing</th>
+                     <td>
+                         <small>By:</small> {% for z in y.threed_postproc_author.all %}<a href="{{ z.get_absolute_url }}"> {{ z.person_first_name }} {{ z.person_last_name }}</a> ({{ z.person_member_inst }}){% if not forloop.last %}, {% endif %}{% endfor %}{% if y.threed_postproc_date %} | {{ y.threed_postproc_date|date:'m. Y' }} {% endif %}<br/>
+                          <small>Software:</small> {{ y.threed_postproc_software }}<br/>
+                          <small>Actions:</small> {{ y.threed_postproc_actions }}<br/>
+                          <small>Resulting file:</small> <a href="{{ object.get_arche_url }}/3D-data/3Dscan_merged-data/{{ y.threed_postproc_file }}">{{ y.threed_postproc_file }}<img src="{% static 'webpage/img/arche_icon.svg' %}"  class="arche-icon" /></a><br/>
+                     </td>
+                 </tr>
+                 <tr>
+                     <th>Low Resolution Post-Processing</th>
+                     <td>
+                         <small>By:</small> {% for z in y.threed_postproc_low_author.all %}<a href="{{ z.get_absolute_url }}"> {{ z.person_first_name }} {{ z.person_last_name }}</a> ({{ z.person_member_inst }}){% if not forloop.last %}, {% endif %}{% endfor %}{% if y.threed_postproc_low_date %} | {{ y.threed_postproc_low_date|date:'m. Y' }} {% endif %}<br/>
+                          <small>Software:</small> {{ y.threed_postproc_low_software }}<br/>
+                          <small>Actions:</small> {{ y.threed_postproc_low_software_actions }}<br/>
+                          <small>Resulting file:</small> <a href="{{ object.get_arche_url }}/3D-data/3Dscan_lowRes-data/{{ y.threed_postproc_low_file }}">{{ y.threed_postproc_low_file }}<img src="{% static 'webpage/img/arche_icon.svg' %}"  class="arche-icon" /></a><br/>
+                     </td>
+                 </tr>
+                 <tr>
+                     <th>Notes</th>
+                     <td>
+                         {{ y.threed_notes }}
+                     </td>
+                 </tr>
+               </tbody>
              </table>
         {% endfor %}
       {% endif %}
-      {% if object.rvn_illustration_folder_name_object.all %}
-         {% for y in object.rvn_illustration_folder_name_object.all %}
-             <hr class="hr-detail-view"/>
-             <legend>Illustrations</legend>
-             <table class="table table-responsive table-information table-hover">
-                 <tr>
-                     <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
-                     <td>
-                         <small>Type:</small> {{ y.threed_technique }}<br/>
-                         <small>Hardware:</small> {{ y.threed_hardware }}<br/>
-                         <small>Characteristics:</small> {{ y.threed_fov }}, {{ y.threed_resolution }}
-                     </td>
-                 </tr>
-                 <tr>
-                     <th>3D Data</th>
-                     <td>
-                         <small>acquisition:</small> {{ y.survey_location }}
-                     </td>
-                 </tr>
-             </table>
-        {% endfor %}
-      {% endif %}
-      {% if object.rvn_illustrationpanel_folder_name_object.all %}
-         {% for y in object.rvn_illustrationpanel_folder_name_object.all %}
-             <hr class="hr-detail-view"/>
-             <legend>Illustration Panels</legend>
-             <table class="table table-responsive table-information table-hover">
-                 <tr>
-                     <th>3D Scanner <small><a href="{{ y.get_absolute_url }}">more</a></small></th>
-                     <td>
-                         <small>Type:</small> {{ y.threed_technique }}<br/>
-                         <small>Hardware:</small> {{ y.threed_hardware }}<br/>
-                         <small>Characteristics:</small> {{ y.threed_fov }}, {{ y.threed_resolution }}
-                     </td>
-                 </tr>
-                 <tr>
-                     <th>3D Data</th>
-                     <td>
-                         <small>acquisition:</small> {{ y.survey_location }}
-                     </td>
-                 </tr>
-             </table>
-        {% endfor %}
-      {% endif %}
+      {% if object.rvn_illustration_folder_name_object.all or object.rvn_illustrationpanel_folder_name_object.all%}
+         <hr class="hr-detail-view"/>
+         <legend>Illustrations</legend>
+         <table class="table table-responsive table-information table-hover">
+           <tbody>
+             {% if object.rvn_illustration_folder_name_object.all %}
+              {% for y in object.rvn_illustration_folder_name_object.all %}
+               <tr>
+                   <th>Automated Illustrations<br/><small><a href="{{ y.get_absolute_url }}">more</a></small></th>
+                   <td>
+                     <small>By:</small> {% for z in y.ill_author.all %}<a href="{{ z.get_absolute_url }}"> {{ z.person_first_name }} {{ z.person_last_name }}</a> ({{ z.person_member_inst }}){% if not forloop.last %}, {% endif %}{% endfor %}{% if y.ill_date %} | {{ y.ill_date|date:'m. Y' }} {% endif %}<br/>
+                      <small>Software:</small> {{ y.ill_software }}<br/>
+                      <small>Steps:</small> {{ y.ill_software_steps }}<br/>
+                      <small>Notes:</small> {{ y.ill_notes }}
+                   </td>
+               </tr>
+              {% endfor %}
+            {% endif %}
+            {% if object.rvn_illustrationpanel_folder_name_object.all %}
+             {% for y in object.rvn_illustrationpanel_folder_name_object.all %}
+               <tr>
+                   <th>Illustration Panels<br/><small><a href="{{ y.get_absolute_url }}">more</a></small></th>
+                   <td>
+                     <small>By:</small> {% for z in y.illtab_author.all %}<a href="{{ z.get_absolute_url }}"> {{ z.person_first_name }} {{ z.person_last_name }}</a> ({{ z.person_member_inst }}){% if not forloop.last %}, {% endif %}{% endfor %}{% if y.illtab_date %} | {{ y.illtab_date|date:'m. Y' }} {% endif %}<br/>
+                      <small>Software:</small> {{ y.illtab_software }}<br/>
+                      <small>Steps:</small> {{ y.illtab_software_steps }}<br/>
+                      <small>Notes:</small> {{ y.illtab_notes }}
+                   </td>
+               </tr>
+               {% endfor %}
+             {% endif %}
+             </tbody>
+           </table>
+           {% endif %}
       </div>
     </div>
 {% endblock custom %}

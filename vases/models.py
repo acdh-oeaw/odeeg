@@ -1082,6 +1082,13 @@ class Object(models.Model):
         else:
             return "{}".format(self.id)
 
+    def get_arche_url(self):
+        if self.folder_name is None or self.folder_name =="":
+            return []
+        else:
+            urlstr = "/".join([ARCHE_URI_CONST, self.get_col_abbr(), self.folder_name])
+            return urlstr
+
     def get_binaries(self):
         if self.folder_name is None or self.folder_name == "":
             return []
@@ -1943,8 +1950,8 @@ class ThreedData(models.Model):
     )
     threed_notes = models.TextField(
         blank=True,
-        verbose_name="Notes [AAT ID: 300027200]",
-        help_text="",
+        verbose_name="Notes",
+        help_text="Notes [AAT ID: 300027200]",
     )
 
     class Meta:

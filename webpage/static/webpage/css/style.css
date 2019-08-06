@@ -413,7 +413,11 @@ small .feather{
     /*font-family: Bodoni MT, Didot, Didot LT STD, Hoefler Text, Garamond, Times New Roman, serif;*/
     font-weight: normal;
     font-size: 1rem;
-    width: 25%;
+    min-width: 11.5em;
+}
+
+.table-information td {
+  padding-left: 0.5em;
 }
 
 hr.hr-detail-view {
@@ -421,8 +425,11 @@ hr.hr-detail-view {
     border-color: rgba(0,0,0,.4);
 }
 
-
-
+img.arche-icon {
+  padding-left: 0.2em;
+  margin-top: -3px;
+  height: 1em;
+}
 
 /** FOOTER **/
 
