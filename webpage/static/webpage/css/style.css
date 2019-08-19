@@ -123,6 +123,10 @@ nav.navbar {
     color: #808080;
 }
 
+h1 #odeeg-logo {
+  max-height: 1em;
+}
+
 #user-menu {
   margin-right: 0;
 }
@@ -169,6 +173,10 @@ nav.navbar {
   font-size: 1.8em;
 }
 
+h4.entry-title  {
+  font-size: 0.8em;
+}
+
 .teaser-text p{
   margin-bottom: 0.1em;
 }
@@ -176,7 +184,7 @@ nav.navbar {
 #read-more {
   width: 100%;
   text-align: right;
-  margin-bottom: 2em;
+  margin-bottom: 1.5em;
   font-size: 0.9em;
 }
 

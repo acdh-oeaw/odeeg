@@ -3,22 +3,14 @@
 {% load webpage_extras %}
 {% block content %}
 
-<div id="logo-title-section">
-  <img id="odeeg-logo" src="{% static 'webpage/img/odeeg-logo.svg' %}" alt="Logo of ODeeg"/>
-  <p>
-    <i>Online-Datenbank zur Erforschung der Entwicklung von Gefäßformen und -maßen</i><br>
-    Online database for research on the development of vessel shapes and dimensions
-  </p>
-</div>
-
 <div class="carousel-wrapper">
   <article class="card col-md-6 flat-style">
     <div class="card-inner card-vertical" style="min-height:420px;">
       <div id="homeCarousel" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators carousel-indicators--round">
-              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-              <li data-target="#myCarousel" data-slide-to="1"></li>
-              <li data-target="#myCarousel" data-slide-to="2"></li>
+              <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#homeCarousel" data-slide-to="1"></li>
+              <li data-target="#homeCarousel" data-slide-to="2"></li>
           </ol>
           <div class="carousel-inner">
               <div class="carousel-item active">
@@ -34,11 +26,11 @@
                   <div class="carousel-caption d-none d-md-block"></div>
               </div>
           </div>
-          <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+          <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+          <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
           </a>
@@ -49,8 +41,11 @@
   <!-- #post-## -->
   <article class="card col-md-6 flat-style">
     <div class="card-inner card-vertical" style="min-height:420px;">
-      <h1>{% projects_metadata 'title' %}</h1>
+      <h1><img id="odeeg-logo" src="{% static 'webpage/img/odeeg-logo.svg' %}" alt="Logo of ODeeg"/></h1>
       <h2>{% projects_metadata 'subtitle_en' %}</h2>
+      <div id="logo-title-section">
+        <p> <i>Online-Datenbank zur Erforschung der Entwicklung von Gefäßformen und -maßen</i></p>
+      </div>
       <div class="entry-text-content">
         <header class="entry-header">
           <h4 class="entry-title">&nbsp;</h4>
