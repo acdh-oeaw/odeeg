@@ -47,9 +47,17 @@ def get_results(query, endpoint=ARCHE_BG):
     sparql = SPARQLWrapper(endpoint)
     sparql.setQuery(query)
     sparql.setReturnFormat(JSON)
-    result = sparql.query().convert()
+    try:
+        result = sparql.query().convert()
+    except Exception as e:
+        print(e)
+    result = []
     return result
 
 
 def results_to_list(result, value_field):
-    return [x[value_field]['value'] for x in result['results']['bindings']]
+    try:
+        return [x[value_field]['value'] for x in result['results']['bindings']]
+    except Exception as e:
+        print(e)
+        return []
