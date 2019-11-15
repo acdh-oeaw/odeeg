@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'charts',
     'vocabs',
     'vases',
+    'netvis'
 ]
 
 HAYSTACK_CONNECTIONS = {
