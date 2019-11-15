@@ -1,4 +1,5 @@
 acdh-django-charts>=0.5.3
+acdh-django-netvis>=0.1.0
 certifi>=2019.3.9
 chardet>=3.0.4
 coreapi>=2.3.3
