@@ -1070,20 +1070,26 @@ class Object(models.Model):
     def get_dating_str(self):
         if self.object_dating_end:
             if self.object_dating_end < 0:
-                return "{} - {} {}".format(abs(self.object_dating_start),                abs(self.object_dating_end), "BCE")
+                return "{} - {} {}".format(
+                    abs(self.object_dating_start),
+                    abs(self.object_dating_end), "BCE"
+                )
             elif self.object_dating_start < 0:
-                return "{} {} - {} {}".format(abs(self.object_dating_start),               "BCE", self.object_dating_end, "CE")
+                return "{} {} - {} {}".format(
+                    abs(self.object_dating_start),
+                    "BCE", self.object_dating_end, "CE"
+                )
             else:
                 return "{} - {} {}".format(self.object_dating_start, self.object_dating_end, "CE")
         elif self.object_dating_start:
             if self.object_dating_start < 0:
-                    "{} {}".format(self.object_dating_start, "BCE")
+                "{} {}".format(self.object_dating_start, "BCE")
             return "{}".format(self.object_dating_start)
         else:
             return "{}".format(self.id)
 
     def get_arche_url(self):
-        if self.folder_name is None or self.folder_name =="":
+        if self.folder_name is None or self.folder_name == "":
             return []
         else:
             urlstr = "/".join([ARCHE_URI_CONST, self.get_col_abbr(), self.folder_name])
