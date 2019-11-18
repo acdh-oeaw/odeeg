@@ -13,13 +13,13 @@ prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>
 
 Select ?uri ?binaries ?title
-where <**
+where {{
   ?s acdh:hasIdentifier ?uri .
   FILTER STRSTARTS(str(?uri), "{}")
   ?binaries acdh:hasIdentifier ?uri .
   ?binaries rdf:type <http://fedora.info/definitions/v4/repository#Binary> .
   ?binaries acdh:hasTitle ?title .
-**>
+  }}
 """
 
 query_tifs = """
@@ -27,20 +27,15 @@ prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX acdh: <https://vocabs.acdh.oeaw.ac.at/schema#>
 
 Select ?uri ?binaries ?title
-where <**
+where {{
   ?s acdh:hasIdentifier ?uri .
   FILTER STRSTARTS(str(?uri), "{}")
   FILTER STRENDS(str(?uri), ".tif")
   ?binaries acdh:hasIdentifier ?uri .
   ?binaries rdf:type <http://fedora.info/definitions/v4/repository#Binary> .
   ?binaries acdh:hasTitle ?title .
-**>
+}}
 """
-
-
-def sanitize_querystring(querystring, startstr):
-    san_query = querystring.format(startstr).replace('<**', '{').replace('**>', '}')
-    return san_query
 
 
 def get_results(query, endpoint=ARCHE_BG):
@@ -50,8 +45,9 @@ def get_results(query, endpoint=ARCHE_BG):
     try:
         result = sparql.query().convert()
     except Exception as e:
+        print("get_results")
         print(e)
-    result = []
+        result = []
     return result
 
 
@@ -60,4 +56,5 @@ def results_to_list(result, value_field):
         return [x[value_field]['value'] for x in result['results']['bindings']]
     except Exception as e:
         print(e)
+        print("results_to_list")
         return []
