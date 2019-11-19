@@ -541,7 +541,6 @@
                                            var lng = "{{ x.lng }}"
                                            L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
                                            .bindPopup(placeName)
-                                           .openPopup();
                                        {% endif %}
                                    {% endfor %}
                                };
