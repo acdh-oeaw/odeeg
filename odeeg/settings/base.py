@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'reversion',
     'haystack',
+    'leaflet',
     'crispy_forms',
     'django_filters',
     'django_tables2',
@@ -143,4 +144,22 @@ VOCABS_SETTINGS = {
     'default_prefix': VOCABS_DEFAULT_PEFIX,
     'default_ns': "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
     'default_lang': "en"
+}
+
+LEAFLET_CONFIG = {
+    'MAX_ZOOM': 18,
+    'DEFAULT_CENTER': (47, 16),
+    'DEFAULT_ZOOM': 4,
+    'TILES': [
+        (
+            'BASIC',
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                'attribution':
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>\
+                    contributors',
+                'maxZoom': 18,
+            }
+        )
+    ],
 }

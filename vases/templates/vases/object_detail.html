@@ -1,9 +1,13 @@
 {% extends "browsing/generic_detail.html" %}
 {% load staticfiles %}
+{% load leaflet_tags %}
 {% load webpage_extras %}
 {% load vases_extras %}
 {% block title %}{{ object }}{% endblock %}
 {% block custom %}
+{% leaflet_js %}
+{% leaflet_css %}
+
 
 <!-- 3DHOP -->
     <!--STYLESHEET-->
@@ -508,6 +512,49 @@
            <script type="text/javascript">
              showGraph("{% url 'netvis:graph' app_name='vases' model_name='object' pk=object.id %}", "visualization")
            </script>
+           <div class="card">
+               <div class="card-header">
+                   <h4 class="card-title">Im Dokument erwähnte Orte</h4>
+               </div>
+               <div class="card-body">
+                       <script type="text/javascript">
+
+                           function map_init_basic (map, options) {
+                                   {% if object.provenance_spot.lat %}
+                                       var placeName = "<a href='{{ object.provenance_spot.get_absolute_url }}'>Finding spot: {{ object.provenance_spot.place_name }}</a>"
+                                       var lat = "{{ object.provenance_spot.lat }}"
+                                       var lng = "{{ object.provenance_spot.lng }}"
+                                       L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
+                                       .bindPopup(placeName)
+                                   {% endif %}
+                                   {% if object.provenance_production.lat %}
+                                       var placeName = "<a href='{{ object.provenance_production.get_absolute_url }}'>Production center: {{ object.provenance_production.place_name }}</a>"
+                                       var lat = "{{ object.provenance_production.lat }}"
+                                       var lng = "{{ object.provenance_production.lng }}"
+                                       L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
+                                       .bindPopup(placeName)
+                                   {% endif %}
+                                   {% for x in object.provenance_acquisition.all %}
+                                       {% if x.lat %}
+                                           var placeName = "<a href='{{ x.get_absolute_url }}'>Latest acquisition: {{ x.place_name }}</a>"
+                                           var lat = "{{ x.lat }}"
+                                           var lng = "{{ x.lng }}"
+                                           L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
+                                           .bindPopup(placeName)
+                                           .openPopup();
+                                       {% endif %}
+                                   {% endfor %}
+                               };
+
+                       </script>
+                   <div style="padding:0;">
+
+                       {% leaflet_map "yourmap" callback="window.map_init_basic" %}
+
+                   </div>
+
+               </div>
+           </div>
       </div>
     </div>
 {% endblock custom %}
