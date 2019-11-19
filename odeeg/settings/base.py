@@ -148,8 +148,8 @@ VOCABS_SETTINGS = {
 
 LEAFLET_CONFIG = {
     'MAX_ZOOM': 18,
-    'DEFAULT_CENTER': (47, 16),
-    'DEFAULT_ZOOM': 4,
+    'DEFAULT_CENTER': (37, 23),
+    'DEFAULT_ZOOM': 6,
     'TILES': [
         (
             'BASIC',
