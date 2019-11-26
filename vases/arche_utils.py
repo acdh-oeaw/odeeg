@@ -5,7 +5,7 @@ try:
     ARCHE_BG = settings.ARCHE_BG
 except AttributeError:
     print("setting.ARCHE_BG not set, use arche-curation-bg as fallback")
-    ARCHE_BG = "https://arche-curation.acdh-dev.oeaw.ac.at/blazegraph/sparql"
+    ARCHE_BG = "https://arche.acdh.oeaw.ac.at/blazegraph/sparql"
 
 
 query_all_binaries = """
