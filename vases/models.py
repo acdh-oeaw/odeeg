@@ -1096,37 +1096,13 @@ class Object(models.Model):
             return urlstr
 
     def get_binaries(self):
-        if self.folder_name is None or self.folder_name == "":
-            return []
-        else:
-            startstr = "/".join([ARCHE_URI_CONST, self.get_col_abbr(), self.folder_name])
-            san_query = arche_utils.query_all_binaries.format(f"{startstr}/")
-            results = arche_utils.get_results(san_query)
-            result_list = arche_utils.results_to_list(results, 'uri')
-            return results, result_list
+        return []
 
     def get_tifs(self):
-        if self.folder_name is None or self.folder_name == "":
-            return []
-        else:
-            startstr = "/".join([ARCHE_URI_CONST, self.get_col_abbr(), self.folder_name])
-            san_query = arche_utils.query_all_binaries.format(f"{startstr}/")
-            results = arche_utils.get_results(san_query)
-            result_list = arche_utils.results_to_list(results, 'uri')
-            return results, result_list
+        return []
 
     def binaries_by_type(self):
-        items = []
-        for x in self.get_binaries()[1]:
-            item_type = x.rsplit('/')[-2]
-            item_mime = x.rsplit('.')[-1]
-            item = {
-                'id': x,
-                'item_type': item_type,
-                'item_mime': item_mime
-            }
-            items.append(item)
-        return items
+        return []
 
     def get_item_by_type(self, item_type):
         filtered_items = []
