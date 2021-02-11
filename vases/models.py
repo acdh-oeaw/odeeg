@@ -1127,6 +1127,13 @@ class Object(models.Model):
     def get_item_by_type(self, item_type):
         return bin_by_type(self.get_binary_ids, bin_type=item_type)
 
+    def get_thumb(self):
+        try:
+            thumb_id = self.get_item_by_type('Photos')[0]
+        except IndexError:
+            return ""
+        return f"{thumb_id}?format=thumbnail"
+
 
     def field_dict(self):
         return model_to_dict(self)

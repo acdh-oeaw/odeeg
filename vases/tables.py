@@ -140,15 +140,15 @@ class ObjectTable(tables.Table):
     painting_style = tables.columns.ManyToManyColumn()
     painting_style_sub = tables.columns.ManyToManyColumn()
     provenance_acquisition = tables.columns.ManyToManyColumn()
-    thumbnail = tables.columns.TemplateColumn(
-        template_name="vases/templatecolumn/thumbcolumn.html",
-        orderable=False,
-        verbose_name= 'Thumbnail'
-    )
+    # thumbnail = tables.columns.TemplateColumn(
+    #     template_name="vases/templatecolumn/thumbcolumn.html",
+    #     orderable=False,
+    #     verbose_name= 'Thumbnail'
+    # )
 
     class Meta:
         model = Object
-        sequence = ('id', 'thumbnail', 'inv_nr', 'shape', 'period')
+        sequence = ('id', 'inv_nr', 'shape', 'period')
         attrs = {"class": "table table-responsive table-hover"}
 
 
