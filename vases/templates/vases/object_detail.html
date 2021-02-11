@@ -61,7 +61,7 @@
             <canvas id="draw-canvas" style="min-height: 350px;"/>
           </div>
         </div>
-        {% with newMeshUrl=items.0.id  %}
+        {% with newMeshUrl=items.0  %}
           <script type="text/javascript">
               var presenter = null;
               function setup3dhop() {
@@ -96,7 +96,7 @@
       {% endif %}
       <hr />
       <h3>Photos</h3>
-      {% get_item_by_type object 'Photos' as photoItems %}
+      {% get_item_by_type object 'Photo' as photoItems %}
       {% if photoItems %}
         <div id="openseadragon-photo" style="height: 350px;"></div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/openseadragon.min.js"></script>
@@ -109,7 +109,7 @@
                 showReferenceStrip: true,
                 tileSources: [
                     {% for x in photoItems %}
-                        "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
+                        "{{ x }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
                     {% endfor %}]
             });
         </script>
@@ -130,7 +130,9 @@
               showReferenceStrip: true,
               tileSources: [
                   {% for x in illItems %}
-                      "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
+                    {%if '.svg' not in x %}
+                      "{{ x }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
+                    {% endif %}
                   {% endfor %}]
           });
       </script>
@@ -151,8 +153,8 @@
               showReferenceStrip: true,
               tileSources: [
                   {% for x in illtabItems %}
-                    {%if '.svg' not in x.id %}
-                      "{{ x.id }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
+                    {%if '.svg' not in x %}
+                      "{{ x }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
                     {% endif %}
                   {% endfor %}]
           });

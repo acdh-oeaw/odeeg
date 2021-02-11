@@ -9,11 +9,15 @@ def create_query_sting(param_dict):
     return params
 
 
-def get_results(param_dict):
+def get_ttl(param_dict):
     params = create_query_sting(param_dict)
     r = requests.get(f"{settings.ARCHE_SEARCH}?{params}")
     ttl = r.text
     g = rdflib.Graph().parse(data=ttl, format='ttl')
+    return g
+
+def get_results(param_dict):
+    g = get_ttl(param_dict)
     subj = set([str(url) for url in g.subjects(
             RDF.type,
             rdflib.URIRef('https://vocabs.acdh.oeaw.ac.at/schema#Resource')

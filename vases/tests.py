@@ -35,4 +35,4 @@ class ArcheTest(unittest.TestCase):
     def test_002_get_arche_md(self):
         result = get_results(ACTUAL_SEARCH_PARAMS)
         self.assertIsInstance(result, list)
-        self.assertTrue(settings.ARCHE_BASE in result[1])
+        self.assertTrue('id.acdh.oeaw.ac.at'in result[1])
