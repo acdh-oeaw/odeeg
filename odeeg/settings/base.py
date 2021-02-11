@@ -166,3 +166,4 @@ LEAFLET_CONFIG = {
 
 ARCHE_BASE = "https://arche.acdh.oeaw.ac.at"
 ARCHE_SEARCH = f"{ARCHE_BASE}/api/search"
+ARCHE_NS = "https://vocabs.acdh.oeaw.ac.at/schema%23"

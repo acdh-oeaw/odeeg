@@ -2,6 +2,7 @@
 import re
 import vases.arche_utils as arche_utils
 
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -9,9 +10,13 @@ from django.utils.safestring import mark_safe
 from vocabs.models import SkosConcept
 
 from browsing.browsing_utils import model_to_dict
+from vases.arche_utils import get_results
 from .config import (
     ARCHE_URI_CONST, COLLECTION_ABBR, THUMB_SERVICE, ACDHID_DOMAIN
 )
+
+ARCHE_NS = settings.ARCHE_NS
+
 
 
 class Certainty(models.Model):
@@ -1094,12 +1099,25 @@ class Object(models.Model):
         else:
             urlstr = "/".join([ARCHE_URI_CONST, self.get_col_abbr(), self.folder_name])
             return urlstr
+    
+    def get_basic_query_params(self):
+        query_params = {
+            "property[0]": f"{ARCHE_NS}hasRawBinarySize",
+            "operator[1]": "~",
+            "property[1]": f"{ARCHE_NS}hasIdentifier",
+            "value[1]": f"^{self.get_arche_url()}",
+        }
+        return query_params
 
-    def get_binaries(self):
-        return []
 
     def get_tifs(self):
-        return []
+        query_params = self.get_basic_query_params()
+        specific_params = {
+            'property[2]': f'{ARCHE_NS}hasFormat',
+            'value[2]': 'image/tiff'
+        }
+        query_params.update(specific_params)
+        return get_results(query_params)
 
     def binaries_by_type(self):
         return []
