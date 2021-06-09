@@ -1,7 +1,7 @@
 acdh-django-browsing==0.1.1
 acdh-django-charts==0.5.3
 acdh-django-netvis==2.0.0
-Django==3.1.6
+Django==3.1.10
 django-haystack==3.0
 django-leaflet==0.27.1
 django-reversion==3.0.9
