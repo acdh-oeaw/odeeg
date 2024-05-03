@@ -1,0 +1,8 @@
+myenv
+env
+db.sqlite3
+.env
+secret.env
+/data
+/venv
+whoosh_index

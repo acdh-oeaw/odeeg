@@ -1,4 +1,4 @@
-FROM python:3.6-buster
+FROM python:3.10-buster
 
 # install nginx posgtes and gdal
 RUN apt-get update -y && apt-get upgrade -y && apt-get install nginx vim \
@@ -16,7 +16,7 @@ RUN pip install -U pip \
     && pip install gunicorn --no-cache-dir
 COPY . /opt/app
 WORKDIR /opt/app
-RUN chown -R www-data:www-data /opt/app
+# RUN chown -R www-data:www-data /opt/app
 
 # start server
 EXPOSE 80

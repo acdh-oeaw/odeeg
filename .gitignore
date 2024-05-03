@@ -48,3 +48,4 @@ local_*
 whoosh_index
 netvis
 env
+venv
