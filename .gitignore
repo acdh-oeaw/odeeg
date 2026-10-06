@@ -50,3 +50,4 @@ netvis
 env
 venv
 secret.env
+odeeg_dump.sql

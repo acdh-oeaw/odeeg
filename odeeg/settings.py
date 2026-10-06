@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "reversion",
-    # "haystack",
+    "haystack",
     "leaflet",
     "crispy_forms",
     "django_filters",
@@ -52,11 +52,13 @@ INSTALLED_APPS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
+        "OPTIONS": {"options": "-c search_path=public,pmb"},
         "NAME": os.environ.get("POSTGRES_DB", "odeeg"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
         "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
         "PORT": os.environ.get("POSTEGRES_PORT", "5432"),
+        "DISABLE_SERVER_SIDE_CURSORS": True,
     }
 }
 
@@ -185,13 +187,3 @@ ARCHE_BASE = "https://arche.acdh.oeaw.ac.at"
 ARCHE_SEARCH = f"{ARCHE_BASE}/api/search"
 ARCHE_NS = "https://vocabs.acdh.oeaw.ac.at/schema%23"
 ARCHE_ID_PROP = "https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier"
-
-
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "my_cache_table",
-        "TIMEOUT": None,
-        "OPTIONS": {"MAX_ENTRIES": 1000},
-    }
-}
