@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 
-
 ACDH_IMPRINT_URL = (
     "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
 )
@@ -36,7 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "reversion",
-    "haystack",
+    # "haystack",
     "leaflet",
     "crispy_forms",
     "django_filters",
@@ -161,7 +160,7 @@ VOCABS_DEFAULT_PEFIX = os.path.basename(BASE_DIR)
 
 VOCABS_SETTINGS = {
     "default_prefix": VOCABS_DEFAULT_PEFIX,
-    "default_ns": "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
+    "default_ns": f"http://www.vocabs/{VOCABS_DEFAULT_PEFIX}/",
     "default_lang": "en",
 }
 

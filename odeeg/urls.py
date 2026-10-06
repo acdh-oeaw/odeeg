@@ -1,7 +1,7 @@
-from django.conf.urls import url, include, handler404
+from django.conf.urls import handler404, include, url
 from django.contrib import admin
-from django.conf import settings
 from rest_framework import routers
+
 from vocabs import api_views
 
 router = routers.DefaultRouter()

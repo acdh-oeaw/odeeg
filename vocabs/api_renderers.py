@@ -1,10 +1,7 @@
-from rest_framework import renderers
 from django.template.loader import render_to_string
-import rdflib
-from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS, ConjunctiveGraph, XSD
-from rdflib.namespace import DC, FOAF, RDFS, SKOS
+from rest_framework import renderers
+
 from .models import *
-from django.core.exceptions import ValidationError
 from .rdf_utils import *
 
 

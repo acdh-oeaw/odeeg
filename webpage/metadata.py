@@ -1,4 +1,5 @@
 from django.utils.safestring import mark_safe
+
 # this files contains basic metadata about the project. This data will be used
 # (by default) in the base.html and index.html
 

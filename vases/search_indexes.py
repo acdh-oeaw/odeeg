@@ -1,7 +1,6 @@
-import datetime
 from haystack import indexes
 
-from . models import Object
+from .models import Object
 
 
 class ObjectIndex(indexes.SearchIndex, indexes.Indexable):

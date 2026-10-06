@@ -1,16 +1,15 @@
 from copy import deepcopy
 
 import requests
-
 from django.conf import settings
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.template import RequestContext, loader
-from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import render
+from django.template import loader
+from django.views.generic import TemplateView
 
-from . forms import form_user_login
-from . metadata import PROJECT_METADATA as PM
+from .forms import form_user_login
+from .metadata import PROJECT_METADATA as PM
 
 
 def get_imprint_url():
@@ -22,7 +21,7 @@ def get_imprint_url():
         redmine_id = settings.REDMINE_ID
     except AttributeError:
         redmine_id = "go-register-a-redmine-service-issue"
-    return "{}{}".format(base_url, redmine_id)
+    return f"{base_url}{redmine_id}"
 
 
 class ImprintView(TemplateView):
@@ -34,7 +33,7 @@ class ImprintView(TemplateView):
         r = requests.get(get_imprint_url())
 
         if r.status_code == 200:
-            context['imprint_body'] = "{}".format(r.text)
+            context['imprint_body'] = f"{r.text}"
         else:
             context['imprint_body'] = """
             On of our services is currently not available. Please try it later or write an email to
@@ -47,7 +46,7 @@ class GenericWebpageView(TemplateView):
     template_name = 'webpage/index.html'
 
     def get_context_data(self, **kwargs):
-        context = super(GenericWebpageView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['apps'] = settings.INSTALLED_APPS
         return context
 

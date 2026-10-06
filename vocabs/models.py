@@ -1,12 +1,10 @@
-import os
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.text import slugify
 from django.utils.functional import cached_property
-from django.core.exceptions import ValidationError
-
+from django.utils.text import slugify
 
 try:
     DEFAULT_NAMESPACE = settings.VOCABS_SETTINGS['default_nsgg']
@@ -90,14 +88,14 @@ class Metadata(models.Model):
         if not self.id:
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
-        return super(Metadata, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     @classmethod
     def get_listview_url(self):
         return reverse('vocabs:metadata')
 
     def __str__(self):
-        return "{}".format(self.title)
+        return f"{self.title}"
 
     def get_absolute_url(self):
         return reverse('vocabs:metadata_detail', kwargs={'pk': self.id})
@@ -123,7 +121,7 @@ class SkosNamespace(models.Model):
     prefix = models.CharField(max_length=50, blank=True, default=DEFAULT_PREFIX)
 
     def __str__(self):
-        return "{}".format(self.prefix)
+        return f"{self.prefix}"
 
 
 class SkosConceptScheme(models.Model):
@@ -174,7 +172,7 @@ class SkosConceptScheme(models.Model):
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
 
-        super(SkosConceptScheme, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def dc_creator_as_list(self):
         return self.dc_creator.split(';')
@@ -203,7 +201,7 @@ class SkosConceptScheme(models.Model):
         return False
 
     def __str__(self):
-        return "{}:{}".format(self.namespace, self.dc_title)
+        return f"{self.namespace}:{self.dc_title}"
 
 
 class SkosCollection(models.Model):
@@ -281,7 +279,7 @@ class SkosCollection(models.Model):
         if not self.id:
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
-        return super(SkosCollection, self).save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
     @classmethod
     def get_listview_url(self):
@@ -307,7 +305,7 @@ class SkosCollection(models.Model):
         return False
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
 
     def creator_as_list(self):
         return self.creator.split(';')
@@ -353,9 +351,9 @@ class SkosLabel(models.Model):
 
     def __str__(self):
         if self.label_type != "":
-            return "{} @{} ({})".format(self.name, self.isoCode, self.label_type)
+            return f"{self.name} @{self.isoCode} ({self.label_type})"
         else:
-            return "{} @{}".format(self.name, self.isoCode)
+            return f"{self.name} @{self.isoCode}"
 
 
 class SkosConcept(models.Model):
@@ -558,7 +556,7 @@ class SkosConcept(models.Model):
             try:
                 obs = getattr(self, x).all()
             except AttributeError:
-                rel_field = "{}_set".format(x)
+                rel_field = f"{x}_set"
                 obs = getattr(self, rel_field).all()
             rel_obs.append(obs)
         return rel_obs
@@ -589,7 +587,7 @@ class SkosConcept(models.Model):
             if concepts < 1:
                 self.notation = temp_notation
             else:
-                self.notation = "{}-{}".format(temp_notation, concepts)
+                self.notation = f"{temp_notation}-{concepts}"
         else:
             pass
 
@@ -605,7 +603,7 @@ class SkosConcept(models.Model):
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
 
-        super(SkosConcept, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def dc_creator_as_list(self):
         return self.dc_creator.split(';')

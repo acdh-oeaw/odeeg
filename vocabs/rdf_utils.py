@@ -1,9 +1,16 @@
 import rdflib
-from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS, ConjunctiveGraph, XSD
-from rdflib.namespace import DC, FOAF, RDFS, SKOS
-from .models import Metadata
 from django.utils import timezone
+from rdflib import (
+	RDF,
+	RDFS,
+	XSD,
+	Literal,
+	Namespace,
+	URIRef,
+)
+from rdflib.namespace import DC, RDFS, SKOS
 
+from .models import Metadata
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 DC = Namespace("http://purl.org/dc/elements/1.1/")

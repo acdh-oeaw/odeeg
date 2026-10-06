@@ -1,8 +1,8 @@
 from django.conf.urls import url
 from django.urls import path
-from . import views
+
 from . import dal_views
-from .models import SkosLabel, SkosConcept, SkosConceptScheme, SkosCollection
+from .models import SkosCollection, SkosConcept, SkosConceptScheme, SkosLabel
 
 app_name = 'vocabs'
 

@@ -1,7 +1,7 @@
-import requests
 import rdflib
-from rdflib import Graph, RDF
+import requests
 from django.conf import settings
+from rdflib import RDF
 
 
 def create_query_sting(param_dict):

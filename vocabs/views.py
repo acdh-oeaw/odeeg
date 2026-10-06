@@ -1,24 +1,26 @@
-from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
-from django_tables2 import SingleTableView, RequestConfig
-from .models import SkosConcept, SkosConceptScheme, SkosLabel, SkosCollection, Metadata
-from .forms import *
-from .tables import *
-from .filters import SkosConceptListFilter, SkosConceptSchemeListFilter, SkosLabelListFilter, SkosCollectionListFilter
-from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
-from .rdf_utils import *
-from django.shortcuts import render
-from django.http import HttpResponse
-import rdflib
-from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS, ConjunctiveGraph
-from rdflib.namespace import DC, FOAF, RDFS, SKOS
-import time
 import datetime
+import time
 
+from browsing.browsing_utils import BaseCreateView, BaseUpdateView, GenericListView
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView
+from django.views.generic.list import ListView
+from django_tables2 import RequestConfig
+
+from .filters import (
+    SkosCollectionListFilter,
+    SkosConceptListFilter,
+    SkosConceptSchemeListFilter,
+    SkosLabelListFilter,
+)
+from .forms import *
+from .models import Metadata, SkosCollection, SkosConcept, SkosConceptScheme, SkosLabel
+from .rdf_utils import *
+from .tables import *
 
 #####################################################
 #   Metadata
@@ -31,7 +33,7 @@ class MetadataListView(ListView):
     template_name = 'vocabs/metadata_list.html'
 
     def get_context_data(self, **kwargs):
-        context = super(MetadataListView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["topConcepts"] = SkosConcept.objects.filter(top_concept=True)
         return context
 
@@ -42,7 +44,7 @@ class MetadataDetailView(DetailView):
     template_name = 'vocabs/metadata_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(MetadataDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["topConcepts"] = SkosConcept.objects.filter(top_concept=True)
         return context
 
@@ -54,7 +56,7 @@ class MetadataCreate(BaseCreateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(MetadataCreate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class MetadataUpdate(BaseUpdateView):
@@ -64,7 +66,7 @@ class MetadataUpdate(BaseUpdateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(MetadataUpdate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class MetadataDelete(DeleteView):
@@ -74,7 +76,7 @@ class MetadataDelete(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(MetadataDelete, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 #####################################################
@@ -97,7 +99,7 @@ class SkosCollectionListView(GenericListView):
         return all_cols
 
     def get_context_data(self, **kwargs):
-        context = super(SkosCollectionListView, self).get_context_data()
+        context = super().get_context_data()
         context[self.context_filter_name] = self.filter
         togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
         context['togglable_colums'] = togglable_colums
@@ -129,7 +131,7 @@ class SkosCollectionCreate(BaseCreateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosCollectionCreate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class SkosCollectionUpdate(BaseUpdateView):
@@ -139,7 +141,7 @@ class SkosCollectionUpdate(BaseUpdateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosCollectionUpdate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class SkosCollectionDelete(DeleteView):
@@ -149,7 +151,7 @@ class SkosCollectionDelete(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosCollectionDelete, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 #####################################################
@@ -182,7 +184,7 @@ class SkosConceptCreate(BaseCreateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosConceptCreate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class SkosConceptUpdate(BaseUpdateView):
@@ -192,7 +194,7 @@ class SkosConceptUpdate(BaseUpdateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosConceptUpdate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class SkosConceptDelete(DeleteView):
@@ -202,7 +204,7 @@ class SkosConceptDelete(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosConceptDelete, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 #####################################################
@@ -225,7 +227,7 @@ class SkosConceptSchemeListView(GenericListView):
         return all_cols
 
     def get_context_data(self, **kwargs):
-        context = super(SkosConceptSchemeListView, self).get_context_data()
+        context = super().get_context_data()
         context[self.context_filter_name] = self.filter
         togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
         context['togglable_colums'] = togglable_colums
@@ -250,7 +252,7 @@ class SkosConceptSchemeDetailView(DetailView):
     template_name = 'vocabs/skosconceptscheme_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(SkosConceptSchemeDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["concepts"] = SkosConcept.objects.filter(scheme=self.kwargs.get('pk'))
         return context
 
@@ -262,7 +264,7 @@ class SkosConceptSchemeCreate(BaseCreateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosConceptSchemeCreate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class SkosConceptSchemeUpdate(BaseUpdateView):
@@ -272,7 +274,7 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosConceptSchemeUpdate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class SkosConceptSchemeDelete(DeleteView):
@@ -282,7 +284,7 @@ class SkosConceptSchemeDelete(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosConceptSchemeDelete, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 ###################################################
@@ -305,7 +307,7 @@ class SkosLabelListView(GenericListView):
         return all_cols
 
     def get_context_data(self, **kwargs):
-        context = super(SkosLabelListView, self).get_context_data()
+        context = super().get_context_data()
         context[self.context_filter_name] = self.filter
         togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
         context['togglable_colums'] = togglable_colums
@@ -337,7 +339,7 @@ class SkosLabelCreate(BaseCreateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosLabelCreate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class SkosLabelUpdate(BaseUpdateView):
@@ -347,7 +349,7 @@ class SkosLabelUpdate(BaseUpdateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosLabelUpdate, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class SkosLabelDelete(DeleteView):
@@ -357,7 +359,7 @@ class SkosLabelDelete(DeleteView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(SkosLabelDelete, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 ###################################################
@@ -373,8 +375,8 @@ class SkosConceptDL(GenericListView):
     def render_to_response(self, context):
         timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
         response = HttpResponse(content_type='application/xml; charset=utf-8')
-        filename = "download_{}".format(timestamp)
-        response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
+        filename = f"download_{timestamp}"
+        response['Content-Disposition'] = f'attachment; filename="{filename}.rdf"'
         g = graph_construct_qs(self.get_queryset())
         get_format = self.request.GET.get('format', default='pretty-xml')
         result = g.serialize(destination=response, format=get_format)
