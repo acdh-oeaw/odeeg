@@ -11,6 +11,7 @@
 
 
     <div class="container">
+      <h2 class="fs-4 pt-3 pb-2">Info</h2>
       <table class="table table-responsive table-information table-hover">
        <tbody>
         <tr>
@@ -18,7 +19,7 @@
                 <span data-toggle="tooltip" data-placement="right" data-html="true" title="{% get_help_text object 'folder_name' %}"> <i data-feather="info"></i></span>
             </th>
             <td>
-                <a href="{{ object.get_arche_url }}" title="View files on ARCHE">{{ object.folder_name }}<img src="{% static 'webpage/img/arche_icon.svg' %}" class="arche-icon" /></a>
+                <a href="{{ object.get_arche_url }}" title="View files on ARCHE">{{ object.folder_name }}<img src="{% static 'webpage/img/arche_icon.svg' %}" alt="Arche icon" class="arche-icon" /></a>
             </td>
         </tr>
         <tr>
@@ -141,18 +142,20 @@
               {% endif %}
             </td>
         </tr>
+        {% if object.collref and not object.collref == 'nan' %}
         <tr>
             <th>{% get_verbose_name object "collref" %}</th>
             <td>
               {% if object.collref %}
                 {% if not object.collref == 'nan' %}
-                  <a href="{{ object.collref }}">{{ object.collref }} <i data-feather="external-link"></i></a>
+                  <a href="{{ object.collref }}">{{ object.collref }}</a>
                 {% endif %}
               {% else %}
                 &ndash;
               {% endif %}
             </td>
         </tr>
+        {% endif %}
         {% if object.object_associated_to_inv.all %}
             <tr>
                 <th>{% get_verbose_name object "object_associated_to_inv" %}</th>
@@ -163,16 +166,17 @@
                 </td>
             </tr>
         {% endif %}
+        {% if object.notes %}
         <tr>
             <th>{% get_verbose_name object "object_notes" %}</th>
             <td>
                 {{ object.notes }}
             </td>
         </tr>
+        {% endif %}
         </tbody>
         </table>
-      <hr class="hr-detail-view"/>
-       <legend>Measurements</legend>
+       <h2 class="fs-4 pt-3">Measurements</h2>
        <table class="table table-responsive table-information table-hover">
         <tbody>
            <tr>
@@ -269,8 +273,7 @@
        </table>
       {% if object.rvn_threeddata_folder_name_object.all %}
          {% for y in object.rvn_threeddata_folder_name_object.all %}
-             <hr class="hr-detail-view"/>
-             <legend>3D Models</legend>
+             <h2 class="fs-4 pt-3">3D Models</h2>
              <table class="table table-responsive table-information table-hover">
                <tbody>
                  <tr>
@@ -298,7 +301,7 @@
                          <small>By:</small> {% for z in y.threed_postproc_author.all %}<a href="{{ z.get_absolute_url }}"> {{ z.person_first_name }} {{ z.person_last_name }}</a> ({{ z.person_member_inst }}){% if not forloop.last %}, {% endif %}{% endfor %}{% if y.threed_postproc_date %} | {{ y.threed_postproc_date|date:'m. Y' }} {% endif %}<br/>
                           <small>Software:</small> {{ y.threed_postproc_software }}<br/>
                           <small>Actions:</small> {{ y.threed_postproc_actions }}<br/>
-                          <small>Resulting file:</small> <a href="{{ object.get_arche_url }}/3D-data/3Dscan_merged-data/{{ y.threed_postproc_file }}">{{ y.threed_postproc_file }}<img src="{% static 'webpage/img/arche_icon.svg' %}"  class="arche-icon" /></a><br/>
+                          <small>Resulting file:</small> <a href="{{ object.get_arche_url }}/3D-data/3Dscan_merged-data/{{ y.threed_postproc_file }}">{{ y.threed_postproc_file }}<img src="{% static 'webpage/img/arche_icon.svg' %}" alt="Arche icon"  class="arche-icon" /></a><br/>
                      </td>
                  </tr>
                  <tr>
@@ -307,15 +310,17 @@
                          <small>By:</small> {% for z in y.threed_postproc_low_author.all %}<a href="{{ z.get_absolute_url }}"> {{ z.person_first_name }} {{ z.person_last_name }}</a> ({{ z.person_member_inst }}){% if not forloop.last %}, {% endif %}{% endfor %}{% if y.threed_postproc_low_date %} | {{ y.threed_postproc_low_date|date:'m. Y' }} {% endif %}<br/>
                           <small>Software:</small> {{ y.threed_postproc_low_software }}<br/>
                           <small>Actions:</small> {{ y.threed_postproc_low_software_actions }}<br/>
-                          <small>Resulting file:</small> <a href="{{ object.get_arche_url }}/3D-data/3Dscan_lowRes-data/{{ y.threed_postproc_low_file }}">{{ y.threed_postproc_low_file }}<img src="{% static 'webpage/img/arche_icon.svg' %}"  class="arche-icon" /></a><br/>
+                          <small>Resulting file:</small> <a href="{{ object.get_arche_url }}/3D-data/3Dscan_lowRes-data/{{ y.threed_postproc_low_file }}">{{ y.threed_postproc_low_file }}<img src="{% static 'webpage/img/arche_icon.svg' %}" alt="Arche icon"  class="arche-icon" /></a><br/>
                      </td>
                  </tr>
+                 {% if y.threed_notes %}
                  <tr>
                      <th>Notes</th>
                      <td>
                          {{ y.threed_notes }}
                      </td>
                  </tr>
+                 {% endif %}
                </tbody>
              </table>
         {% endfor %}
