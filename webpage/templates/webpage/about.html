@@ -49,26 +49,6 @@
       href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> license.</p>
   <p>As such, you are free to share and adapt ODEEG data for non-commercial purposes, and as long as you attribute
     the source data accordingly.</p>
-  <h3>Citing the ODEEG database (example):</h3>
-  <blockquote class="blockquote">
-    <p>ODEEG (2017-2019). ODEEG. Online Database for research on the development of pottery shapes and capacities.
-      Edited by Claudia Lang-Auinger, Vera Moitinho de Almeida, Stefan Spelitz, Martina Trognitz, and Peter
-      Andorfer. https://odeeg.acdh.oeaw.ac.at/, accessed <span id="currentDate"></span>.
-    </p>
-  </blockquote>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var el = document.getElementById("currentDate");
-    if (!el) return;
 
-    var formatted = new Date().toLocaleDateString("en-EN", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    });
-
-    el.textContent = formatted;
-  });
-</script>
 {% endblock %}
