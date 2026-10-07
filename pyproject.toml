@@ -15,3 +15,11 @@ dependencies = [
     "rdflib>=7.6.0",
     "requests>=2.34.2",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.10",
+]
+
+[tool.ruff.lint]
+ignore = ["RUF012"]

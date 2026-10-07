@@ -2,14 +2,14 @@
 {% load webpage_extras %}
 
 <!DOCTYPE html>
-<html lang="en" class="h-100" >
+<html lang="en" class="h-100">
 
 <head>
     <title>{% block title %} {% projects_metadata 'title' %}{% endblock %}</title>
-{% include "partials/head.html" %}
-{% block scriptHeader %}
-{% endblock scriptHeader %}
-<link rel="stylesheet" href="{% static 'webpage/css/style.css' %}" />
+    {% include "partials/head.html" %}
+    {% block scriptHeader %}
+    {% endblock scriptHeader %}
+    <link rel="stylesheet" href="{% static 'webpage/css/style.css' %}" />
 
 </head>
 
