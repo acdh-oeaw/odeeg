@@ -58,8 +58,6 @@ class Certainty(models.Model):
     def get_absolute_url(self):
         return reverse("vases:certainty_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:certainty_detail", kwargs={"pk": self.id})
 
     def get_delete_url(self):
         return reverse("vases:certainty_delete", kwargs={"pk": self.id})
@@ -130,8 +128,6 @@ class CollectionSpec(models.Model):
     def get_absolute_url(self):
         return reverse("vases:collectionspec_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:collectionspec_detail", kwargs={"pk": self.id})
 
     def get_delete_url(self):
         return reverse("vases:collectionspec_delete", kwargs={"pk": self.id})
@@ -197,8 +193,6 @@ class Culture(models.Model):
     def get_absolute_url(self):
         return reverse("vases:culture_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:culture_detail", kwargs={"pk": self.id})
 
     def get_delete_url(self):
         return reverse("vases:culture_delete", kwargs={"pk": self.id})
@@ -260,9 +254,6 @@ class Fabric(models.Model):
     def get_absolute_url(self):
         return reverse("vases:fabric_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:fabric_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:fabric_delete", kwargs={"pk": self.id})
 
@@ -313,9 +304,6 @@ class Hardware(models.Model):
     @classmethod
     def get_createview_url(self):
         return reverse("vases:hardware_create")
-
-    def get_absolute_url(self):
-        return reverse("vases:hardware_detail", kwargs={"pk": self.id})
 
     def get_absolute_url(self):
         return reverse("vases:hardware_detail", kwargs={"pk": self.id})
@@ -413,9 +401,6 @@ class Illustration(models.Model):
     def get_absolute_url(self):
         return reverse("vases:illustration_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:illustration_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:illustration_delete", kwargs={"pk": self.id})
 
@@ -509,9 +494,6 @@ class IllustrationPanel(models.Model):
     def get_absolute_url(self):
         return reverse("vases:illustrationpanel_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:illustrationpanel_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:illustrationpanel_delete", kwargs={"pk": self.id})
 
@@ -572,9 +554,6 @@ class ImagingTechnique(models.Model):
     @classmethod
     def get_createview_url(self):
         return reverse("vases:imagingtechnique_create")
-
-    def get_absolute_url(self):
-        return reverse("vases:imagingtechnique_detail", kwargs={"pk": self.id})
 
     def get_absolute_url(self):
         return reverse("vases:imagingtechnique_detail", kwargs={"pk": self.id})
@@ -649,9 +628,6 @@ class Institution(models.Model):
     def get_absolute_url(self):
         return reverse("vases:institution_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:institution_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:institution_delete", kwargs={"pk": self.id})
 
@@ -712,8 +688,6 @@ class Material(models.Model):
     def get_absolute_url(self):
         return reverse("vases:material_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:material_detail", kwargs={"pk": self.id})
 
     def get_delete_url(self):
         return reverse("vases:material_delete", kwargs={"pk": self.id})
@@ -1114,9 +1088,6 @@ class PaintingStyle(models.Model):
     def get_absolute_url(self):
         return reverse("vases:paintingstyle_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:paintingstyle_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:paintingstyle_delete", kwargs={"pk": self.id})
 
@@ -1173,9 +1144,6 @@ class PaintingSubTechnique(models.Model):
     @classmethod
     def get_createview_url(self):
         return reverse("vases:paintingsubtechnique_create")
-
-    def get_absolute_url(self):
-        return reverse("vases:paintingsubtechnique_detail", kwargs={"pk": self.id})
 
     def get_absolute_url(self):
         return reverse("vases:paintingsubtechnique_detail", kwargs={"pk": self.id})
@@ -1278,9 +1246,6 @@ class Period(models.Model):
     def get_absolute_url(self):
         return reverse("vases:period_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:period_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:period_delete", kwargs={"pk": self.id})
 
@@ -1352,9 +1317,6 @@ class Person(models.Model):
     @classmethod
     def get_createview_url(self):
         return reverse("vases:person_create")
-
-    def get_absolute_url(self):
-        return reverse("vases:person_detail", kwargs={"pk": self.id})
 
     def get_absolute_url(self):
         return reverse("vases:person_detail", kwargs={"pk": self.id})
@@ -1446,9 +1408,6 @@ class Place(models.Model):
     def get_absolute_url(self):
         return reverse("vases:place_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:place_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:place_delete", kwargs={"pk": self.id})
 
@@ -1515,9 +1474,6 @@ class Shape(models.Model):
     def get_absolute_url(self):
         return reverse("vases:shape_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:shape_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:shape_delete", kwargs={"pk": self.id})
 
@@ -1574,9 +1530,6 @@ class ShapeComponent(models.Model):
     @classmethod
     def get_createview_url(self):
         return reverse("vases:shapecomponent_create")
-
-    def get_absolute_url(self):
-        return reverse("vases:shapecomponent_detail", kwargs={"pk": self.id})
 
     def get_absolute_url(self):
         return reverse("vases:shapecomponent_detail", kwargs={"pk": self.id})
@@ -1822,9 +1775,6 @@ class ThreedData(models.Model):
     @classmethod
     def get_createview_url(self):
         return reverse("vases:threeddata_create")
-
-    def get_absolute_url(self):
-        return reverse("vases:threeddata_detail", kwargs={"pk": self.id})
 
     def get_absolute_url(self):
         return reverse("vases:threeddata_detail", kwargs={"pk": self.id})

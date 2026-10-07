@@ -19,7 +19,7 @@ def get_verbose_name(instance, field_name):
     """
     try:
         label = instance._meta.get_field(field_name).verbose_name
-    except Exception:
+    except Exception: # noqa
         label = None
     if label:
         return f"{label}"
@@ -36,7 +36,7 @@ def get_help_text(instance, field_name):
     """
     try:
         label = instance._meta.get_field(field_name).help_text
-    except Exception:
+    except Exception: # noqa
         label = None
     if label:
         return f"{label}"

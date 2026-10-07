@@ -9,7 +9,6 @@ from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 from django.views.generic.list import ListView
-from django_tables2 import RequestConfig
 
 from .filters import (
     SkosCollectionListFilter,
@@ -290,7 +289,9 @@ class SkosConceptDL(GenericListView):
     formhelper_class = SkosConceptFormHelper
 
     def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
+        timestamp = datetime.datetime.fromtimestamp(
+            time.time(), tz=datetime.UTC
+        ).strftime(
             "%Y-%m-%d-%H-%M-%S"
         )
         response = HttpResponse(content_type="application/xml; charset=utf-8")
@@ -298,5 +299,5 @@ class SkosConceptDL(GenericListView):
         response["Content-Disposition"] = f'attachment; filename="{filename}.rdf"'
         g = graph_construct_qs(self.get_queryset())
         get_format = self.request.GET.get("format", default="pretty-xml")
-        result = g.serialize(destination=response, format=get_format)
+        g.serialize(destination=response, format=get_format)
         return response
