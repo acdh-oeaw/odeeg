@@ -3,6 +3,14 @@ env
 db.sqlite3
 .env
 secret.env
-/data
-/venv
-whoosh_index
+data/
+venv/
+.venv/
+.git/
+htmlcov/
+notebooks/
+.vscode/
+.github/
+.ruff_cache/
+eurotort_dump.sql
+.secret
