@@ -1,172 +1,17 @@
 {% extends "browsing/generic_detail.html" %}
 {% load static %}
-{% load leaflet_tags %}
+
 {% load webpage_extras %}
 {% load vases_extras %}
 {% block title %}{{ object }}{% endblock %}
 {% block custom %}
-{% leaflet_js %}
-{% leaflet_css %}
 
 
-<!-- 3DHOP -->
-    <!--STYLESHEET-->
-    <link type="text/css" rel="stylesheet" href="{% static 'webpage/libraries/3dhop/minimal/stylesheet/3dhop.css' %}"/>
-    <!--SPIDERGL-->
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/spidergl.js' %}"></script>
 
-    <!--PRESENTER-->
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/presenter.js' %}"></script>
-    <!--3D MODELS LOADING AND RENDERING-->
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/nexus.js' %}"></script>
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/ply.js' %}"></script>
-    <!--TRACKBALLS-->
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/trackball_sphere.js' %}"></script>
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/trackball_turntable.js' %}"></script>
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/trackball_turntable_pan.js' %}"></script>
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/trackball_pantilt.js' %}"></script>
-    <!--UTILITY-->
-    <script type="text/javascript" src="{% static 'webpage/libraries/3dhop/minimal/js/init.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/three@latest/build/three.min.js"></script>
-    <script crossorigin src="https://unpkg.com/@acdh/network-visualization@0/lib/network-visualization.umd.js"></script>
-    <script src="{% static 'netvis/js/netvis.js' %}"></script>
 
 <div class="row">
-  <div class="col-md-4" id="left-list">
-    <div class="card">
-        <div class="card-body">
-      <!--  {% for x in  object.get_thumbs %}
-            <li>
-                <img src="{{ x }}" >
-            </li>
-        {% endfor %}-->
-        <h3>3D Model</h3>
-      {% get_item_by_type object '3Dscan_lowRes-data' as items %}
-      {% if items %}
-        <div>
-          <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
-            <div id="toolbar">
-                <img id="home" title="Home" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/home.png' %}"/><br/>
-                <img id="zoomin" title="Zoom In" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/zoomin.png' %}"/><br/>
-                <img id="zoomout" title="Zoom Out" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/zoomout.png' %}"/><br/>
-                <img id="light_on" title="Disable Light Control" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/light_on.png' %}" style="position:absolute; visibility:hidden;"/>
-                <img id="light" title="Enable Light Control" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/light.png' %}"/><br/>
-                <img id="full_on" title="Exit Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full_on.png' %}" style="position:absolute; visibility:hidden;"/>
-                <img id="full" title="Full Screen" src="{% static 'webpage/libraries/3dhop/minimal/skins/dark/full.png' %}"/>
-            </div>
-            <!-- be sure to delete width and height setting from 3dhop.css #draw-canvas -->
-            <canvas id="draw-canvas" style="min-height: 350px;"/>
-          </div>
-        </div>
-        {% with newMeshUrl=items.0  %}
-          <script type="text/javascript">
-              var presenter = null;
-              function setup3dhop() {
-                  presenter = new Presenter("draw-canvas");
-                  var meshUrl = "{{ newMeshUrl }}"
-                  presenter.setScene({
-                      meshes: {
-                          "3dmodel" : { url: meshUrl }
-                      },
-                      modelInstances : {
-                          "Model1" : { mesh : "3dmodel" }
-                      }
-                  });
-              }
-              function actionsToolbar(action) {
-                  if(action=='home') presenter.resetTrackball();
-                  else if(action=='zoomin') presenter.zoomIn();
-                  else if(action=='zoomout') presenter.zoomOut();
-                  else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
-                  else if(action=='full'  || action=='full_on') fullscreenSwitch();
-              }
 
-              $(document).ready(function(){
-                  init3dhop();
-                  setup3dhop();
-                  moveToolbar(0,5);
-              });
-          </script>
-        {% endwith %}
-      {% else %}
-        <p>No 3D model available for this object.</p>
-      {% endif %}
-      <hr />
-      <h3>Photos</h3>
-      {% get_item_by_type object 'Photo' as photoItems %}
-      {% if photoItems %}
-        <div id="openseadragon-photo" style="height: 350px;"></div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/openseadragon.min.js"></script>
-        <script type="text/javascript">
-            var viewer = OpenSeadragon({
-                id: "openseadragon-photo",
-                protocol: "http://iiif.io/api/image",
-                prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
-                sequenceMode : true,
-                showReferenceStrip: true,
-                tileSources: [
-                    {% for x in photoItems %}
-                        "{{ x }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
-                    {% endfor %}]
-            });
-        </script>
-      {% else %}
-        <p>No photos available for this object.</p>
-      {% endif %}
-      <hr />
-      <h3>Illustrations</h3>
-      {% get_item_by_type object 'Illustrations' as illItems %}
-      {% if illItems %}
-      <div id="openseadragon-ill" style="height: 350px;"></div>
-      <script type="text/javascript">
-          var viewer = OpenSeadragon({
-              id: "openseadragon-ill",
-              protocol: "http://iiif.io/api/image",
-              prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
-              sequenceMode : true,
-              showReferenceStrip: true,
-              tileSources: [
-                  {% for x in illItems %}
-                    {%if '.svg' not in x %}
-                      "{{ x }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
-                    {% endif %}
-                  {% endfor %}]
-          });
-      </script>
-      {% else %}
-        <p>No illustrations available for this object.</p>
-      {% endif %}
-      <hr />
-      <h3>Illustration Panel</h3>
-      {% get_item_by_type object 'IllustrationTables' as illtabItems %}
-      {% if illtabItems %}
-      <div id="openseadragon-illtab" style="height: 350px;"></div>
-      <script type="text/javascript">
-          var viewer = OpenSeadragon({
-              id: "openseadragon-illtab",
-              protocol: "http://iiif.io/api/image",
-              prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.1/images/",
-              sequenceMode : true,
-              showReferenceStrip: true,
-              tileSources: [
-                  {% for x in illtabItems %}
-                    {%if '.svg' not in x %}
-                      "{{ x }}?PARAM=info.json&format=iiif"{% if not forloop.last %}, {% endif %}
-                    {% endif %}
-                  {% endfor %}]
-          });
-      </script>
-      {% else %}
-        <p>No illustrations panel available for this object.</p>
-      {% endif %}
-
-      </div>
-      </div>
-    </div>
-    <div class="col-md-8">
+    <div class="container">
       <table class="table table-responsive table-information table-hover">
        <tbody>
         <tr>
@@ -510,86 +355,8 @@
              </tbody>
            </table>
            {% endif %}
-           <div id="visualization" style="position: relative; height: 700px; background: #fafafa;"></div>
-           <script type="text/javascript">
-             showGraph("{% url 'netvis:graph' app_name='vases' model_name='object' pk=object.id %}", "visualization")
-           </script>
-           <div class="card">
-               <div class="card-header">
-                   <h4 class="card-title">Im Dokument erwähnte Orte</h4>
-               </div>
-               <div class="card-body">
-                       <script type="text/javascript">
-
-                           function map_init_basic (map, options) {
-                                   {% if object.provenance_spot.lat %}
-                                       var placeName = "<a href='{{ object.provenance_spot.get_absolute_url }}'>Finding spot: {{ object.provenance_spot.place_name }}</a>"
-                                       var lat = "{{ object.provenance_spot.lat }}"
-                                       var lng = "{{ object.provenance_spot.lng }}"
-                                       L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
-                                       .bindPopup(placeName)
-                                   {% endif %}
-                                   {% if object.provenance_production.lat %}
-                                       var placeName = "<a href='{{ object.provenance_production.get_absolute_url }}'>Production center: {{ object.provenance_production.place_name }}</a>"
-                                       var lat = "{{ object.provenance_production.lat }}"
-                                       var lng = "{{ object.provenance_production.lng }}"
-                                       L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
-                                       .bindPopup(placeName)
-                                   {% endif %}
-                                   {% for x in object.provenance_acquisition.all %}
-                                       {% if x.lat %}
-                                           var placeName = "<a href='{{ x.get_absolute_url }}'>Latest acquisition: {{ x.place_name }}</a>"
-                                           var lat = "{{ x.lat }}"
-                                           var lng = "{{ x.lng }}"
-                                           L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
-                                           .bindPopup(placeName)
-                                       {% endif %}
-                                   {% endfor %}
-                               };
-
-                       </script>
-                   <div style="padding:0;">
-
-                       {% leaflet_map "yourmap" callback="window.map_init_basic" %}
-
-                   </div>
-
-               </div>
-           </div>
+           
       </div>
     </div>
 {% endblock custom %}
 
-<!--
-  <script type="text/javascript">
-      var presenter = null;
-      function setup3dhop() {
-          presenter = new Presenter("draw-canvas");
-          // var meshUrl = "{% static 'webpage/libraries/3dhop/models/KHM-ANSA-IV1_3D02.ply' %}";
-          var meshUrl = "{% get_item_by_type object '3Dscan_lowRes-data' as items %}
-                  {{ items.0.id }}"
-          presenter.setScene({
-              meshes: {
-                  "3dmodel" : { url: meshUrl }
-              },
-              modelInstances : {
-                  "Model1" : { mesh : "3dmodel" }
-              }
-          });
-      }
-
-      function actionsToolbar(action) {
-          if(action=='home') presenter.resetTrackball();
-          else if(action=='zoomin') presenter.zoomIn();
-          else if(action=='zoomout') presenter.zoomOut();
-          else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
-          else if(action=='full'  || action=='full_on') fullscreenSwitch();
-      }
-
-      $(document).ready(function(){
-          init3dhop();
-          setup3dhop();
-          moveToolbar(0,5);
-      });
-  </script>
-  -->
