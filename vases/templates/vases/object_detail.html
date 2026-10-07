@@ -6,10 +6,6 @@
 {% block title %}{{ object }}{% endblock %}
 {% block custom %}
 
-
-
-
-
     <div class="container">
       <h2 class="fs-4 pt-3 pb-2">Info</h2>
       <table class="table table-responsive table-information table-hover">
@@ -326,8 +322,7 @@
         {% endfor %}
       {% endif %}
       {% if object.rvn_illustration_folder_name_object.all or object.rvn_illustrationpanel_folder_name_object.all%}
-         <hr class="hr-detail-view"/>
-         <legend>Illustrations</legend>
+         <h2 class="fs-4 pt-3">Illustrations</h2>
          <table class="table table-responsive table-information table-hover">
            <tbody>
              {% if object.rvn_illustration_folder_name_object.all %}
@@ -359,7 +354,26 @@
              </tbody>
            </table>
            {% endif %}
+          <h2 class="fs-4 pt-3">How to cite</h2>
+          <blockquote class="blockquote">
+            <p>Lang-Auinger, C., Moitinho de Almeida, V., Spelitz, S. (2019). “ODEEG: object ANSA IV 3728, Kunsthistorisches Museum Wien [dataset]”. ODEEG. Online Database for research on the development of pottery shapes and capacities. ARCHE-ID: <a href="{{ object.get_arche_url }}">{{ object.get_arche_url }}</a>, via {{ request.build_absolute_uri }}. (<span id="currentDate"></span>)</p>
+          </blockquote>
+
            
       </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var el = document.getElementById("currentDate");
+          if (!el) return;
+
+          var formatted = new Date().toLocaleDateString("en-EN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+          });
+
+          el.textContent = formatted;
+        });
+      </script>
 {% endblock custom %}
 
