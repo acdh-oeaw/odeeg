@@ -5,7 +5,6 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-from django.template import loader
 from django.views.generic import TemplateView
 
 from .forms import form_user_login
@@ -35,24 +34,11 @@ class ImprintView(TemplateView):
         return context
 
 
-class GenericWebpageView(TemplateView):
+class IndexView(TemplateView):
     template_name = "webpage/index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["apps"] = settings.INSTALLED_APPS
-        return context
-
-    def get_template_names(self):
-        template_name = "webpage/{}.html".format(self.kwargs.get("template", "index"))
-        try:
-            loader.select_template([template_name])
-            template_name = "webpage/{}.html".format(
-                self.kwargs.get("template", "index")
-            )
-        except:
-            template_name = "webpage/index.html"
-        return [template_name]
+class AboutView(TemplateView):
+    template_name = "webpage/about.html"
 
 
 #################################################################
