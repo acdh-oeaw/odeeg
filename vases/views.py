@@ -477,7 +477,6 @@ class ObjectListView(GenericListView):
     filter_class = ObjectListFilter
     formhelper_class = ObjectFilterFormHelper
     table_class = ObjectTable
-    template_name = "vases/object_list.html"
     init_columns = [
         "inv_nr",
         "shape",

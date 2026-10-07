@@ -34,25 +34,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "reversion",
-    # "haystack",
-    # "leaflet",
     "crispy_forms",
+    "crispy_bootstrap5",
     "django_filters",
     "django_tables2",
     "rest_framework",
     "webpage",
     "browsing",
-    # "charts",
     "vocabs",
     "vases",
-    # "netvis",
 ]
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "OPTIONS": {"options": "-c search_path=public,pmb"},
+        "OPTIONS": {"options": "-c search_path=odeeg"},
         "NAME": os.environ.get("POSTGRES_DB", "odeeg"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
@@ -70,7 +66,8 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (

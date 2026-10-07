@@ -1080,9 +1080,6 @@ class Object(models.Model):
     def get_absolute_url(self):
         return reverse("vases:object_detail", kwargs={"pk": self.id})
 
-    def get_absolute_url(self):
-        return reverse("vases:object_detail", kwargs={"pk": self.id})
-
     def get_delete_url(self):
         return reverse("vases:object_delete", kwargs={"pk": self.id})
 
