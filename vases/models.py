@@ -42,6 +42,7 @@ class Certainty(models.Model):
             "cert_label",
         ]
         verbose_name = "Certainty"
+        verbose_name_plural = "Certainties"
 
     def __str__(self):
         return f"{self.cert_label}"
@@ -112,7 +113,8 @@ class CollectionSpec(models.Model):
         ordering = [
             "collection_spec",
         ]
-        verbose_name = "Collections"
+        verbose_name = "Specific collection"
+        verbose_name_plural = "Specific collections"
 
     def __str__(self):
         return f"{self.collection_spec}"
@@ -178,7 +180,8 @@ class Culture(models.Model):
         ordering = [
             "culture",
         ]
-        verbose_name = "Cultures"
+        verbose_name = "Culture"
+        verbose_name_plural = "Cultures"
 
     def __str__(self):
         return f"{self.culture}"
@@ -240,7 +243,8 @@ class Fabric(models.Model):
         ordering = [
             "material_fabric",
         ]
-        verbose_name = "Fabrics"
+        verbose_name = "Fabric"
+        verbose_name_plural = "Fabrics"
 
     def __str__(self):
         return f"{self.material_fabric}"
@@ -297,6 +301,7 @@ class Hardware(models.Model):
             "threed_hardware",
         ]
         verbose_name = "Hardware for 3D imaging"
+        verbose_name_plural = "Hardware for 3D imaging"
 
     def __str__(self):
         return f"{self.threed_hardware}"
@@ -391,7 +396,8 @@ class Illustration(models.Model):
         ordering = [
             "ill_file_name",
         ]
-        verbose_name = "Illustrations"
+        verbose_name = "Illustration"
+        verbose_name_plural = "Illustrations"
 
     def __str__(self):
         return f"{self.ill_file_name}"
@@ -486,7 +492,8 @@ class IllustrationPanel(models.Model):
         ordering = [
             "illtab_file_name",
         ]
-        verbose_name = "Illustration Tables"
+        verbose_name = "Illustration table"
+        verbose_name_plural = "Illustration tables"
 
     def __str__(self):
         return f"{self.illtab_file_name}"
@@ -552,7 +559,8 @@ class ImagingTechnique(models.Model):
         ordering = [
             "threed_technique",
         ]
-        verbose_name = "Imaging Technique"
+        verbose_name = "Imaging technique"
+        verbose_name_plural = "Imaging techniques"
 
     def __str__(self):
         return f"{self.threed_technique}"
@@ -624,7 +632,8 @@ class Institution(models.Model):
         ordering = [
             "inst_name",
         ]
-        verbose_name = "Institutions"
+        verbose_name = "Institution"
+        verbose_name_plural = "Institutions"
 
     def __str__(self):
         return f"{self.inst_name}"
@@ -686,7 +695,8 @@ class Material(models.Model):
         ordering = [
             "material",
         ]
-        verbose_name = "Materials"
+        verbose_name = "Material"
+        verbose_name_plural = "Materials"
 
     def __str__(self):
         return f"{self.material}"
@@ -996,7 +1006,8 @@ class Object(models.Model):
         ordering = [
             "inv_nr",
         ]
-        verbose_name = "Objects"
+        verbose_name = "Vase"
+        verbose_name_plural = "Vases"
 
     def __str__(self):
         return f"{self.inv_nr}"
@@ -1120,7 +1131,8 @@ class PaintingStyle(models.Model):
         ordering = [
             "painting_style",
         ]
-        verbose_name = "Painting Style / Technique"
+        verbose_name = "Painting style / technique"
+        verbose_name_plural = "Painting styles / techniques"
 
     def __str__(self):
         return f"{self.painting_style}"
@@ -1182,7 +1194,8 @@ class PaintingSubTechnique(models.Model):
         ordering = [
             "painting_style_sub",
         ]
-        verbose_name = "Painting sub technique"
+        verbose_name = "Painting sub-technique"
+        verbose_name_plural = "Painting sub-techniques"
 
     def __str__(self):
         return f"{self.painting_style_sub}"
@@ -1266,7 +1279,8 @@ class Period(models.Model):
         ordering = [
             "period_dating_start",
         ]
-        verbose_name = "Periods"
+        verbose_name = "Period"
+        verbose_name_plural = "Periods"
 
     def __str__(self):
         return f"{self.period}"
@@ -1365,7 +1379,8 @@ class Person(models.Model):
         ordering = [
             "person_last_name",
         ]
-        verbose_name = "Persons"
+        verbose_name = "Person"
+        verbose_name_plural = "People"
 
     def __str__(self):
         return f"{self.person_last_name}"
@@ -1454,7 +1469,8 @@ class Place(models.Model):
         ordering = [
             "place_name",
         ]
-        verbose_name = "Places"
+        verbose_name = "Place"
+        verbose_name_plural = "Places"
 
     def __str__(self):
         return f"{self.place_name}"
@@ -1522,7 +1538,8 @@ class Shape(models.Model):
         ordering = [
             "shape",
         ]
-        verbose_name = "Shapes"
+        verbose_name = "Shape"
+        verbose_name_plural = "Shapes"
 
     def __str__(self):
         return f"{self.shape}"
@@ -1584,7 +1601,8 @@ class ShapeComponent(models.Model):
         ordering = [
             "shape_comp",
         ]
-        verbose_name = "ShapeComponents"
+        verbose_name = "Shape component"
+        verbose_name_plural = "Shape components"
 
     def __str__(self):
         return f"{self.shape_comp}"
@@ -1831,7 +1849,8 @@ class ThreedData(models.Model):
         ordering = [
             "folder_name",
         ]
-        verbose_name = "3d data"
+        verbose_name = "3D data"
+        verbose_name_plural = "3D data"
 
     def __str__(self):
         return f"{self.folder_name}"

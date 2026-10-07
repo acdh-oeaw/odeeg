@@ -3,7 +3,6 @@ from browsing.utils import BaseCreateView, BaseUpdateView, GenericListView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 
 from .filters import *
@@ -32,6 +31,14 @@ from .models import (
 from .tables import *
 
 
+class CustomDetailView(DeleteView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["verbose_name"] = self.model._meta.verbose_name
+        context["verbose_name_plural"] = self.model._meta.verbose_name_plural
+        return context
+
+
 class CertaintyListView(GenericListView):
     model = Certainty
     filter_class = CertaintyListFilter
@@ -43,7 +50,7 @@ class CertaintyListView(GenericListView):
     ]
 
 
-class CertaintyDetailView(DetailView):
+class CertaintyDetailView(CustomDetailView):
     model = Certainty
     template_name = "browsing/generic_detail.html"
 
@@ -87,7 +94,7 @@ class CollectionSpecListView(GenericListView):
     ]
 
 
-class CollectionSpecDetailView(DetailView):
+class CollectionSpecDetailView(CustomDetailView):
     model = CollectionSpec
     template_name = "browsing/generic_detail.html"
 
@@ -131,7 +138,7 @@ class CultureListView(GenericListView):
     ]
 
 
-class CultureDetailView(DetailView):
+class CultureDetailView(CustomDetailView):
     model = Culture
     template_name = "browsing/generic_detail.html"
 
@@ -175,7 +182,7 @@ class FabricListView(GenericListView):
     ]
 
 
-class FabricDetailView(DetailView):
+class FabricDetailView(CustomDetailView):
     model = Fabric
     template_name = "browsing/generic_detail.html"
 
@@ -219,7 +226,7 @@ class HardwareListView(GenericListView):
     ]
 
 
-class HardwareDetailView(DetailView):
+class HardwareDetailView(CustomDetailView):
     model = Hardware
     template_name = "browsing/generic_detail.html"
 
@@ -263,7 +270,7 @@ class IllustrationListView(GenericListView):
     ]
 
 
-class IllustrationDetailView(DetailView):
+class IllustrationDetailView(CustomDetailView):
     model = Illustration
     template_name = "browsing/generic_detail.html"
 
@@ -307,7 +314,7 @@ class IllustrationPanelListView(GenericListView):
     ]
 
 
-class IllustrationPanelDetailView(DetailView):
+class IllustrationPanelDetailView(CustomDetailView):
     model = IllustrationPanel
     template_name = "browsing/generic_detail.html"
 
@@ -351,7 +358,7 @@ class ImagingTechniqueListView(GenericListView):
     ]
 
 
-class ImagingTechniqueDetailView(DetailView):
+class ImagingTechniqueDetailView(CustomDetailView):
     model = ImagingTechnique
     template_name = "browsing/generic_detail.html"
 
@@ -395,7 +402,7 @@ class InstitutionListView(GenericListView):
     ]
 
 
-class InstitutionDetailView(DetailView):
+class InstitutionDetailView(CustomDetailView):
     model = Institution
     template_name = "browsing/generic_detail.html"
 
@@ -439,7 +446,7 @@ class MaterialListView(GenericListView):
     ]
 
 
-class MaterialDetailView(DetailView):
+class MaterialDetailView(CustomDetailView):
     model = Material
     template_name = "browsing/generic_detail.html"
 
@@ -484,7 +491,7 @@ class ObjectListView(GenericListView):
     ]
 
 
-class ObjectDetailView(DetailView):
+class ObjectDetailView(CustomDetailView):
     model = Object
     template_name = "vases/object_detail.html"
 
@@ -528,7 +535,7 @@ class PaintingStyleListView(GenericListView):
     ]
 
 
-class PaintingStyleDetailView(DetailView):
+class PaintingStyleDetailView(CustomDetailView):
     model = PaintingStyle
     template_name = "browsing/generic_detail.html"
 
@@ -572,7 +579,7 @@ class PaintingSubTechniqueListView(GenericListView):
     ]
 
 
-class PaintingSubTechniqueDetailView(DetailView):
+class PaintingSubTechniqueDetailView(CustomDetailView):
     model = PaintingSubTechnique
     template_name = "browsing/generic_detail.html"
 
@@ -616,7 +623,7 @@ class PeriodListView(GenericListView):
     ]
 
 
-class PeriodDetailView(DetailView):
+class PeriodDetailView(CustomDetailView):
     model = Period
     template_name = "browsing/generic_detail.html"
 
@@ -660,7 +667,7 @@ class PersonListView(GenericListView):
     ]
 
 
-class PersonDetailView(DetailView):
+class PersonDetailView(CustomDetailView):
     model = Person
     template_name = "browsing/generic_detail.html"
 
@@ -704,7 +711,7 @@ class PlaceListView(GenericListView):
     ]
 
 
-class PlaceDetailView(DetailView):
+class PlaceDetailView(CustomDetailView):
     model = Place
     template_name = "browsing/generic_detail.html"
 
@@ -748,7 +755,7 @@ class ShapeListView(GenericListView):
     ]
 
 
-class ShapeDetailView(DetailView):
+class ShapeDetailView(CustomDetailView):
     model = Shape
     template_name = "browsing/generic_detail.html"
 
@@ -792,7 +799,7 @@ class ShapeComponentListView(GenericListView):
     ]
 
 
-class ShapeComponentDetailView(DetailView):
+class ShapeComponentDetailView(CustomDetailView):
     model = ShapeComponent
     template_name = "browsing/generic_detail.html"
 
@@ -836,7 +843,7 @@ class ThreedDataListView(GenericListView):
     ]
 
 
-class ThreedDataDetailView(DetailView):
+class ThreedDataDetailView(CustomDetailView):
     model = ThreedData
     template_name = "browsing/generic_detail.html"
 
