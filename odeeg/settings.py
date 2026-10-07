@@ -34,19 +34,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "reversion",
-    "haystack",
-    "leaflet",
+    # "reversion",
+    # "haystack",
+    # "leaflet",
     "crispy_forms",
     "django_filters",
     "django_tables2",
     "rest_framework",
     "webpage",
     "browsing",
-    "charts",
+    # "charts",
     "vocabs",
     "vases",
-    "netvis",
+    # "netvis",
 ]
 
 DATABASES = {
@@ -86,7 +86,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "reversion.middleware.RevisionMiddleware",
+    # "reversion.middleware.RevisionMiddleware",
 ]
 
 ROOT_URLCONF = "odeeg.urls"
