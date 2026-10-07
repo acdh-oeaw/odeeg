@@ -1,10 +1,8 @@
 import os
 from pathlib import Path
 
-ACDH_IMPRINT_URL = (
-    "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
-)
-REDMINE_ID = 11625
+ACDH_IMPRINT_URL = "https://imprint.acdh.oeaw.ac.at/"
+REDMINE_ID = "11625"
 SECRET_KEY = os.environ.get("SECRET_KEY", "rlYWFQbF")
 ARCHE_BG = "https://arche.acdh.oeaw.ac.at/blazegraph/sparql"
 
