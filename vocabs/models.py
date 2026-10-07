@@ -34,7 +34,7 @@ def validate_only_one_instance(obj):
     model = obj.__class__
     if (model.objects.count() > 0 and
             obj.id != model.objects.get().id):
-        raise ValidationError("Can only create 1 %s instance" % model.__name__)
+        raise ValidationError(f"Can only create 1 {model.__name__} instance")
 
 
 class Metadata(models.Model):
@@ -84,6 +84,11 @@ class Metadata(models.Model):
         blank=True,
         help_text="e.g. in case of relation to a project, add link to a project website")
 
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "Metadata"
+        verbose_name_plural = "Metadata"
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.date_created = timezone.now()
@@ -119,6 +124,11 @@ class Metadata(models.Model):
 class SkosNamespace(models.Model):
     namespace = models.URLField(blank=True, default=DEFAULT_NAMESPACE)
     prefix = models.CharField(max_length=50, blank=True, default=DEFAULT_PREFIX)
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "SKOS namespace"
+        verbose_name_plural = "SKOS namespaces"
 
     def __str__(self):
         return f"{self.prefix}"
@@ -158,6 +168,11 @@ class SkosConceptScheme(models.Model):
         editable=False, default=timezone.now)
     date_modified = models.DateTimeField(
         editable=False, default=timezone.now)
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "SKOS concept scheme"
+        verbose_name_plural = "SKOS concept schemes"
 
     def save(self, *args, **kwargs):
         if self.namespace is None:
@@ -275,6 +290,11 @@ class SkosCollection(models.Model):
         editable=False, default=timezone.now
     )
 
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "SKOS collection"
+        verbose_name_plural = "SKOS collections"
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.date_created = timezone.now()
@@ -325,6 +345,11 @@ class SkosLabel(models.Model):
         max_length=30, blank=True, choices=LABEL_TYPES, help_text="The type of the label.")
     isoCode = models.CharField(
         max_length=3, blank=True, help_text="The ISO 639-3 code for the label's language.")
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "SKOS label"
+        verbose_name_plural = "SKOS labels"
 
     @classmethod
     def get_listview_url(self):
@@ -536,6 +561,11 @@ class SkosConcept(models.Model):
         editable=False, default=timezone.now,
         verbose_name="dct:modified"
     )
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "SKOS concept"
+        verbose_name_plural = "SKOS concepts"
 
     def get_rel_obs_names(self):
         """ returns a list of object names referring to this concept """

@@ -2,8 +2,7 @@
 
 Add the following lines to your settings-file to configure vocabs app according to your needs.
 
-
-```
+```python
 VOCABS_DEFAULT_PEFIX = os.path.basename(BASE_DIR)
 
 VOCABS_SETTINGS = {
