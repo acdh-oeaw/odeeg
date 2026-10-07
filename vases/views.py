@@ -52,7 +52,7 @@ class CertaintyListView(GenericListView):
 
 class CertaintyDetailView(CustomDetailView):
     model = Certainty
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class CertaintyCreate(BaseCreateView):
@@ -96,7 +96,7 @@ class CollectionSpecListView(GenericListView):
 
 class CollectionSpecDetailView(CustomDetailView):
     model = CollectionSpec
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class CollectionSpecCreate(BaseCreateView):
@@ -140,7 +140,7 @@ class CultureListView(GenericListView):
 
 class CultureDetailView(CustomDetailView):
     model = Culture
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class CultureCreate(BaseCreateView):
@@ -184,7 +184,7 @@ class FabricListView(GenericListView):
 
 class FabricDetailView(CustomDetailView):
     model = Fabric
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class FabricCreate(BaseCreateView):
@@ -228,7 +228,7 @@ class HardwareListView(GenericListView):
 
 class HardwareDetailView(CustomDetailView):
     model = Hardware
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class HardwareCreate(BaseCreateView):
@@ -272,7 +272,7 @@ class IllustrationListView(GenericListView):
 
 class IllustrationDetailView(CustomDetailView):
     model = Illustration
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class IllustrationCreate(BaseCreateView):
@@ -316,7 +316,7 @@ class IllustrationPanelListView(GenericListView):
 
 class IllustrationPanelDetailView(CustomDetailView):
     model = IllustrationPanel
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class IllustrationPanelCreate(BaseCreateView):
@@ -360,7 +360,7 @@ class ImagingTechniqueListView(GenericListView):
 
 class ImagingTechniqueDetailView(CustomDetailView):
     model = ImagingTechnique
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class ImagingTechniqueCreate(BaseCreateView):
@@ -404,7 +404,7 @@ class InstitutionListView(GenericListView):
 
 class InstitutionDetailView(CustomDetailView):
     model = Institution
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class InstitutionCreate(BaseCreateView):
@@ -448,7 +448,7 @@ class MaterialListView(GenericListView):
 
 class MaterialDetailView(CustomDetailView):
     model = Material
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class MaterialCreate(BaseCreateView):
@@ -537,7 +537,7 @@ class PaintingStyleListView(GenericListView):
 
 class PaintingStyleDetailView(CustomDetailView):
     model = PaintingStyle
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class PaintingStyleCreate(BaseCreateView):
@@ -581,7 +581,7 @@ class PaintingSubTechniqueListView(GenericListView):
 
 class PaintingSubTechniqueDetailView(CustomDetailView):
     model = PaintingSubTechnique
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class PaintingSubTechniqueCreate(BaseCreateView):
@@ -625,7 +625,7 @@ class PeriodListView(GenericListView):
 
 class PeriodDetailView(CustomDetailView):
     model = Period
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class PeriodCreate(BaseCreateView):
@@ -669,7 +669,7 @@ class PersonListView(GenericListView):
 
 class PersonDetailView(CustomDetailView):
     model = Person
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class PersonCreate(BaseCreateView):
@@ -713,7 +713,7 @@ class PlaceListView(GenericListView):
 
 class PlaceDetailView(CustomDetailView):
     model = Place
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class PlaceCreate(BaseCreateView):
@@ -757,7 +757,7 @@ class ShapeListView(GenericListView):
 
 class ShapeDetailView(CustomDetailView):
     model = Shape
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class ShapeCreate(BaseCreateView):
@@ -801,7 +801,7 @@ class ShapeComponentListView(GenericListView):
 
 class ShapeComponentDetailView(CustomDetailView):
     model = ShapeComponent
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class ShapeComponentCreate(BaseCreateView):
@@ -845,7 +845,7 @@ class ThreedDataListView(GenericListView):
 
 class ThreedDataDetailView(CustomDetailView):
     model = ThreedData
-    template_name = "browsing/generic_detail.html"
+    template_name = "vases/generic_detail.html"
 
 
 class ThreedDataCreate(BaseCreateView):
