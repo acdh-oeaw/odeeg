@@ -3,7 +3,7 @@ from pathlib import Path
 
 ACDH_IMPRINT_URL = "https://imprint.acdh.oeaw.ac.at/"
 REDMINE_ID = "11625"
-SECRET_KEY = os.environ.get("SECRET_KEY", "rlYWFQbF")
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 ARCHE_BG = "https://arche.acdh.oeaw.ac.at/blazegraph/sparql"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
