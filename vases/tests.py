@@ -1,7 +1,7 @@
-from django.conf import settings
 import unittest
-from vases.models import Object
+
 from vases.arche_utils import create_query_sting, get_results
+from vases.models import Object
 
 QUERY_DICT = {
     "key": "value",
@@ -29,7 +29,7 @@ class ArcheTest(unittest.TestCase):
         self.assertEqual(
             query_str,
             "key=value&key1=123",
-            f"should be 'key=value&key1=123'"
+            "should be 'key=value&key1=123'"
         )
     
     def test_002_get_arche_md(self):

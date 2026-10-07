@@ -1,12 +1,13 @@
 from dal import autocomplete
-from .models import SkosLabel, SkosConcept, SkosConceptScheme, SkosCollection
 from django.db.models import Q
+
+from .models import SkosCollection, SkosConcept, SkosConceptScheme, SkosLabel
 
 
 class SpecificConceptsByCollection(autocomplete.Select2QuerySetView):
 
     def get_result_label(self, item):
-        return "{}".format(item.label)
+        return f"{item.label}"
 
     def get_queryset(self):
         try:
@@ -30,7 +31,7 @@ class SpecificConceptsByCollection(autocomplete.Select2QuerySetView):
 class SpecificConcepts(autocomplete.Select2QuerySetView):
 
     def get_result_label(self, item):
-        return "{}".format(item.label)
+        return f"{item.label}"
 
     def get_queryset(self):
         try:
@@ -58,7 +59,7 @@ class SKOSConstraintACNoHierarchy(autocomplete.Select2QuerySetView):
         try:
             selected_scheme = SkosConceptScheme.objects.get(dc_title=scheme)
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
-        except Exception as e:
+        except Exception:
             qs = SkosConcept.objects.all()
 
         if self.q:
@@ -72,16 +73,16 @@ class SKOSConstraintACNoHierarchy(autocomplete.Select2QuerySetView):
 class SKOSConstraintAC(autocomplete.Select2QuerySetView):
     def get_result_label(self, item):
         if len(item.skos_broader.all()) > 0:
-            return "{} >> {}".format(item.skos_broader.all()[0], item.pref_label)
+            return f"{item.skos_broader.all()[0]} >> {item.pref_label}"
         else:
-            return "{}".format(item.pref_label)
+            return f"{item.pref_label}"
 
     def get_queryset(self):
         scheme = self.request.GET.get('scheme')
         try:
             selected_scheme = SkosConceptScheme.objects.get(dc_title=scheme)
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
-        except Exception as e:
+        except Exception:
             qs = SkosConcept.objects.all()
 
         if self.q:
@@ -104,7 +105,7 @@ class SkosLabelAC(autocomplete.Select2QuerySetView):
 class SkosConceptAC(autocomplete.Select2QuerySetView):
 
     def get_result_label(self, item):
-        return "{}".format(item.label)
+        return f"{item.label}"
 
     def get_queryset(self):
         qs = SkosConcept.objects.all()

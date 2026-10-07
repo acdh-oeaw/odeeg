@@ -1,12 +1,9 @@
 import os
 from pathlib import Path
 
-
-ACDH_IMPRINT_URL = (
-    "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
-)
-REDMINE_ID = 11625
-SECRET_KEY = os.environ.get("SECRET_KEY", "rlYWFQbF")
+ACDH_IMPRINT_URL = "https://imprint.acdh.oeaw.ac.at/"
+REDMINE_ID = "11625"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 ARCHE_BG = "https://arche.acdh.oeaw.ac.at/blazegraph/sparql"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -35,29 +32,27 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "reversion",
-    "haystack",
-    "leaflet",
     "crispy_forms",
+    "crispy_bootstrap5",
     "django_filters",
     "django_tables2",
     "rest_framework",
     "webpage",
     "browsing",
-    "charts",
     "vocabs",
     "vases",
-    "netvis",
 ]
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
+        "OPTIONS": {"options": "-c search_path=odeeg"},
         "NAME": os.environ.get("POSTGRES_DB", "odeeg"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
         "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
         "PORT": os.environ.get("POSTEGRES_PORT", "5432"),
+        "DISABLE_SERVER_SIDE_CURSORS": True,
     }
 }
 
@@ -69,7 +64,8 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (
@@ -85,7 +81,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "reversion.middleware.RevisionMiddleware",
+    # "reversion.middleware.RevisionMiddleware",
 ]
 
 ROOT_URLCONF = "odeeg.urls"
@@ -93,7 +89,7 @@ ROOT_URLCONF = "odeeg.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -101,14 +97,10 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "webpage.webpage_content_processors.installed_apps",
-                "webpage.webpage_content_processors.is_dev_version",
-                "webpage.webpage_content_processors.get_db_name",
             ],
         },
     },
 ]
-
 WSGI_APPLICATION = "odeeg.wsgi.application"
 
 # Password validation
@@ -161,7 +153,7 @@ VOCABS_DEFAULT_PEFIX = os.path.basename(BASE_DIR)
 
 VOCABS_SETTINGS = {
     "default_prefix": VOCABS_DEFAULT_PEFIX,
-    "default_ns": "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
+    "default_ns": f"http://www.vocabs/{VOCABS_DEFAULT_PEFIX}/",
     "default_lang": "en",
 }
 
@@ -186,13 +178,3 @@ ARCHE_BASE = "https://arche.acdh.oeaw.ac.at"
 ARCHE_SEARCH = f"{ARCHE_BASE}/api/search"
 ARCHE_NS = "https://vocabs.acdh.oeaw.ac.at/schema%23"
 ARCHE_ID_PROP = "https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier"
-
-
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        "LOCATION": "my_cache_table",
-        "TIMEOUT": None,
-        "OPTIONS": {"MAX_ENTRIES": 1000},
-    }
-}
