@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "OPTIONS": {"options": "-c search_path=odeeg"},
+        "OPTIONS": {"options": "-c search_path=odeeg,public"},
         "NAME": os.environ.get("POSTGRES_DB", "odeeg"),
         "USER": os.environ.get("POSTGRES_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
