@@ -24,5 +24,3 @@ The project uses [uv](https://docs.astral.sh/uv/).
 To run the image you should provide an `.env` file to pass in needed environment variables; see example below:
 
 * `docker run -it -p 8020:8020 --rm --env-file docker.env --name odeeg odeeg:latest`
-
------
